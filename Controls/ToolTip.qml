@@ -102,5 +102,4 @@ Rectangle {
     function hide() {
         opacity = 0
     }
-
 }

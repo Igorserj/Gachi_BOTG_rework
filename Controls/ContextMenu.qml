@@ -2,12 +2,17 @@ import QtQuick 2.15
 
 Rectangle {
     id: contextMenu
+//    property int index: 0
     property var objects: []
+    property var obj
     height: childrenRect.height + childrenRect.width * 0.05
     width: childrenRect.width * 1.05
     color: "#DD363436"
     radius: width / 8
     opacity: 0
+    onOpacityChanged: {
+        toolTip.visible = opacity < 1
+    }
     Column {
         x: (childrenRect.width * 0.05) / 2
         y: x
@@ -72,6 +77,7 @@ Rectangle {
             }
         }
     }
+
     function actionSet(index) {}
     function show(x1 = 0, y1 = 0) {
         contextMenu.x = x1

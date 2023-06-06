@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import "../../Controls"
 
 Rectangle {
     id: invInterface
@@ -29,7 +30,7 @@ Rectangle {
                 Repeater {
                     id: repeater
                     model: inventoryCells.length - index * 5 > 5 ? 5 : inventoryCells.length - index * 5
-                    InventoryCell {}
+                    InventoryCell {id: invCell}
                 }
             }
         }
@@ -47,14 +48,26 @@ Rectangle {
             }
         }
     }
+    ContextMenu {
+        id: contextMenu
+        opacity: 0
+        function actionSet(index) {
+            if (index === 0) {obj.moveItem()}
+            else if (index === 1) {obj.dropItem()}
+        }
+    }
     Rectangle {
         id: invItem
+        property string itemName: ""
+        property int index: -1
+        property bool isEquipment: false
+        property string itemName2: ""
         visible: inventoryArea.enabled
         height: invInterface.height / 7
         width: height
         radius: width / 8
         color: "#DD363436"
-        x: inventoryArea.mouseX
-        y: inventoryArea.mouseY
+        x: inventoryArea.mouseX - width / 2
+        y: inventoryArea.mouseY - height / 2
     }
 }

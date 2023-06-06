@@ -3,6 +3,8 @@ import QtQuick 2.15
 Rectangle {
     id: cell
     property string type: ""
+    readonly property int currentIndex: parent.colIndex * 5 + index
+    property bool isEquipment: itemList.types.includes(type)
     height: invInterface.height / 7
     width: height
     radius: width / 8
@@ -12,15 +14,15 @@ Rectangle {
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text: if (itemList.types.includes(type)) equipmentCells[index]; else inventoryCells[(row.colIndex * 5 + index)]
+        text: if (isEquipment) equipmentCells[currentIndex]; else inventoryCells[currentIndex]
     }
     MouseArea {
         anchors.fill: parent
-        hoverEnabled: true
+        hoverEnabled: !invItem.visible
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onEntered: {
-            if (itemList.types.includes(type)) {
-                var cells = equipmentCells[index]
+            var cells = cellText.text
+            if (isEquipment) {
                 if (cells !== "") {
                     const i = itemList.itemNames.indexOf(cells)
                     toolTip.mainText = itemList.items[i].name
@@ -29,7 +31,6 @@ Rectangle {
                 }
             }
             else {
-                var cells = inventoryCells[(parent.parent.colIndex * 5 + index)]
                 if (cells !== "") {
                     const i = itemList.itemNames.indexOf(cells)
                     toolTip.mainText = itemList.items[i].name
@@ -41,23 +42,57 @@ Rectangle {
         onExited: toolTip.hide()
         onClicked: {
             if (mouse.button === Qt.RightButton && contextMenu.opacity === 0 && cellText.text !== "") {
+                contextMenu.obj = cell
                 contextMenu.objects = options
-//                contextMenu.actionSet()
-                if (itemList.types.includes(type)) contextMenu.show(cell.x + mouseX + equipRow.x, mouseY + equipRow.y)
-                else contextMenu.show(col.x + cell.x + mouseX, row.y + col.y + mouseY)
+                if (isEquipment) contextMenu.show(cell.x + equipRow.x + mouseX, equipRow.y + mouseY)
+                else contextMenu.show(cell.x + parent.parent.x + col.x + mouseX, parent.parent.y + col.y + mouseY)
             }
             else contextMenu.hide()
+
+            if (invItem.visible) {
+                var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+                if (isEquipment) {
+                    if (invItem.isEquipment) entityInv.equipmentCells[invItem.index] = cellText.text
+                    else entityInv.inventoryCells[invItem.index] = cellText.text
+                    entityInv.equipmentCells[currentIndex] = invItem.itemName
+                    unMoveItem()
+                    interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+                    interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+                }
+                else {
+                    if (invItem.isEquipment) entityInv.equipmentCells[invItem.index] = cellText.text
+                    else entityInv.inventoryCells[invItem.index] = cellText.text
+                    entityInv.inventoryCells[currentIndex] = invItem.itemName
+                    unMoveItem()
+                    interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+                    interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+                }
+            }
         }
     }
 
-    function actionSet() {
-        if (index === 0) moveItem()
-        else if (index === 1) dropItem()
+    function unMoveItem() {
+        invItem.itemName = ""
+        invItem.index = -1
+        invItem.isEquipment = false
+        inventoryArea.enabled = false
     }
     function moveItem() {
+        invItem.itemName = cellText.text
+        invItem.index = currentIndex
+        invItem.isEquipment = isEquipment
         inventoryArea.enabled = true
     }
     function dropItem() {
+        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+        if (isEquipment) {
+            entityInv.equipmentCells[currentIndex] = ''
+            interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+        }
+        else {
+            entityInv.inventoryCells[currentIndex] = ''
+            interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+        }
 
     }
 }

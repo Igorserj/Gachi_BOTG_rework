@@ -23,13 +23,12 @@ Window {
         sourceComponent: menuCompose
         ToolTip {
             id: toolTip
-            visible: contextMenu.opacity < 1
             z: 1
         }
-        ContextMenu {
-            id: contextMenu
-            z: 1
-        }
+//        ContextMenu {
+//            id: contextMenu
+//            z: 1
+//        }
     }
     Localization {
         id: locale
