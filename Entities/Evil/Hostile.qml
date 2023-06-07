@@ -5,5 +5,8 @@ import "../../PhysicalObjects"
 Entity {
     id: hostile
     color: "red"
+    stamina: maxStamina
+    maxStamina: 15
+    speed: 15
     Logic {}
 }

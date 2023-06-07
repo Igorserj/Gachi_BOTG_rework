@@ -18,7 +18,8 @@ WorkerScript.onMessage = function (message) {
 
     for (let i = 0; i < ids.length; i++) {
         if (Math.abs((x + width / 2) - (hX[i] + hW[i] / 2)) <= (width + hW[i] / 2) && Math.abs((y + height / 2) - (hY[i] + hH[i] / 2)) <= (height + hH[i] / 2)) {
-            healthList.push(hHealth[i] - damage)
+            let hp = hHealth[i] - damage < 0 ? 0 : hHealth[i] - damage
+            healthList.push(hp)
             idList.push(ids[i])
         }
     }

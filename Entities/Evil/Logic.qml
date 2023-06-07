@@ -44,12 +44,6 @@ Item {
                                         })
         }
     }
-//    function idle() {
-//        let randNumber = Math.floor(Math.random() * 4)
-//        randNumber > 2 ? toTheRight() : randNumber < 2 ? toTheLeft() : {}
-//        randNumber === 3 || randNumber === 1 ? toTheBot() : randNumber === 0 ? toTheTop() : {}
-//        dir()
-//    }
 
     function heroScan() {
         var xPool = []
@@ -70,7 +64,8 @@ Item {
     }
 
     function controls(horizontalDirection, verticalDirection) {
-        if (!movementBlocked) {
+            if (stamina > 5 && !recovery) {runActive()}
+            else hostile.run = 0
             if (horizontalDirection === 0) {
                 toTheLeft()
             }
@@ -96,7 +91,6 @@ Item {
                 walkDown = false
                 animations.moveDownRun = false
             }
-        }
-        if (animations.attackReady && !interactionBlocked) nmyScan()
+        if (animations.attackReady) nmyScan()
     }
 }

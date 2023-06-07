@@ -17,8 +17,6 @@ WorkerScript.onMessage = function (message) {
     const hH = message.hH
     const states = message.states
 
-    //    console.log(x, y, width, height)
-
     let horizontalDirection = -1
     let verticalDirection = -1
 

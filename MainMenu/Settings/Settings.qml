@@ -48,6 +48,11 @@ Item {
             buttonArea.onClicked: changeVisibility()
         }
         Button1 {
+            text: frameTimer.state === frameTimer.statesList[0] ? locale.settingsFPSon : locale.settingsFPSoff
+            anchors.horizontalCenter: parent.horizontalCenter
+            buttonArea.onClicked: frameTimer.state = frameTimer.state === frameTimer.statesList[0] ? frameTimer.statesList[1] : frameTimer.statesList[0]
+        }
+        Button1 {
             anchors.horizontalCenter: parent.horizontalCenter
             text: locale.settingsSave
             buttonArea.onClicked: home()
@@ -67,10 +72,18 @@ Item {
     function changeVisibility() {
         if (parseInt(window.visibility) === 2) {
             window.showFullScreen()
+//            window.x = 0
+//            window.y = 0
+//            window.height = screen.height
+//            window.width = screen.width
+//            window.flags = Qt.Window | Qt.FramelessWindowHint
+
             resRep.state = "disabled"
         } else if (parseInt(window.visibility) !== 2) {
             window.showNormal()
+//            window.flags = Qt.Window
             resRep.state = "active"
+            console.log(window.visibility)
         }
     }
 }

@@ -24,7 +24,7 @@ Item {
             nmyScan()
         }
         if (event.key === Qt.Key_Shift) {
-            mainHero.run = 1
+            mainHero.runActive()
         }
         if (event.key === Qt.Key_Escape) {
             if (ifaceLoader.item.state === "ui")

@@ -7,7 +7,7 @@ Item {
     property bool moveRightRun: false
     property bool moveUpRun: false
     property bool moveDownRun: false
-    property int speed: run === 0 ? entity.speed : stamina >= 2 ? entity.speed * 2 : entity.speed
+    property int speed: run === 0 ? entity.speed : entity.speed * 1.75
     readonly property int moveDuration: 100
     readonly property int staminaQ: 1
     /*--------------------------------------------*/
@@ -19,9 +19,34 @@ Item {
     property var healths: []
     /*--------------------------------------------*/
 
+    function comeCloser(hor, edge) {
+        if (hor === 1) {
+            horizontalCloserX.to = edge
+            horizontalCloser.running = true
+        }
+        else {
+            verticalCloserY.to = edge
+            verticalCloser.running = true
+        }
+    }
+
+    function dealDamage(targetList, healthList) {
+        targets = targetList
+        healths = healthList
+        if (!!targets) {
+            decrasing.running = true
+        }
+    }
+    function dealDamageScript() {
+        for (let i = 0; i < targets.length; i++) {
+            targets[i].health = healths[i]
+        }
+        attackReady = true
+    }
+
     SequentialAnimation {
         id: moveLeft
-        running: moveLeftRun && entity.walkLeft === 1
+        running: (moveLeftRun && entity.walkLeft === 1) && !movementBlocked
         paused: running ? ifaceLoader.item.state === "menu" : false
         ScriptAction {
             script: {
@@ -40,6 +65,7 @@ Item {
             }
         }
         onFinished: {
+            if (run === 1) runActive()
             moveLeftRun = false
             objScan(1, 0)
         }
@@ -47,7 +73,7 @@ Item {
 
     SequentialAnimation {
         id: moveRight
-        running: moveRightRun && entity.walkRight === 1
+        running: (moveRightRun && entity.walkRight === 1) && !movementBlocked
         paused: running ? ifaceLoader.item.state === "menu" : false
         ScriptAction {
             script: {
@@ -66,6 +92,7 @@ Item {
             }
         }
         onFinished: {
+            if (run === 1) runActive()
             moveRightRun = false
             objScan(1, 1)
         }
@@ -73,7 +100,7 @@ Item {
 
     SequentialAnimation {
         id: moveUp
-        running: moveUpRun && entity.walkUp === 1
+        running: (moveUpRun && entity.walkUp === 1) && !movementBlocked
         paused: running ? ifaceLoader.item.state === "menu" : false
         ScriptAction {
             script: {
@@ -92,6 +119,7 @@ Item {
             }
         }
         onFinished: {
+            if (run === 1) runActive()
             moveUpRun = false
             objScan(0, 0)
         }
@@ -99,7 +127,7 @@ Item {
 
     SequentialAnimation {
         id: moveDown
-        running: moveDownRun && entity.walkDown === 1
+        running: (moveDownRun && entity.walkDown === 1) && !movementBlocked
         paused: running ? ifaceLoader.item.state === "menu" : false
         ScriptAction {
             script: {
@@ -118,6 +146,7 @@ Item {
             }
         }
         onFinished: {
+            if (run === 1) runActive()
             moveDownRun = false
             objScan(0, 1)
         }
@@ -132,13 +161,14 @@ Item {
     }
 
     SequentialAnimation {
-        running: entity.stamina < entity.maxStamina && run === 0
+        running: (entity.stamina < entity.maxStamina && run === 0) && !movementBlocked
         loops: Animation.Infinite
         PauseAnimation {
             duration: 250
         }
         ScriptAction {
             script: {
+                recovery = true
                 if (entity.stamina + staminaQ > entity.maxStamina) entity.stamina = entity.maxStamina
                 else entity.stamina += staminaQ
             }
@@ -147,16 +177,11 @@ Item {
             duration: 250
         }
     }
-
-    function comeCloser(hor, edge) {
-        if (hor === 1) {
-            horizontalCloserX.to = edge
-            horizontalCloser.running = true
-        }
-        else {
-            verticalCloserY.to = edge
-            verticalCloser.running = true
-        }
+    PropertyAction {
+        running: entity.stamina === entity.maxStamina && run === 0
+        target: entity
+        property: "recovery"
+        value: false
     }
 
     SequentialAnimation {
@@ -178,20 +203,6 @@ Item {
             property: "y"
             duration: 100
         }
-    }
-
-    function dealDamage(targetList, healthList) {
-        targets = targetList
-        healths = healthList
-        if (!!targets) {
-            decrasing.running = true
-        }
-    }
-    function dealDamageScript() {
-        for (let i = 0; i < targets.length; i++) {
-            targets[i].health = healths[i]
-        }
-        attackReady = true
     }
 
     SequentialAnimation {

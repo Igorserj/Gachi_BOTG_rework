@@ -22,6 +22,8 @@ Rectangle {
     property alias animations: animations
     property alias inventory: inventory
 
+    property bool recovery: false
+
     state: "alive"
     width: 50
     height: 50
@@ -144,5 +146,10 @@ Rectangle {
     }
     function staminaLimit() {
         if (stamina > maxStamina) stamina = maxStamina
+    }
+
+    function runActive() {
+        if (stamina > 2) run = 1
+        else run = 0
     }
 }

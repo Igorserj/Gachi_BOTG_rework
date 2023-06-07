@@ -2,7 +2,6 @@ import QtQuick 2.15
 
 Rectangle {
     id: contextMenu
-//    property int index: 0
     property var objects: []
     property var obj
     height: childrenRect.height + childrenRect.width * 0.05

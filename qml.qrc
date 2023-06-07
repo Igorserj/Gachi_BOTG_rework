@@ -52,5 +52,6 @@
         <file>Interface/Inventory/InventoryCell.qml</file>
         <file>Interface/Indicators/HealthBar.qml</file>
         <file>Interface/Indicators/StaminaBar.qml</file>
+        <file>Controls/FrameTimer.qml</file>
     </qresource>
 </RCC>
