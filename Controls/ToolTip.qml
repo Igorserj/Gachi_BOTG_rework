@@ -9,6 +9,7 @@ Rectangle {
     height: childrenRect.height + width * 0.05
     opacity: 0
     radius: width / 8
+    onYChanged: borderDetect()
     Rectangle {
         id: mainTextRect
         clip: true
@@ -90,6 +91,15 @@ Rectangle {
                 duration: 250
             }
             ScriptAction {script: opacity === 0 ? [x = 0, y = 0, mainText = "", addText = ""] : {}}
+        }
+    }
+
+    function borderDetect() {
+        if (y + height > loader.y + loader.height) {
+            y = loader.y + loader.height - height - 1
+        }
+        else if (y < loader.y) {
+            y = loader.y + 1
         }
     }
 

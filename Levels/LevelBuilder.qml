@@ -9,17 +9,8 @@ Item {
     Loader {
         id: levelLoader
         anchors.fill: parent
-        state: "level1"
         focus: true
-        states: [
-            State {
-                name: "level1"
-                PropertyChanges {
-                    target: levelLoader
-                    sourceComponent: level1Compose
-                }
-            }
-        ]
+        Component.onCompleted: levelChooser()
     }
     Component {
         id: level1Compose
@@ -59,5 +50,9 @@ Item {
     }
     ItemList {
         id: itemList
+    }
+
+    function levelChooser() {
+        levelLoader.sourceComponent = level1Compose
     }
 }

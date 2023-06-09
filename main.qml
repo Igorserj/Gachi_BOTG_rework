@@ -14,7 +14,6 @@ ApplicationWindow {
     visible: true
     title: "Gachimuchi: Boss of this gym"
     color: "black"
-//    onFrameSwapped: frameTimer.frames++
 
     Loader {
         id: loader
@@ -23,6 +22,7 @@ ApplicationWindow {
         y: (window.height - recalculatedHeight) / 2
         z: 0
         sourceComponent: menuCompose
+//        Component.onCompleted: loadMenu()
         MyControls.ToolTip {
             id: toolTip
             z: 1
@@ -58,11 +58,11 @@ ApplicationWindow {
     }
 
     function loadMenu() {
-        loader.sourceComponent = undefined
+//        loader.sourceComponent = undefined
         loader.sourceComponent = menuCompose
     }
     function loadLevel() {
-        loader.sourceComponent = undefined
+//        loader.sourceComponent = undefined
         loader.sourceComponent = levelBuilder
     }
 }

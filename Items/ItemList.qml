@@ -18,6 +18,7 @@ Item {
         type: types[5]
         name: "Vodka"
         additionalInfo: "Vodka don't need to be presented"
+        buffName: "StrengthUp"
     }
 
     ItemPattern {
@@ -25,5 +26,6 @@ Item {
         type: types[4]
         name: "Bat"
         additionalInfo: "Beat them up!"
+        buffName: "SpeedUp"
     }
 }

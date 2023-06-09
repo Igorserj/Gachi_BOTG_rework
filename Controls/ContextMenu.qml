@@ -12,6 +12,10 @@ Rectangle {
     onOpacityChanged: {
         toolTip.visible = opacity < 1
     }
+    onHeightChanged: borderDetect()
+    onYChanged: {
+        borderDetect()
+    }
     Column {
         x: (childrenRect.width * 0.05) / 2
         y: x
@@ -20,8 +24,8 @@ Rectangle {
             Column {
                 Rectangle {
                     id: option
-                    width: 0.15 * window.width
-                    height: window.height * 0.05
+                    width: 0.15 * loader.width
+                    height: loader.height * 0.05
                     color: "transparent"
                     clip: true
                     Text {
@@ -74,6 +78,15 @@ Rectangle {
                     color: "white"
                 }
             }
+        }
+    }
+
+    function borderDetect() {
+        if (y + height > loader.y + loader.height) {
+            y = loader.y + loader.height - height - 1
+        }
+        else if (y < loader.y) {
+            y = loader.y + 1
         }
     }
 

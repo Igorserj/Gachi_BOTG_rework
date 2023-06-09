@@ -53,5 +53,8 @@
         <file>Interface/Indicators/HealthBar.qml</file>
         <file>Interface/Indicators/StaminaBar.qml</file>
         <file>Controls/FrameTimer.qml</file>
+        <file>Buffs/BuffList.qml</file>
+        <file>Buffs/BuffPattern.qml</file>
+        <file>Interface/Indicators/Buffs.qml</file>
     </qresource>
 </RCC>

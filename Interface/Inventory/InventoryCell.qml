@@ -14,7 +14,10 @@ Rectangle {
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        text: if (isEquipment) equipmentCells[currentIndex]; else inventoryCells[currentIndex]
+        text: {
+            if (isEquipment) equipmentCells[currentIndex]
+            else inventoryCells[currentIndex]
+        }
     }
     MouseArea {
         anchors.fill: parent
@@ -83,6 +86,13 @@ Rectangle {
         invItem.isEquipment = isEquipment
         inventoryArea.enabled = true
     }
+    function useItem() {
+        const i = itemList.itemNames.indexOf(cellText.text)
+        itemList.items[i].usedByEntity = invInterface.usedByEntity
+        itemList.items[i].use()
+        dropItem()
+    }
+
     function dropItem() {
         var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
         if (isEquipment) {

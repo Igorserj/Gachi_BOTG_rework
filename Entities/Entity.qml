@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import "../Buffs"
 
 Rectangle {
     id: entity
@@ -21,6 +22,7 @@ Rectangle {
 
     property alias animations: animations
     property alias inventory: inventory
+    property alias buffList: buffList
 
     property bool recovery: false
 
@@ -68,6 +70,9 @@ Rectangle {
     ]
     InventoryItems {
         id: inventory
+    }
+    BuffList {
+        id: buffList
     }
 
     Animations {

@@ -6,7 +6,8 @@ Rectangle {
     property var inventoryCells: []
     property var equipmentCells: []
     readonly property var equipments: ["One Hand", "Two Hands", "Head", "Body", "Legs"]
-    readonly property var options: ["Move", "Drop"]
+    readonly property var options: ["Move", "Use", "Drop"]
+    property var usedByEntity
     width: parent.width * 0.8
     height: parent.height * 0.8
     color: "#99363636"
@@ -30,7 +31,9 @@ Rectangle {
                 Repeater {
                     id: repeater
                     model: inventoryCells.length - index * 5 > 5 ? 5 : inventoryCells.length - index * 5
-                    InventoryCell {id: invCell}
+                    InventoryCell {
+                        id: invCell
+                    }
                 }
             }
         }
@@ -53,7 +56,8 @@ Rectangle {
         opacity: 0
         function actionSet(index) {
             if (index === 0) {obj.moveItem()}
-            else if (index === 1) {obj.dropItem()}
+            else if (index === 1) {obj.useItem()}
+            else if (index === 2) {obj.dropItem()}
         }
     }
     Rectangle {

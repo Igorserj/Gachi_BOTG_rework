@@ -12,12 +12,11 @@ Item {
         } else if (event.key === Qt.Key_S) {
             toTheBot()
         }
-        if (event.key === Qt.Key_H) {
-            health -= 20
-        }
         if (event.key === Qt.Key_I) {
-            if (ifaceLoader.item.state === "ui")
+            if (ifaceLoader.item.state === "ui") {
                 ifaceLoader.item.state = "inventory"
+                ifaceLoader.item.interfaceLoader.item.usedByEntity = mainHero
+            }
             else ifaceLoader.item.state = "ui"
         }
         if (event.key === Qt.Key_J && animations.attackReady) {
