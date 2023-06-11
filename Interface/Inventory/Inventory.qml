@@ -5,8 +5,7 @@ Rectangle {
     id: invInterface
     property var inventoryCells: []
     property var equipmentCells: []
-    readonly property var equipments: ["One Hand", "Two Hands", "Head", "Body", "Legs"]
-    readonly property var options: ["Move", "Use", "Drop"]
+//    readonly property var equipments: ["One Hand", "Two Hands", "Head", "Body", "Legs"]
     property var usedByEntity
     width: parent.width * 0.8
     height: parent.height * 0.8
@@ -47,7 +46,7 @@ Rectangle {
         Repeater {
             model: equipmentCells
             InventoryCell {
-                type: equipments[index]
+                type: itemList.equipmnets[index]
             }
         }
     }

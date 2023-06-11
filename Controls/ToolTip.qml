@@ -5,7 +5,7 @@ Rectangle {
     property string mainText: ""
     property string addText: ""
     color: "#DD363436"
-    width: 0.15 * window.width
+    width: 0.15 * window.recalculatedWidth
     height: childrenRect.height + width * 0.05
     opacity: 0
     radius: width / 8
@@ -90,7 +90,9 @@ Rectangle {
                 property: "opacity"
                 duration: 250
             }
-            ScriptAction {script: opacity === 0 ? [x = 0, y = 0, mainText = "", addText = ""] : {}}
+            ScriptAction {
+                script: opacity === 0 ? [x = 0, y = 0, mainText = "", addText = ""] : {}
+            }
         }
     }
 

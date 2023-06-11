@@ -4,11 +4,11 @@ Rectangle {
     id: button
     property var objects: []
     property int index: 0
-    height: window.height * 0.05
+    height: window.recalculatedHeight * 0.05
     width: childrenRect.width
     state: "collapsed"
     color: "black"
-    Component.onCompleted: dropDown.y -= window.height * 0.05 * index
+    Component.onCompleted: dropDown.y -= window.recalculatedHeight * 0.05 * index
     function actionSet(index) {}
 
     states: [
@@ -70,8 +70,8 @@ Rectangle {
                     id: rectangle
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "transparent"
-                    height: window.height * 0.05
-                    width: label.contentWidth + window.width / 1280 * 30
+                    height: window.recalculatedHeight * 0.05
+                    width: label.contentWidth + window.recalculatedWidth / 1280 * 30
                     Text {
                         id: label
                         x: (parent.width - contentWidth) / 2
@@ -86,7 +86,7 @@ Rectangle {
                         anchors.fill: parent
                         enabled: !dropDownArea.enabled
                         onClicked: {
-                            dropDown.y -= window.height * 0.05 * (index - button.index)
+                            dropDown.y -= window.recalculatedHeight * 0.05 * (index - button.index)
                             button.index = index
                             actionSet(index)
                         }

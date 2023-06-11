@@ -32,11 +32,11 @@ Rectangle {
     border.width: 2
     onHealthChanged: {
         healthLimit()
-        if (ifaceLoader.status === Loader.Ready) if (ifaceLoader.item.state === "ui") ifaceLoader.item.interfaceLoader.item.heroes()
+//        if (ifaceLoader.status === Loader.Ready) if (ifaceLoader.item.state === "ui") ifaceLoader.item.interfaceLoader.item.heroes()
     }
     onStaminaChanged: {
         staminaLimit()
-        if (ifaceLoader.status === Loader.Ready) if (ifaceLoader.item.state === "ui") ifaceLoader.item.interfaceLoader.item.heroes()
+//        if (ifaceLoader.status === Loader.Ready) if (ifaceLoader.item.state === "ui") ifaceLoader.item.interfaceLoader.item.heroes()
     }
 
     states: [

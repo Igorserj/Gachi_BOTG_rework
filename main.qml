@@ -22,7 +22,7 @@ ApplicationWindow {
         y: (window.height - recalculatedHeight) / 2
         z: 0
         sourceComponent: menuCompose
-//        Component.onCompleted: loadMenu()
+
         MyControls.ToolTip {
             id: toolTip
             z: 1

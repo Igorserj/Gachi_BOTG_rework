@@ -21,7 +21,6 @@ Rectangle {
             color: "white"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-
         }
     }
 }

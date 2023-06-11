@@ -4,6 +4,7 @@ Item {
     readonly property var itemNames: ["Vodka", "Bat", "Hat"]
     readonly property var items: [vodka, bat, hat]
     readonly property var types: ["Head", "Body", "Legs", "One Hand", "Two Hands", "Consumable"]
+    readonly property var equipmnets: ["Head", "Body", "Legs", "One Hand", "Two Hands"]
     visible: false
 
     ItemPattern {
@@ -11,6 +12,7 @@ Item {
         type: types[0]
         name: "Hat"
         additionalInfo: "Just a normal hat"
+        buffName: "HealthUp"
     }
 
     ItemPattern {

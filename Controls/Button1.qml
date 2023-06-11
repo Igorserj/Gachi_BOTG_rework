@@ -7,8 +7,8 @@ Item {
     property alias buttonArea: buttonArea
     property int animationDuration: 200
     property string alignment: "center"
-    width: buttonText.contentWidth + window.width / 1280 * 30
-    height: buttonText.contentHeight + window.height / 720 * 15
+    width: buttonText.contentWidth + window.recalculatedWidth / 1280 * 30
+    height: buttonText.contentHeight + window.recalculatedHeight / 720 * 15
     Rectangle {
         id: buttonRect
         color: button.enabled ? buttonArea.containsMouse ? "#99565656" : "#99787878" : "#99333333"
@@ -33,7 +33,7 @@ Item {
             id: buttonText
             text: parent.parent.text
             width: contentWidth
-            height: window.height * 0.05
+            height: window.recalculatedHeight * 0.05
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: alignment === "center" ? parent.horizontalCenter : undefined
             anchors.left: alignment === "left" ? parent.left : undefined

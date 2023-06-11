@@ -6,47 +6,69 @@ Item {
     property double timeDuration: 0
     property double deltaDuration: 0
     property int iteration: 0
-    property double timeElapsed: 0
-    readonly property double timeLeft: (timeDuration - timeElapsed).toFixed(1)
+    property double timeElapsed: parent.timeElapsed
+    property int timeLeft: 0
+    property string name: ""
+    property string description: ""
+    property bool isPermanent: parent.isPermanent
+    property alias animation: animation
     ParallelAnimation {
+        id: animation
         running: true
         paused: ifaceLoader.item.state === "menu"
-        loops: type === "Immediate" ? 1 : type === "Continuous" ? Math.ceil(timeDuration / deltaDuration) : Animation.Infinite
         SequentialAnimation {
+            id: buffRun
+            loops: isPermanent ? Animation.Infinite : type === "Immediate" ? 1 : type === "Continuous" ? Math.ceil((timeDuration - timeElapsed) / deltaDuration) : 1
             ScriptAction {
                 script: {
-                    if (characteristic === "damage") {
-                        usedByEntity.damage *= 1.5
-                    }
-                    else if (characteristic === "speed") {
-                        usedByEntity.speed *= 1.1
+                    if (timeElapsed === 0) {
+                        if (characteristic === "damage") {
+                            usedByEntity.damage *= 1.5
+                        }
+                        else if (characteristic === "speed") {
+                            usedByEntity.speed *= 1.1
+                        }
+                        else if (characteristic === "health") {
+                            usedByEntity.maxHealth += 20
+                        }
                     }
                 }
             }
             PauseAnimation {
-                duration: type === "Immediate" ? timeDuration : deltaDuration
+                duration: isPermanent ? 9999999 : type === "Immediate" ? (timeDuration - timeElapsed) : deltaDuration
             }
             ScriptAction {
                 script: {
-                    if (characteristic === "damage") {
-                        usedByEntity.damage /= 1.5
-                    }
-                    else if (characteristic === "speed") {
-                        usedByEntity.speed /= 1.1
-                    }
                     iteration++
                 }
             }
         }
         SequentialAnimation {
+            running: buffRun.running
+            loops: (timeDuration - timeElapsed) / 250
             PauseAnimation {
                 duration: 250
             }
             ScriptAction {
-                script: timeElapsed += 250
+                script: {
+                    timeElapsed += 250
+//                    console.log("timeLeft")
+                    if (isPermanent) timeLeft = 9999999
+                    else timeLeft = ((timeDuration - timeElapsed) / 1000)
+                }
             }
         }
-        onFinished: { currentBuffs[parent.parent.currentIndex] = ""; console.log(currentBuffs); repeater.model = currentBuffs }
+        onFinished: {
+            if (characteristic === "damage") {
+                usedByEntity.damage /= 1.5
+            }
+            else if (characteristic === "speed") {
+                usedByEntity.speed /= 1.1
+            }
+            else if (characteristic === "health") {
+                usedByEntity.maxHealth -= 20
+            }
+            updateBuffs("", parent.currentIndex)
+        }
     }
-
 }

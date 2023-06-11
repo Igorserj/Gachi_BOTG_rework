@@ -5,6 +5,6 @@ Entity {
     id: mainHero
     damage: 20
     inventory.inventoryCells: ['', 'Vodka', '', '', '', '', '', '', 'Bat', '', '', '', '', '', '', '', '', '', 'Hat', '']
-    inventory.equipmentCells: ['', '', 'Hat', '', '']
+    inventory.equipmentCells: ['Hat', '', '', '', '']
     ControlModule {}
 }

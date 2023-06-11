@@ -10,6 +10,12 @@ Item {
             Column {
                 HealthBar {}
                 StaminaBar {}
+                Row {
+                    Repeater {
+                        model: modelData[4]
+                        Buffs {}
+                    }
+                }
             }
         }
     }
@@ -32,7 +38,14 @@ Item {
         for (let i = 0; i < entityList.length; i++) {
             if (entityList[i][0] === "hero") {
                 let items = []
-                items.push(entities.itemAt(i).item.health, entities.itemAt(i).item.maxHealth, entities.itemAt(i).item.stamina, entities.itemAt(i).item.maxStamina)
+                let buffs = []
+                var buffRep = entities.itemAt(i).item.buffList.repeater
+                for (let j = 0; j < entities.itemAt(i).item.buffList.currentBuffs.length; j++) {
+                    let buff = []
+                    buff.push(buffRep.itemAt(j).item.timeLeft, buffRep.itemAt(j).item.name, buffRep.itemAt(j).item.description)
+                    buffs.push(buff)
+                }
+                items.push(entities.itemAt(i).item.health, entities.itemAt(i).item.maxHealth, entities.itemAt(i).item.stamina, entities.itemAt(i).item.maxStamina, buffs)
                 entitiesProperties.push(items)
             } else if (entityList[i][0] === "hostile") {
                 let items = []
@@ -42,6 +55,12 @@ Item {
         }
         heroesRepeater.model = entitiesProperties
         hostilesRepeater.model = entitiesProperties2
+    }
+    Timer {
+        running: true
+        repeat: true
+        interval: 250
+        onTriggered: heroes()
     }
     Component.onCompleted: heroes()
 }
