@@ -29,10 +29,19 @@ Rectangle {
     function optionChoose() {
         var text = cellText.text
         if (text !== "") {
-            if (itemList.items[itemList.itemNames.indexOf(text)].isEquipment) {
+            if (type === itemList.items[itemList.itemNames.indexOf(text)].type) {
+                contextMenu.set = 2
+                return ["Move", "Unequip", "Drop"]
+            }
+            else if (itemList.items[itemList.itemNames.indexOf(text)].isEquipment) {
+                contextMenu.set = 1
                 return ["Move", "Equip", "Drop"]
             }
-            else return ["Move", "Use", "Drop"]
+            else if (!itemList.items[itemList.itemNames.indexOf(text)].isEquipment) {
+                contextMenu.set = 0
+                return ["Move", "Use", "Drop"]
+            }
+
         }
         return [""]
     }
@@ -58,6 +67,42 @@ Rectangle {
         itemList.items[i].usedByEntity = invInterface.usedByEntity
         itemList.items[i].use()
         dropItem()
+    }
+    function equipItem() {
+        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+        for (let i = 0; i < entityInv.equipmentCells.length; i++) {
+            if (itemList.items[itemList.itemNames.indexOf(cellText.text)].type === itemList.equipmnets[i]) {
+                invItem.index = i
+                invItem.isEquipment = true
+                invItem.itemName = entityInv.equipmentCells[i]
+            }
+        }
+        invItem.itemName2 = cellText.text
+        inventoryArea.enabled = true
+        swapCells()
+    }
+    function unEquipItem() {
+//        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+//        let i = entityInv.inventoryCells.indexOf('')
+//        invItem.index = i
+//        invItem.isEquipment = true
+//        invItem.itemName2 = entityInv.inventoryCells[i]
+//        invItem.itemName = cellText.text
+//        inventoryArea.enabled = true
+//        isEquipment = false
+//        swapCells()
+        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+        let i = entityInv.inventoryCells.indexOf('')
+        invItem.itemName = cellText.text
+        invItem.itemName2 = entityInv.inventoryCells[i]
+        invItem.index = currentIndex
+        invItem.isEquipment = isEquipment
+        inventoryArea.enabled = true
+        console.log(invItem.itemName,
+                    invItem.itemName2,
+                    invItem.index,
+                    invItem.isEquipment)
+        swapCells()
     }
 
     function dropItem() {
@@ -100,19 +145,13 @@ Rectangle {
         }
         else contextMenu.hide()
 
+        swapCells()
+    }
+
+    function swapCells() {
         if (invItem.visible) {
             var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
-            if (isEquipment && itemList.items[itemList.itemNames.indexOf(invItem.itemName)].type === type) {
-//                console.log(type, itemList.equipmnets[currentIndex])
-                if (invItem.isEquipment) entityInv.equipmentCells[invItem.index] = cellText.text
-                else entityInv.inventoryCells[invItem.index] = cellText.text
-                entityInv.equipmentCells[currentIndex] = invItem.itemName
-                unMoveItem()
-                interfaceLoader.item.inventoryCells = entityInv.inventoryCells
-                interfaceLoader.item.equipmentCells = entityInv.equipmentCells
-                entityInv.activeItems()
-            }
-            else if (!isEquipment) {
+            if (!isEquipment) {
                 if (invItem.isEquipment) entityInv.equipmentCells[invItem.index] = cellText.text
                 else entityInv.inventoryCells[invItem.index] = cellText.text
                 entityInv.inventoryCells[currentIndex] = invItem.itemName
@@ -120,6 +159,17 @@ Rectangle {
                 interfaceLoader.item.inventoryCells = entityInv.inventoryCells
                 interfaceLoader.item.equipmentCells = entityInv.equipmentCells
                 entityInv.activeItems()
+            }
+            else if (isEquipment && itemList.itemNames.indexOf(invItem.itemName) !== -1) {
+                if (itemList.items[itemList.itemNames.indexOf(invItem.itemName)].type === type) {
+                    if (invItem.isEquipment) entityInv.equipmentCells[invItem.index] = cellText.text
+                    else entityInv.inventoryCells[invItem.index] = cellText.text
+                    entityInv.equipmentCells[currentIndex] = invItem.itemName
+                    unMoveItem()
+                    interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+                    interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+                    entityInv.activeItems()
+                }
             }
         }
     }

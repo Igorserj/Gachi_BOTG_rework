@@ -58,11 +58,9 @@ ApplicationWindow {
     }
 
     function loadMenu() {
-//        loader.sourceComponent = undefined
         loader.sourceComponent = menuCompose
     }
     function loadLevel() {
-//        loader.sourceComponent = undefined
         loader.sourceComponent = levelBuilder
     }
 }

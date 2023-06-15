@@ -4,6 +4,7 @@ Rectangle {
     id: contextMenu
     property var objects: []
     property var obj
+    property int set: -1
     height: childrenRect.height + childrenRect.width * 0.05
     width: childrenRect.width * 1.05
     color: "#DD363436"
@@ -101,5 +102,6 @@ Rectangle {
         contextMenu.x = 0
         contextMenu.y = 0
         contextMenu.opacity = 0
+        contextMenu.set = -1
     }
 }

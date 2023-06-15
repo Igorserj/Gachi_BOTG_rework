@@ -5,7 +5,6 @@ Rectangle {
     id: invInterface
     property var inventoryCells: []
     property var equipmentCells: []
-//    readonly property var equipments: ["One Hand", "Two Hands", "Head", "Body", "Legs"]
     property var usedByEntity
     width: parent.width * 0.8
     height: parent.height * 0.8
@@ -54,8 +53,29 @@ Rectangle {
         id: contextMenu
         opacity: 0
         function actionSet(index) {
+            if (set === 0) {
+                actionSet1(index) }
+            else if (set === 1) {
+                actionSet2(index)
+            }
+            else if (set === 2) {
+                actionSet3(index)
+            }
+        }
+
+        function actionSet1(index) {
             if (index === 0) {obj.moveItem()}
             else if (index === 1) {obj.useItem()}
+            else if (index === 2) {obj.dropItem()}
+        }
+        function actionSet2(index) {
+            if (index === 0) {obj.moveItem()}
+            else if (index === 1) {obj.equipItem()}
+            else if (index === 2) {obj.dropItem()}
+        }
+        function actionSet3(index) {
+            if (index === 0) {obj.moveItem()}
+            else if (index === 1) {obj.unEquipItem()}
             else if (index === 2) {obj.dropItem()}
         }
     }
