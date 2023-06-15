@@ -79,18 +79,7 @@ Rectangle {
             else if (index === 2) {obj.dropItem()}
         }
     }
-    Rectangle {
+    InventoryItem {
         id: invItem
-        property string itemName: ""
-        property int index: -1
-        property bool isEquipment: false
-        property string itemName2: ""
-        visible: inventoryArea.enabled
-        height: invInterface.height / 7
-        width: height
-        radius: width / 8
-        color: "#DD363436"
-        x: inventoryArea.mouseX - width / 2
-        y: inventoryArea.mouseY - height / 2
     }
 }

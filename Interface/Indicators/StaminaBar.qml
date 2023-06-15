@@ -9,20 +9,13 @@ Rectangle {
     Rectangle {
         id: staminaRect
         color: stamColor
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
         height: parent.height - parent.border.width
         width: Math.round((modelData[2] / modelData[3] * parent.width - parent.border.width) * 10) / 10
-//        Behavior on width {
-//            PropertyAnimation {
-//                target: staminaRect
-//                property: "width"
-//                duration: 125
-//            }
-//        }
         Text {
             anchors.fill: parent
-            text: modelData[2].toFixed(1) + " / " + modelData[3]
+            text: Math.round(modelData[2]) + " / " + modelData[3]
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
             font.family: "Comfortaa"

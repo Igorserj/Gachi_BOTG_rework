@@ -51,10 +51,14 @@ Item {
             }
             ScriptAction {
                 script: {
-                    timeElapsed += 250
-//                    console.log("timeLeft")
-                    if (isPermanent) timeLeft = 9999999
-                    else timeLeft = ((timeDuration - timeElapsed) / 1000)
+                    if (isPermanent) {
+                        timeElapsed = 1
+                        timeLeft = 9999999
+                    }
+                    else {
+                        timeElapsed += 250
+                        timeLeft = ((timeDuration - timeElapsed) / 1000)
+                    }
                 }
             }
         }

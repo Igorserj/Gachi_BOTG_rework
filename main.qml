@@ -14,6 +14,10 @@ ApplicationWindow {
     visible: true
     title: "Gachimuchi: Boss of this gym"
     color: "black"
+    onClosing: {
+        close.accepted = false
+        exitDialog.show()
+    }
 
     Loader {
         id: loader
@@ -56,6 +60,20 @@ ApplicationWindow {
     MyControls.FrameTimer {
         id: frameTimer
     }
+
+    MyControls.Dialog {
+        id: exitDialog
+        mainText: locale.exitDialogText
+        anchors.centerIn: parent
+        objects: locale.exitDialogOptions
+        function actionSet(index) {
+            if (index === 0) exitDialog.hide()
+            else if (index === 1) {
+                Qt.quit()
+            }
+        }
+    }
+
 
     function loadMenu() {
         loader.sourceComponent = menuCompose

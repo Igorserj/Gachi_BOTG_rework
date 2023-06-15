@@ -56,5 +56,7 @@
         <file>Buffs/BuffList.qml</file>
         <file>Buffs/BuffPattern.qml</file>
         <file>Interface/Indicators/Buffs.qml</file>
+        <file>Interface/Inventory/InventoryItem.qml</file>
+        <file>Controls/Dialog.qml</file>
     </qresource>
 </RCC>

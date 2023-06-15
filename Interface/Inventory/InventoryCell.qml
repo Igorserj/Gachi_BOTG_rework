@@ -31,15 +31,15 @@ Rectangle {
         if (text !== "") {
             if (type === itemList.items[itemList.itemNames.indexOf(text)].type) {
                 contextMenu.set = 2
-                return ["Move", "Unequip", "Drop"]
+                return locale.inventoryCellOptions[2]
             }
             else if (itemList.items[itemList.itemNames.indexOf(text)].isEquipment) {
                 contextMenu.set = 1
-                return ["Move", "Equip", "Drop"]
+                return locale.inventoryCellOptions[1]
             }
             else if (!itemList.items[itemList.itemNames.indexOf(text)].isEquipment) {
                 contextMenu.set = 0
-                return ["Move", "Use", "Drop"]
+                return locale.inventoryCellOptions[0]
             }
 
         }
@@ -82,27 +82,15 @@ Rectangle {
         swapCells()
     }
     function unEquipItem() {
-//        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
-//        let i = entityInv.inventoryCells.indexOf('')
-//        invItem.index = i
-//        invItem.isEquipment = true
-//        invItem.itemName2 = entityInv.inventoryCells[i]
-//        invItem.itemName = cellText.text
-//        inventoryArea.enabled = true
-//        isEquipment = false
-//        swapCells()
         var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
         let i = entityInv.inventoryCells.indexOf('')
-        invItem.itemName = cellText.text
-        invItem.itemName2 = entityInv.inventoryCells[i]
-        invItem.index = currentIndex
-        invItem.isEquipment = isEquipment
         inventoryArea.enabled = true
-        console.log(invItem.itemName,
-                    invItem.itemName2,
-                    invItem.index,
-                    invItem.isEquipment)
-        swapCells()
+        entityInv.equipmentCells[currentIndex] = entityInv.inventoryCells[i]
+        entityInv.inventoryCells[i] = cellText.text
+        unMoveItem()
+        interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+        interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+        entityInv.activeItems()
     }
 
     function dropItem() {

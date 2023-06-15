@@ -2,15 +2,17 @@ import QtQuick 2.15
 import "Indicators"
 
 Item {
+    id: ui
     property var entGen: levelLoader.item.entGen
     Column {
-        spacing: parent.height * 0.03
+        spacing: ui.height * 0.03
         Repeater {
             id: heroesRepeater
             Column {
                 HealthBar {}
                 StaminaBar {}
                 Row {
+                    spacing: ui.width * 0.003
                     Repeater {
                         model: modelData[4]
                         Buffs {}

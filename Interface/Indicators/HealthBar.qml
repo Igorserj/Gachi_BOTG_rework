@@ -7,9 +7,10 @@ Rectangle {
     color: "transparent"
     border.width: 2
     Rectangle {
+        id: healthBar
         color: hpColor
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
         height: parent.height - parent.border.width
         width: modelData[0] / modelData[1] * parent.width - parent.border.width
         Text {
