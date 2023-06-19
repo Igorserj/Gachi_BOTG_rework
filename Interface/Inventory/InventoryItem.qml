@@ -5,6 +5,7 @@ Rectangle {
     property string itemName: ""
     property int index: -1
     property bool isEquipment: false
+    property var metadata
     property string itemName2: ""
     visible: inventoryArea.enabled
     height: invInterface.height / 7
