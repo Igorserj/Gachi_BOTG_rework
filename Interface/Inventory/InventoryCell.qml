@@ -210,17 +210,22 @@ Rectangle {
             var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
             if (!isEquipment) {
                 console.log("not equipment")
-                if (invItem.isEquipment) {
+                var localMeta
+                if (invItem.isEquipment && !(entityInv.equipmentCells[invItem.index] !== "" && cellText.text !== "")) {
+                    console.log(entityInv.equipmentCells[invItem.index], cellText.text)
                     entityInv.equipmentCells[invItem.index] = cellText.text
+                    localMeta = entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index]
                     entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index] = entityInv.metadataCells[currentIndex]
-                    console.log(entityInv.inventoryCells.length + invItem.index, entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index].buffName)
                 }
-                else {
+                else if (!invItem.isEquipment /*&& !(entityInv.equipmentCells[invItem.index] !== "" && cellText.text !== "")*/) {
+                    console.log("2")
                     entityInv.inventoryCells[invItem.index] = cellText.text
+                    localMeta = entityInv.metadataCells[invItem.index]
                     entityInv.metadataCells[invItem.index] = entityInv.metadataCells[currentIndex]
                 }
+                else {return}
                 entityInv.inventoryCells[currentIndex] = invItem.itemName
-                entityInv.metadataCells[currentIndex] = invItem.metadata
+                entityInv.metadataCells[currentIndex] = localMeta
                 unMoveItem()
                 interfaceLoader.item.inventoryCells = entityInv.inventoryCells
                 interfaceLoader.item.equipmentCells = entityInv.equipmentCells
@@ -228,18 +233,21 @@ Rectangle {
             }
             else if (isEquipment) {
                 console.log("is equipment")
+                var localMeta
                 if (itemList.itemNames.indexOf(invItem.itemName) !== -1 && invItem.itemName !== "") {
                     if (itemList.items[itemList.itemNames.indexOf(invItem.itemName)].type === type) {
                         if (invItem.isEquipment) {
                             entityInv.equipmentCells[invItem.index] = cellText.text
+                            localMeta = entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index]
                             entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index] = entityInv.metadataCells[currentIndex]
                         }
-                        else {
+                        else if (!invItem.isEquipment) {
                             entityInv.inventoryCells[invItem.index] = cellText.text
+                            localMeta = entityInv.metadataCells[invItem.index]
                             entityInv.metadataCells[invItem.index] = entityInv.metadataCells[currentIndex]
                         }
                         entityInv.equipmentCells[currentIndex] = invItem.itemName
-                        entityInv.metadataCells[currentIndex] = invItem.metadata
+                        entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex] = localMeta
                         unMoveItem()
                         interfaceLoader.item.inventoryCells = entityInv.inventoryCells
                         interfaceLoader.item.equipmentCells = entityInv.equipmentCells
@@ -250,15 +258,17 @@ Rectangle {
                     if (entityInv.metadataCells[invItem.index].type === type) {
                         if (invItem.isEquipment) {
                             entityInv.equipmentCells[invItem.index] = cellText.text
+                            localMeta = entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index]
                             entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index] = entityInv.metadataCells[currentIndex]
                         }
-                        else {
+                        else if (!invItem.isEquipment) {
                             entityInv.inventoryCells[invItem.index] = cellText.text
+                            localMeta = entityInv.metadataCells[invItem.index]
                             entityInv.metadataCells[invItem.index] = entityInv.metadataCells[currentIndex]
                         }
                         entityInv.equipmentCells[currentIndex] = invItem.itemName
+                        entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex] = localMeta
                         unMoveItem()
-
                         interfaceLoader.item.inventoryCells = entityInv.inventoryCells
                         interfaceLoader.item.equipmentCells = entityInv.equipmentCells
                         entityInv.activeItems()

@@ -6,8 +6,8 @@ QtObject {
     property var equipmentCells: ['', '', '', '', '']
     property var previousEquipment: ['', '', '', '', '']
 
-    property var metadataCells: [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [],
-                                [], [], [], [], []] //inventoryCells + equipmentCells
+    property var metadataCells: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+                                {}, {}, {}, {}, {}] //inventoryCells + equipmentCells
 
     Component.onCompleted: {
         activeItems()
@@ -26,7 +26,6 @@ QtObject {
                 }
                 else {
                     if (metadataCells[inventoryCells.length + i].isEquipment) {
-                        console.log("inv isEquip")
                         itemList.customItem.usedByEntity = entity
                         itemList.customItem.buffName = metadataCells[inventoryCells.length + i].buffName
                         itemList.customItem.use(true)
@@ -44,12 +43,12 @@ QtObject {
                     }
                 }
                 else {
-                    if (metadataCells[i].isEquipment) {
+                    index = inventoryCells.indexOf(previousEquipment[i])
+                    if (metadataCells[index].isEquipment) {
                         itemList.customItem.usedByEntity = entity
-                        itemList.customItem.buffName = metadataCells[i].buffName
-                        console.log(metadataCells[i].buffName)
+                        itemList.customItem.buffName = metadataCells[index].buffName
                         itemList.customItem.removeEffect(true)
-//                        itemList.customItem.buffName = ""
+                        itemList.customItem.buffName = ""
                     }
                 }
             }

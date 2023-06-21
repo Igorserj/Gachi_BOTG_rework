@@ -9,7 +9,6 @@ QtObject {
     property var usedByEntity
 
     function use(permanent = false) {
-//        console.log(buffName)
         if (buffName !== "") {
             usedByEntity.buffList.updateBuffs(buffName, -1, permanent)
         }

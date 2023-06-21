@@ -30,14 +30,12 @@ Rectangle {
     width: 50
     height: 50
     border.width: 2
-    onHealthChanged: {
-        healthLimit()
-//        if (ifaceLoader.status === Loader.Ready) if (ifaceLoader.item.state === "ui") ifaceLoader.item.interfaceLoader.item.heroes()
-    }
-    onStaminaChanged: {
-        staminaLimit()
-//        if (ifaceLoader.status === Loader.Ready) if (ifaceLoader.item.state === "ui") ifaceLoader.item.interfaceLoader.item.heroes()
-    }
+//    onHealthChanged: {
+//        healthLimit()
+//    }
+//    onStaminaChanged: {
+//        staminaLimit()
+//    }
 
     states: [
         State {
@@ -146,12 +144,12 @@ Rectangle {
         objScan(0, 1)
     }
 
-    function healthLimit() {
-        if (health > maxHealth) health = maxHealth
-    }
-    function staminaLimit() {
-        if (stamina > maxStamina) stamina = maxStamina
-    }
+//    function healthLimit() {
+//        if (health > maxHealth) health = maxHealth
+//    }
+//    function staminaLimit() {
+//        if (stamina > maxStamina) stamina = maxStamina
+//    }
 
     function runActive() {
         if (stamina > 2) run = 1
