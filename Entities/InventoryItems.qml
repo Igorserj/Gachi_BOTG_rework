@@ -26,7 +26,9 @@ QtObject {
                 }
                 else {
                     if (metadataCells[inventoryCells.length + i].isEquipment) {
+                        console.log("inv isEquip")
                         itemList.customItem.usedByEntity = entity
+                        itemList.customItem.buffName = metadataCells[inventoryCells.length + i].buffName
                         itemList.customItem.use(true)
                     }
                 }
@@ -42,13 +44,15 @@ QtObject {
                     }
                 }
                 else {
-                    if (metadataCells[inventoryCells.length + i].isEquipment) {
+                    if (metadataCells[i].isEquipment) {
                         itemList.customItem.usedByEntity = entity
+                        itemList.customItem.buffName = metadataCells[i].buffName
+                        console.log(metadataCells[i].buffName)
                         itemList.customItem.removeEffect(true)
+//                        itemList.customItem.buffName = ""
                     }
                 }
             }
-
         }
         previousEquipment = equipmentCells.slice()
     }
