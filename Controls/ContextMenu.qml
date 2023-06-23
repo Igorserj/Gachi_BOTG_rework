@@ -5,6 +5,7 @@ Rectangle {
     property var objects: []
     property var obj
     property int set: -1
+    property var activeCells: []
     height: childrenRect.height + childrenRect.width * 0.05
     width: childrenRect.width * 1.05
     color: "#DD363436"
@@ -27,7 +28,9 @@ Rectangle {
                     id: option
                     width: 0.15 * loader.width
                     height: loader.height * 0.05
-                    color: "transparent"
+                    color: enabled ? "transparent" : "#38000000"
+                    enabled: typeof(activeCells[index]) !== "undefined" ? activeCells[index] : true
+                    radius: width / 10
                     clip: true
                     Text {
                         id: optionText
@@ -36,7 +39,7 @@ Rectangle {
                         text: modelData
                         font.pointSize: 72
                         font.family: "Comfortaa"
-                        color: "white"
+                        color: option.enabled ? "white" : "#FFCCCCCC"
                         fontSizeMode: Text.VerticalFit
                         horizontalAlignment: contentWidth > option.width ? Text.AlignLeft : Text.AlignHCenter
                         SequentialAnimation {
@@ -66,6 +69,7 @@ Rectangle {
                     }
                     MouseArea {
                         anchors.fill: parent
+                        enabled: option.enabled
                         onClicked: {
                             actionSet(index)
                             contextMenu.hide()
@@ -102,6 +106,7 @@ Rectangle {
         contextMenu.x = 0
         contextMenu.y = 0
         contextMenu.opacity = 0
+        contextMenu.activeCells = []
         contextMenu.set = -1
     }
 }

@@ -8,14 +8,16 @@ Item {
     property int iteration: 0
     property double timeElapsed: parent.timeElapsed
     property int timeLeft: 0
+    property int hp: parent.hp
     property string name: ""
     property string description: ""
     property bool isPermanent: parent.isPermanent
     property alias animation: animation
+    property alias instantAnimation: instantAnimation
     ParallelAnimation {
         id: animation
-        running: true
-        paused: ifaceLoader.item.state === "menu"
+        running: type !== "Instant"
+        paused: running ? ifaceLoader.item.state === "menu" : false
         SequentialAnimation {
             id: buffRun
             loops: isPermanent ? Animation.Infinite : type === "Immediate" ? 1 : type === "Continuous" ? Math.ceil((timeDuration - timeElapsed) / deltaDuration) : 1
@@ -72,6 +74,23 @@ Item {
             else if (characteristic === "health") {
                 usedByEntity.maxHealth -= 20
             }
+            updateBuffs("", parent.currentIndex)
+        }
+    }
+
+    SequentialAnimation {
+        id: instantAnimation
+        running: type === "Instant"
+        ScriptAction {
+            script: {
+                if (characteristic === "health") {
+                    usedByEntity.health += hp
+                    timeElapsed = 0
+                    timeLeft = 0
+                }
+            }
+        }
+        onFinished: {
             updateBuffs("", parent.currentIndex)
         }
     }

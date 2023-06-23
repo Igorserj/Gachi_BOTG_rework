@@ -17,7 +17,7 @@ Item {
     }
     EntityGenerator {
         id: entGen
-        objects: [["hero", 1000, 600], ["hostile", 300, 500], ["hostile", 350, 500], ["hostile", 250, 500], ["hostile", 300, 400], ["hostile", 250, 400]]
+        objects: [["hero", 1000, 600], ["hostile", 300, 500]/*, ["hostile", 350, 500], ["hostile", 250, 500], ["hostile", 300, 400], ["hostile", 250, 400]*/]
     }
 
     EventHandler {

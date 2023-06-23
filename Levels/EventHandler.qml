@@ -67,6 +67,7 @@ Repeater {
                                         "hW": entity2[2],
                                         "hH": entity2[3],
                                         "hHealth": entity2[4],
+                                        "hDef": entity2[5],
                                         "ids": ids,
                                         "index1": index1
                                     })
@@ -79,14 +80,16 @@ Repeater {
         var width = []
         var height = []
         var health = []
+        var defense = []
         for (var i = 0; i < ids.length; i++) {
             x.push(entGen.repeater.itemAt(ids[i]).x)
             y.push(entGen.repeater.itemAt(ids[i]).y)
             width.push(entGen.repeater.itemAt(ids[i]).item.width)
             height.push(entGen.repeater.itemAt(ids[i]).item.height)
             health.push(entGen.repeater.itemAt(ids[i]).item.health)
+            defense.push(entGen.repeater.itemAt(ids[i]).item.defense)
         }
-        return [x, y, width, height, health]
+        return [x, y, width, height, health, defense]
     }
 
     function entityList(ids) {

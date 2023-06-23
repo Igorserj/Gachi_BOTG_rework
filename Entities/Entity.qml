@@ -16,6 +16,7 @@ Rectangle {
 
     property double speed: 20
     property double damage: 10
+    property double defense: 0 //20 max
 
     property bool movementBlocked: false
     property bool interactionBlocked: false
@@ -30,12 +31,6 @@ Rectangle {
     width: 50
     height: 50
     border.width: 2
-//    onHealthChanged: {
-//        healthLimit()
-//    }
-//    onStaminaChanged: {
-//        staminaLimit()
-//    }
 
     states: [
         State {
@@ -143,14 +138,6 @@ Rectangle {
         walkDown = true
         objScan(0, 1)
     }
-
-//    function healthLimit() {
-//        if (health > maxHealth) health = maxHealth
-//    }
-//    function staminaLimit() {
-//        if (stamina > maxStamina) stamina = maxStamina
-//    }
-
     function runActive() {
         if (stamina > 2) run = 1
         else run = 0

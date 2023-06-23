@@ -101,6 +101,7 @@ Rectangle {
             let entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
             itemList.customItem.usedByEntity = invInterface.usedByEntity
             itemList.customItem.buffName = entityInv.metadataCells[currentIndex].buffName
+            itemList.customItem.hp = entityInv.metadataCells[currentIndex].hp
             itemList.customItem.use()
             itemList.customItem.usedByEntity = ""
             itemList.customItem.buffName = ""
@@ -123,7 +124,6 @@ Rectangle {
                     invItem.isEquipment = true
                     invItem.itemName = entityInv.equipmentCells[i]
                     invItem.metadata = entityInv.metadataCells[entityInv.inventoryCells.length + i]
-//                    console.log(i, entityInv.equipmentCells[i].name)
                 }
             }
         }
@@ -148,12 +148,9 @@ Rectangle {
 
     function dropItem() {
         var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
-        if (isEquipment) {
-            entityInv.equipmentCells[currentIndex] = ''
-            interfaceLoader.item.equipmentCells = entityInv.equipmentCells
-        }
-        else {
+        if (!isEquipment) {
             entityInv.inventoryCells[currentIndex] = ''
+            entityInv.metadataCells[currentIndex] = {}
             interfaceLoader.item.inventoryCells = entityInv.inventoryCells
         }
     }
@@ -208,17 +205,14 @@ Rectangle {
     function swapCells() {
         if (invItem.visible) {
             var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+            var localMeta
             if (!isEquipment) {
-                console.log("not equipment")
-                var localMeta
                 if (invItem.isEquipment && !(entityInv.equipmentCells[invItem.index] !== "" && cellText.text !== "")) {
-                    console.log(entityInv.equipmentCells[invItem.index], cellText.text)
                     entityInv.equipmentCells[invItem.index] = cellText.text
                     localMeta = entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index]
                     entityInv.metadataCells[entityInv.inventoryCells.length + invItem.index] = entityInv.metadataCells[currentIndex]
                 }
                 else if (!invItem.isEquipment /*&& !(entityInv.equipmentCells[invItem.index] !== "" && cellText.text !== "")*/) {
-                    console.log("2")
                     entityInv.inventoryCells[invItem.index] = cellText.text
                     localMeta = entityInv.metadataCells[invItem.index]
                     entityInv.metadataCells[invItem.index] = entityInv.metadataCells[currentIndex]
@@ -232,8 +226,6 @@ Rectangle {
                 entityInv.activeItems()
             }
             else if (isEquipment) {
-                console.log("is equipment")
-                var localMeta
                 if (itemList.itemNames.indexOf(invItem.itemName) !== -1 && invItem.itemName !== "") {
                     if (itemList.items[itemList.itemNames.indexOf(invItem.itemName)].type === type) {
                         if (invItem.isEquipment) {

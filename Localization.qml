@@ -21,7 +21,7 @@ QtObject {
                                             ["Continue", "Main menu", "Quit"],
                                             ["Продолжить", "Главное меню", "Выход"]][languages.indexOf(currentLanguage)]
 
-    readonly property var inventoryCellOptions: [[["Посунути", "Використати", "Викинути"], ["Посунути", "Екіпіювати", "Викинути"], ["Посунути", "Зняти", "Викинути"]],
-                                                [["Move", "Use", "Drop"], ["Move", "Equip", "Drop"], ["Move", "Unequip", "Drop"]],
-                                                [["Переместить", "Использовать", "Выбросить"], ["Переместить", "Экипировать", "Выбросить"], ["Переместить", "Снять", "Выбросить"]]][languages.indexOf(currentLanguage)]
+    readonly property var inventoryCellOptions: [[["Посунути", "Використати", "Викинути"], ["Посунути", "Екіпіювати", "Викинути"], ["Посунути", "Зняти"]],
+                                                [["Move", "Use", "Drop"], ["Move", "Equip", "Drop"], ["Move", "Unequip"]],
+                                                [["Переместить", "Использовать", "Выбросить"], ["Переместить", "Экипировать", "Выбросить"], ["Переместить", "Снять"]]][languages.indexOf(currentLanguage)]
 }

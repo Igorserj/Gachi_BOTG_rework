@@ -76,7 +76,6 @@ Rectangle {
         function actionSet3(index) {
             if (index === 0) {obj.moveItem()}
             else if (index === 1) {obj.unEquipItem()}
-            else if (index === 2) {obj.dropItem()}
         }
     }
     InventoryItem {

@@ -14,9 +14,11 @@ Rectangle {
         id: mainTextRect
         clip: true
         color: "transparent"
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: parent.width * 0.05
+        width: parent.width * 0.9
+        anchors.horizontalCenter: parent.horizontalCenter
+//        anchors.left: parent.left
+//        anchors.right: parent.right
+//        anchors.margins: parent.width * 0.05
         height: 0.2 * parent.width
         Text {
             id: mainTextText

@@ -5,8 +5,8 @@ Item {
         "Vanish", "StaminaRegen", "StaminaHeal", "StaminaUp"]
     readonly property var debuffNames: ["StrengthDown", "SpeedDown", "HealthDown", "HealthDecrease",
         "Stun", "StaminaDown", "StaminaDecrease"]
-    readonly property var types: ["Permanent", "Immediate", "Continuous"]
-    readonly property var buffs: [strUp, spUp, , , hpUp]
+    readonly property var types: ["Permanent", "Immediate", "Continuous", "Instant"]
+    readonly property var buffs: [strUp, spUp, hpHeal, , hpUp]
     property var currentBuffs: []
     property int buffLevel: 1
     property var usedByEntity: entity
@@ -20,6 +20,7 @@ Item {
             property var currentIndex: index
             property double timeElapsed: modelData[1]
             property bool isPermanent: modelData[2]
+            property int hp: modelData[3]
             sourceComponent: modelData[0] !== "" ? buffs[buffNames.indexOf(modelData[0])] : undefined
         }
     }
@@ -45,6 +46,17 @@ Item {
     }
 
     Component {
+        id: hpHeal
+        BuffPattern {
+            type: types[3]
+            timeDuration: 1
+            characteristic: "health"
+            name: "Healing"
+            description: "Healed by N hp."
+        }
+    }
+
+    Component {
         id: hpUp
         BuffPattern {
             type: types[1]
@@ -55,23 +67,29 @@ Item {
         }
     }
 
-    function updateBuffs(addBuff = "", index = -1, permanent = false) {
+    function updateBuffs(addBuff = "", index = -1, permanent = false, hp = 0) {
         var buffProperties = []
         if (currentBuffs.length > 0) {
             for (let i = 0; i < currentBuffs.length; i++) {
                 let buff = repeater.itemAt(i).item
-                let buff2 = []
-                buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent)
-                buffProperties.push(buff2)
+                console.log(buff)
+                if (buff !== null) {
+                    let buff2 = []
+                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, hp)
+                    buffProperties.push(buff2)
+                }
             }
         }
         if (index !== -1) {
-            repeater.itemAt(index).item.animation.stop()
+            let buff = repeater.itemAt(index).item
+            if (buff !== null) {
+                buff.animation.stop()
+            }
             buffProperties.splice(index, 1)
         }
         else {
             let buff2 = []
-            buff2.push(addBuff, 0, permanent)
+            buff2.push(addBuff, 0, permanent, hp)
             buffProperties.push(buff2)
         }
         toolTip.hide()
