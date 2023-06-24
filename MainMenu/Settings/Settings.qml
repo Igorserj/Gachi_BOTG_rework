@@ -31,26 +31,16 @@ Item {
                 }
             }
         }
-//        DropDown {
-//            objects: resolutions.concat()
-//            function actionSet(index) {
-//                var w = modelData[0]
-//                var h = modelData[1]
-//                window.width = w
-//                window.height = h
-//                window.x = (screen.width - w) / 2
-//                window.y = (screen.height - h) / 2
-//            }
-//        }
         Button1 {
             text: resRep.state === "active" ? locale.settingsFullScreenTrue : locale.settingsFullScreenFalse
             anchors.horizontalCenter: parent.horizontalCenter
             buttonArea.onClicked: changeVisibility()
         }
         Button1 {
-            text: frameTimer.state === frameTimer.statesList[0] ? locale.settingsFPSon : locale.settingsFPSoff
+            text: frameTimerLoader.status === Loader.Null ? locale.settingsFPSon : locale.settingsFPSoff
             anchors.horizontalCenter: parent.horizontalCenter
-            buttonArea.onClicked: frameTimer.state = frameTimer.state === frameTimer.statesList[0] ? frameTimer.statesList[1] : frameTimer.statesList[0]
+            buttonArea.onClicked: frameTimerLoader.status === Loader.Null ? frameTimerLoader.sourceComponent = frameTimer :
+                                                                            [frameTimerLoader.item.state = frameTimerLoader.item.statesList[0], frameTimerLoader.sourceComponent = undefined]
         }
         Button1 {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -60,6 +50,7 @@ Item {
         DropDown {
             index: locale.languages.indexOf(locale.currentLanguage)
             objects: locale.languages
+            activeCells: [true, false, true]
             function actionSet(index) {
                 locale.currentLanguage = locale.languages[index]
             }
@@ -71,19 +62,15 @@ Item {
     }
     function changeVisibility() {
         if (parseInt(window.visibility) === 2) {
-            window.showFullScreen()
-//            window.x = 0
-//            window.y = 0
-//            window.height = screen.height
-//            window.width = screen.width
-//            window.flags = Qt.Window | Qt.FramelessWindowHint
-
+//            window.showFullScreen()
+            window.visibility = 5
             resRep.state = "disabled"
-        } else if (parseInt(window.visibility) !== 2) {
+
+        }
+        else if (parseInt(window.visibility) !== 2) {
             window.showNormal()
-//            window.flags = Qt.Window
+            window.visibility = 2
             resRep.state = "active"
-            console.log(window.visibility)
         }
     }
 }

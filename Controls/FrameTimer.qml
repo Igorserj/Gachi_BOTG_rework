@@ -1,9 +1,10 @@
 import QtQuick 2.15
 
 Item {
+    id: frameTimer
     property int frames: 0
     property var statesList: ["disabled", "active"]
-    state: "disabled"
+    state: "active"
     states: [
         State {
             name: "disabled"
@@ -41,7 +42,7 @@ Item {
     Rectangle {
         width: window.recalculatedWidth * 0.05
         height: window.recalculatedHeight * 0.05
-        color: "#DD363436"
+        color: style.grayGlass
         Text {
             id: fpsText
             anchors.fill: parent
@@ -61,6 +62,11 @@ Item {
         onTriggered: frameRate()
 
     }
+
+    Styles {
+        id: style
+    }
+
     function frameRate() {
         fpsText.text = frames
         frames = 0

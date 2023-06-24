@@ -36,6 +36,24 @@ Rectangle {
             }
         }
     }
+    Rectangle {
+        anchors.top: col.bottom
+        anchors.right: col.right
+        width: col.width
+        height: equipRow.y - (col.y + col.height)
+        color: "transparent"
+        Text {
+            id: name
+            text: usedByEntity !== undefined ? "$" + usedByEntity.money : "$0"
+            height: parent.height
+            width: parent.width
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 72
+            fontSizeMode: Text.VerticalFit
+            font.family: "Comfortaa"
+            color: "white"
+        }
+    }
     Row {
         id: equipRow
         property int colIndex: 0

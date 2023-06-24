@@ -8,7 +8,7 @@ Rectangle {
     property var activeCells: []
     height: childrenRect.height + childrenRect.width * 0.05
     width: childrenRect.width * 1.05
-    color: "#DD363436"
+    color: style.grayGlass
     radius: width / 8
     opacity: 0
     onOpacityChanged: {
@@ -108,5 +108,9 @@ Rectangle {
         contextMenu.opacity = 0
         contextMenu.activeCells = []
         contextMenu.set = -1
+    }
+
+    Styles {
+        id: style
     }
 }

@@ -4,7 +4,7 @@ Rectangle {
     id: toolTip
     property string mainText: ""
     property string addText: ""
-    color: "#DD363436"
+    color: style.blackGlass
     width: 0.15 * window.recalculatedWidth
     height: childrenRect.height + width * 0.05
     opacity: 0
@@ -71,7 +71,7 @@ Rectangle {
         anchors.top: mainTextRect.bottom
         height: addTextText.contentHeight
         anchors.margins: parent.width * 0.05
-        color: "#22000000"
+        color: style.blackGlass//"#22000000"
         radius: parent.width / 16
         Text {
             id: addTextText
@@ -96,6 +96,10 @@ Rectangle {
                 script: opacity === 0 ? [x = 0, y = 0, mainText = "", addText = ""] : {}
             }
         }
+    }
+
+    Styles {
+        id: style
     }
 
     function borderDetect() {

@@ -4,7 +4,7 @@ Rectangle {
     id: dialog
     property string mainText: ""
     property var objects: []
-    color: "#DD363436"
+    color: style.grayGlass
     width: buttonRow.width * 1.05
     height: childrenRect.height + width * 0.05
     opacity: 0
@@ -69,6 +69,11 @@ Rectangle {
             }
         }
     }
+
+    Styles {
+        id: style
+    }
+
     function show() {
         opacity = 1
         enabled = true

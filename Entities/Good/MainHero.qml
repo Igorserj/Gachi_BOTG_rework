@@ -5,6 +5,7 @@ Entity {
     id: mainHero
     damage: 20
     defense: 0
+    money: 300
     inventory.inventoryCells: ['Baseball bat', 'Super Vodka', '', '', '', '', '', '', 'Bat', '', '', '', '', '', '', '', '', '', 'Hat', '']
     inventory.equipmentCells: ['Hat', '', '', '', '']
     inventory.metadataCells:  [{name: "Baseball bat", type: "One Hand", isEquipment: true, additionalInfo: "Beat this bitches", buffName: "StrengthUp"},

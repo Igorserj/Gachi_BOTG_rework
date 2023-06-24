@@ -57,8 +57,13 @@ ApplicationWindow {
         source: "Fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf"
     }
 
-    MyControls.FrameTimer {
+    Loader {
+        id: frameTimerLoader
+    }
+    Component {
         id: frameTimer
+        MyControls.FrameTimer {
+        }
     }
 
     MyControls.Dialog {

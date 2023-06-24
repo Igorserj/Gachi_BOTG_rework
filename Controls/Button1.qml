@@ -11,10 +11,11 @@ Item {
     height: buttonText.contentHeight + window.recalculatedHeight / 720 * 15
     Rectangle {
         id: buttonRect
-        color: button.enabled ? buttonArea.containsMouse ? "#99565656" : "#99787878" : "#99333333"
-        radius: button.enabled ? buttonArea.containsMouse ? button.height / 2.5 : button.height
+        color: button.enabled ? buttonArea.containsMouse && buttonArea.enabled ? style.darkGlass : style.grayGlass : style.blackGlass
+        radius: button.enabled ? buttonArea.containsMouse && buttonArea.enabled ? button.height / 2.5 : button.height
                                                             / 5 : button.height / 5
         anchors.fill: parent
+
         Behavior on color {
             PropertyAnimation {
                 target: buttonRect
@@ -64,5 +65,9 @@ Item {
         samples: 17
         color: "#80000000"
         source: buttonRect
+    }
+
+    Styles {
+        id: style
     }
 }

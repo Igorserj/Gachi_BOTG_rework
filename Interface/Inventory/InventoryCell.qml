@@ -1,4 +1,6 @@
 import QtQuick 2.15
+import QtGraphicalEffects 1.15
+import "../../Controls"
 
 Rectangle {
     id: cell
@@ -9,12 +11,29 @@ Rectangle {
     width: height
     radius: width / 8
     clip: true
+    color: "#9E9E9E"
+    Rectangle {
+        id: frontRect
+        width: parent.width * 0.9
+        height: parent.height * 0.9
+        anchors.centerIn: parent
+        radius: width / 8
+        visible: false
+        color: style.darkGlass
+    }
+    FastBlur {
+        anchors.fill: frontRect
+        source: frontRect
+        radius: 32
+        transparentBorder: true
+    }
 
     Text {
         id: cellText
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
+        color: "white"
         text: itemName()
     }
     MouseArea {
@@ -24,6 +43,10 @@ Rectangle {
         onEntered: showToolTip()
         onExited: toolTip.hide()
         onClicked: showContextMenu(mouseX, mouseY, mouse.button)
+    }
+
+    Styles {
+        id: style
     }
 
     function optionChoose() {

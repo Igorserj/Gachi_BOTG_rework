@@ -17,6 +17,7 @@ Rectangle {
     property double speed: 20
     property double damage: 10
     property double defense: 0 //20 max
+    property int money: 0
 
     property bool movementBlocked: false
     property bool interactionBlocked: false
