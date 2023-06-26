@@ -6,7 +6,7 @@ Repeater {
         WorkerScript {
             id: colliderScript
             source: "collision.mjs"
-            onMessage: {
+            onMessage: (messageObject)=> {
                 let walkLeft = messageObject.walkLeft
                 let walkRight = messageObject.walkRight
                 let walkUp = messageObject.walkUp
@@ -31,7 +31,7 @@ Repeater {
         WorkerScript {
             id: punchScript
             source: "punch.mjs"
-            onMessage: {
+            onMessage: (messageObject)=> {
                 const entities = entityList(messageObject.ids)
                 entGen.repeater.itemAt(messageObject.index1).item.animations.dealDamage(entities, messageObject.hHealth)
             }
@@ -39,11 +39,10 @@ Repeater {
         WorkerScript {
             id: collisionItemScript
             source: "collisionItem.mjs"
-            onMessage: {
+            onMessage: (messageObject)=> {
                 let entity = entGen.repeater.itemAt(messageObject.i).item
                 let i = entity.inventory.inventoryCells.indexOf('')
                 let index = messageObject.index
-                console.log(i, index, messageObject.isPicked)
                 if (i !== -1 && messageObject.isPicked) {
                     entity.inventory.inventoryCells[i] = itmGen.metadata[index].name
                     entity.inventory.metadataCells[i] = itmGen.metadata[index]

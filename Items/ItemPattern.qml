@@ -1,6 +1,6 @@
 import QtQuick 2.15
 
-QtObject {
+Item {
     property string type: ""
     property string name: ""
     property string additionalInfo: ""

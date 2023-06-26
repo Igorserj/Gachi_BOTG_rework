@@ -17,7 +17,7 @@ Item {
     WorkerScript {
         id: directionScript
         source: "direction.mjs"
-        onMessage: {
+        onMessage: (messageObject)=> {
             if (!messageObject.idle) {
                 controls(messageObject.hd, messageObject.vd)
             }

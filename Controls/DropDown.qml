@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: button
@@ -120,7 +120,6 @@ Rectangle {
         horizontalOffset: 3
         verticalOffset: 3
         radius: 8.0
-        samples: 17
         z: button.z - 1
         color: "#80000000"
         source: dropDown

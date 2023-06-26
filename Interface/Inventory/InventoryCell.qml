@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import "../../Controls"
 
 Rectangle {
@@ -42,7 +42,7 @@ Rectangle {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onEntered: showToolTip()
         onExited: toolTip.hide()
-        onClicked: showContextMenu(mouseX, mouseY, mouse.button)
+        onClicked: (mouse)=> showContextMenu(mouseX, mouseY, mouse.button)
     }
 
     Styles {
