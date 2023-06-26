@@ -36,6 +36,9 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             buttonArea.onClicked: changeVisibility()
         }
+//        DropDown {
+//            objects: ["Windowed", "Fullscreen", ""]
+//        }
         Button1 {
             text: frameTimerLoader.status === Loader.Null ? locale.settingsFPSon : locale.settingsFPSoff
             anchors.horizontalCenter: parent.horizontalCenter
@@ -62,8 +65,10 @@ Item {
     }
     function changeVisibility() {
         if (parseInt(window.visibility) === 2) {
-//            window.showFullScreen()
             window.visibility = 5
+//            window.flags = (Qt.FramelessWindowHint | Qt.Window /*| Qt.WindowStaysOnTopHint*/)
+//            window.setGeometry(0, 0, screen.width, screen.height)
+//            console.log(screen.width, screen.height, window.visibility)
             resRep.state = "disabled"
 
         }

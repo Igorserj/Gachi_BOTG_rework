@@ -32,6 +32,7 @@ Rectangle {
             font.bold: true
             horizontalAlignment: contentWidth > mainTextRect.width ? Text.AlignLeft : Text.AlignHCenter
             SequentialAnimation {
+                id: mainTextTextAnimation
                 running: mainTextText.contentWidth > mainTextRect.width
                 loops: Animation.Infinite
                 PauseAnimation {
@@ -115,9 +116,11 @@ Rectangle {
         toolTip.x = x1
         toolTip.y = y1
         opacity = 1
+        mainTextTextAnimation.running = mainTextText.contentWidth > mainTextRect.width
     }
 
     function hide() {
+        if (mainTextTextAnimation.running) mainTextTextAnimation.complete()
         opacity = 0
     }
 }

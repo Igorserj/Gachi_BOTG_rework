@@ -1,22 +1,29 @@
 WorkerScript.onMessage = function (message) {
 
-    let hX = message.hX
-    let hY = message.hY
-    let hW = message.hW
-    let hH = message.hH
-    let hor = message.hor
-    let dir = message.dir
-    let speed = message.speed
+    const hX = message.hX
+    const hY = message.hY
+    const hW = message.hW
+    const hH = message.hH
+    const hor = message.hor
+    const dir = message.dir
+    const speed = message.speed
 
-    let x = message.x
-    let y = message.y
-    let height = message.height
-    let width = message.width
+    //    const x = message.x
+    //    const y = message.y
+    //    const height = message.height
+    //    const width = message.width
+    const indices = message.index
+    const objects = message.objects
 
     let walkLeft = 1
     let walkRight = 1
     let walkUp = 1
     let walkDown = 1
+
+    let lefts = []
+    let rights = []
+    let ups = []
+    let downs = []
 
     let edge = -1
 
@@ -43,31 +50,60 @@ WorkerScript.onMessage = function (message) {
         } else
             walkUp = 1
     }
-    if (hor === 1) {
-        var leftBoundry = hX - speed <= x + width && hX + speed >= x
-        var rightBoundry = hX + hW + speed >= x && hX + hW - speed <= x + width
-        var verticalBoundry = hY + hH + 1 > y && hY - 1 < y + height
-        horizontalCol(leftBoundry, rightBoundry, verticalBoundry)
-    } else if (hor === 0) {
-        var upperBoundry = hY - speed <= y + height && hY + speed >= y
-        var lowerBoundry = hY + hH + speed >= y && hY + hH - speed <= y + height
-        var horizontalBoundry = hX - 1 < x + width && hX + hW + 1 > x
-        verticalCol(lowerBoundry, upperBoundry, horizontalBoundry)
+
+    function horOrVer(x, y, width, height) {
+        if (hor === 1) {
+            //        var leftBoundry = hX - speed <= x + width && hX + speed >= x
+            //        var rightBoundry = hX + hW + speed >= x && hX + hW - speed <= x + width
+            //        var verticalBoundry = hY + hH + 1 > y && hY - 1 < y + height
+            const leftBoundry = hX + hW > x
+            const rightBoundry = hX < x + width
+            const verticalBoundry = hY + hH > y && hY < y + height
+            horizontalCol(leftBoundry, rightBoundry, verticalBoundry)
+
+        } else if (hor === 0) {
+            //        var upperBoundry = hY - speed <= y + height && hY + speed >= y
+            //        var lowerBoundry = hY + hH + speed >= y && hY + hH - speed <= y + height
+            //        var horizontalBoundry = hX - 1 < x + width && hX + hW + 1 > x
+            const lowerBoundry = hY < y + height
+            const upperBoundry = hY + hH > y
+            const horizontalBoundry = hX + hW > x && hX < x + width
+            verticalCol(lowerBoundry, upperBoundry, horizontalBoundry)
+        }
     }
 
-    if (hor === 0 && dir === 0 && walkUp === 0) {
-        edge = y + height + 1
-    }
-    else if (hor === 0 && dir === 1 && walkDown === 0) {
-        edge = y - hH - 1
-    }
-    else if (hor === 1 && dir === 0 && walkLeft === 0) {
-        edge = x + width + 1
-    }
-    else if (hor === 1 && dir === 1 && walkRight === 0) {
-        edge = x - hW - 1
+    function canWalk(x, y, width, height) {
+        if (hor === 0 && dir === 0 && walkUp === 0) {
+            edge = y + height + 1
+        }
+        else if (hor === 0 && dir === 1 && walkDown === 0) {
+            edge = y - hH - 1
+        }
+        else if (hor === 1 && dir === 0 && walkLeft === 0) {
+            edge = x + width + 1
+        }
+        else if (hor === 1 && dir === 1 && walkRight === 0) {
+            edge = x - hW - 1
+        }
     }
 
+    for (let j = 0; j < indices.length; j++) {
+        const x = objects[indices[j]][0]
+        const y = objects[indices[j]][1]
+        const width = objects[indices[j]][2]
+        const height = objects[indices[j]][3]
+        horOrVer(x, y, width, height)
+        canWalk(x, y, width, height)
+        lefts.push(walkLeft)
+        rights.push(walkRight)
+        ups.push(walkUp)
+        downs.push(walkDown)
+    }
+
+    walkLeft = lefts.includes(0) ? 0 : 1
+    walkRight = rights.includes(0) ? 0 : 1
+    walkUp = ups.includes(0) ? 0 : 1
+    walkDown = downs.includes(0) ? 0 : 1
 
     WorkerScript.sendMessage({
                                  "walkLeft": walkLeft,

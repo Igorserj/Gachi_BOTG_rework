@@ -3,7 +3,6 @@ import "../../PhysicalObjects"
 
 Item {
     property var objects: []
-//    property bool ready: repeater.numberOfCreatedObjects / objects.length === 1
     Repeater {
         id: repeater
         model: objects

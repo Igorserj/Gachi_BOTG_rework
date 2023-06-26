@@ -4,7 +4,7 @@ Rectangle {
     id: dialog
     property string mainText: ""
     property var objects: []
-    color: style.grayGlass
+    color: style.blackGlass
     width: buttonRow.width * 1.05
     height: childrenRect.height + width * 0.05
     opacity: 0

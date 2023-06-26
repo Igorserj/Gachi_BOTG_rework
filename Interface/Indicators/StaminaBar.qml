@@ -10,10 +10,10 @@ Rectangle {
     Rectangle {
         id: staminaRect
         color: stamColor
-//        x: (parent.width - width) / 2
+        x: parent.border.width
         y: (parent.height - height) / 2
-        height: parent.height - parent.border.width
-        width: Math.round((modelData[2] / modelData[3] * parent.width - parent.border.width) * 10) / 10
+        height: parent.height -  parent.border.width * 2
+        width: Math.round((modelData[2] / modelData[3] * parent.width - parent.border.width * 2) * 10) / 10
     }
     Text {
         anchors.fill: parent

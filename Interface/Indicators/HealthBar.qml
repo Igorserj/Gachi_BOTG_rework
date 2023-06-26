@@ -10,10 +10,10 @@ Rectangle {
     Rectangle {
         id: healthBar
         color: hpColor
-//        x: (parent.width - width) / 2
+        x: parent.border.width
         y: (parent.height - height) / 2
-        height: parent.height - parent.border.width
-        width: modelData[0] / modelData[1] * parent.width - parent.border.width
+        height: parent.height - parent.border.width * 2
+        width: modelData[0] / modelData[1] * parent.width - parent.border.width * 2
     }
     Text {
         anchors.fill: parent

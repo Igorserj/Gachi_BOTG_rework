@@ -48,7 +48,7 @@ Item {
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
             font.family: "Comfortaa"
-            color: "white"
+            color: enabled ? "white" : "#FFCCCCCC"
         }
         MouseArea {
             id: buttonArea

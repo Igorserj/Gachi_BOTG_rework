@@ -68,6 +68,7 @@ Item {
             if (run === 1) runActive()
             moveLeftRun = false
             objScan(1, 0)
+            itmScan(1, 0)
         }
     }
 
@@ -95,6 +96,7 @@ Item {
             if (run === 1) runActive()
             moveRightRun = false
             objScan(1, 1)
+            itmScan(1, 1)
         }
     }
 
@@ -122,6 +124,7 @@ Item {
             if (run === 1) runActive()
             moveUpRun = false
             objScan(0, 0)
+            itmScan(0, 0)
         }
     }
 
@@ -149,6 +152,7 @@ Item {
             if (run === 1) runActive()
             moveDownRun = false
             objScan(0, 1)
+            itmScan(0, 1)
         }
     }
 

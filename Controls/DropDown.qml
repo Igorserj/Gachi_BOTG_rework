@@ -8,7 +8,6 @@ Rectangle {
     property var activeCells: []
     property int animationDuration: 200
     height: window.recalculatedHeight * 0.05 + window.recalculatedHeight / 720 * 15
-//    height: buttonText.contentHeight + window.recalculatedHeight / 720 * 15
     width: childrenRect.width
     state: "collapsed"
     color: "transparent"
@@ -87,7 +86,6 @@ Rectangle {
                         y: (parent.height - height) / 2
                         text: modelData
                         verticalAlignment: Text.AlignVCenter
-//                        height: parent.height
                         height: window.recalculatedHeight * 0.05
                         fontSizeMode: Text.VerticalFit
                         font.pointSize: 72

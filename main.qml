@@ -79,7 +79,6 @@ ApplicationWindow {
         }
     }
 
-
     function loadMenu() {
         loader.sourceComponent = menuCompose
     }

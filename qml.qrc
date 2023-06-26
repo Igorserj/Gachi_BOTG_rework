@@ -59,5 +59,7 @@
         <file>Interface/Inventory/InventoryItem.qml</file>
         <file>Controls/Dialog.qml</file>
         <file>Controls/Styles.qml</file>
+        <file>Levels/Level1/ItemGenerator.qml</file>
+        <file>Levels/collisionItem.mjs</file>
     </qresource>
 </RCC>

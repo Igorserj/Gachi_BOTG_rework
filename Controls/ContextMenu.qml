@@ -8,7 +8,7 @@ Rectangle {
     property var activeCells: []
     height: childrenRect.height + childrenRect.width * 0.05
     width: childrenRect.width * 1.05
-    color: style.grayGlass
+    color: style.blackGlass
     radius: width / 8
     opacity: 0
     onOpacityChanged: {

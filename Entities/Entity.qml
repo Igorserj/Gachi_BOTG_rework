@@ -80,13 +80,30 @@ Rectangle {
             let index = messageObject.index
             let dir = messageObject.dir
             let hor = messageObject.hor
-            if (index !== -1) {
-                eventHandler.itemAt(entity.parent.entityIndex).collision(hor, dir, index, entity.parent.entityIndex)}
+            if (index.length > 0) {
+                eventHandler.itemAt(entity.parent.entityIndex).collision(hor, dir, index, entity.parent.entityIndex)
+//                for (let i = 0; i < index.length; i++) {
+//                }
+            }
             else {
                 if (hor === 1 && dir === 0) animations.moveLeftRun = true
                 else if (hor === 1 && dir === 1) animations.moveRightRun = true
                 else if (hor === 0 && dir === 0) animations.moveUpRun = true
                 else if (hor === 0 && dir === 1) animations.moveDownRun = true
+            }
+        }
+    }
+    WorkerScript {
+        id: itemsScanScript
+        source: "objectsScan.mjs"
+        onMessage: {
+            let index = messageObject.index
+            let dir = messageObject.dir
+            let hor = messageObject.hor
+            if (index.length > 0) {
+                for (let i = 0; i < index.length; i++) {
+                    eventHandler.itemAt(entity.parent.entityIndex).collisionItem(hor, dir, index[i], entity.parent.entityIndex)
+                }
             }
         }
     }
@@ -113,6 +130,21 @@ Rectangle {
                                           })
         }
     }
+    function itmScan(hor, dir) {
+        if (!movementBlocked) {
+            itemsScanScript.sendMessage({
+                                              "hor": hor,
+                                              "dir": dir,
+                                              "objects": itmGen.objects,
+                                              "x": parent.x,
+                                              "y": parent.y,
+                                              "width": width,
+                                              "height": height,
+                                              "speed": animations.speed
+                                          })
+        }
+    }
+
     function nmyScan() {
         if (!interactionBlocked) {
             animations.attackReady = false
@@ -126,18 +158,22 @@ Rectangle {
     function toTheLeft() {
         walkLeft = true
         objScan(1, 0)
+        itmScan(1, 0)
     }
     function toTheRight() {
         walkRight = true
         objScan(1, 1)
+        itmScan(1, 1)
     }
     function toTheTop() {
         walkUp = true
         objScan(0, 0)
+        itmScan(0, 0)
     }
     function toTheBot() {
         walkDown = true
         objScan(0, 1)
+        itmScan(0, 1)
     }
     function runActive() {
         if (stamina > 2) run = 1
