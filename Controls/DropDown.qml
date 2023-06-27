@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import Qt5Compat.GraphicalEffects
+import QtGraphicalEffects 1.15
 
 Rectangle {
     id: button
@@ -89,7 +89,7 @@ Rectangle {
                         height: window.recalculatedHeight * 0.05
                         fontSizeMode: Text.VerticalFit
                         font.pointSize: 72
-                        font.family: fontName
+                        font.family: "Comfortaa"
                         color: rectangle.enabled ? "white" : "#FFCCCCCC"
                     }
                     MouseArea {
@@ -120,6 +120,7 @@ Rectangle {
         horizontalOffset: 3
         verticalOffset: 3
         radius: 8.0
+        samples: 17
         z: button.z - 1
         color: "#80000000"
         source: dropDown

@@ -50,7 +50,7 @@ Rectangle {
             horizontalAlignment: Text.AlignRight
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
-            font.family: fontName
+            font.family: "Comfortaa"
             color: "white"
         }
     }

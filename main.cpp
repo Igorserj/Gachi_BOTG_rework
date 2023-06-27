@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
-    QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
+    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
+//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
 //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::GLSL);
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

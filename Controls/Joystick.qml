@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import Qt5Compat.GraphicalEffects
+import QtGraphicalEffects 1.12
 
 Item {
     id: joystick
@@ -54,7 +54,8 @@ Item {
                                     / babyImage.width / 1.5, posX = Math.abs(posX)
                                     > 0.2 ? posX : 0, posY = ((base.height - babyImage.height) / 2
                                                               - babyImage.y) / babyImage.height
-                                    / 1.5, moving = true, posY = Math.abs(
+                                    / 1.5, moving = true, console.log(
+                                        posX + " " + posY), posY = Math.abs(
                                         posY) > 0.2 ? posY : 0, moving = false] : {}
             }
         }

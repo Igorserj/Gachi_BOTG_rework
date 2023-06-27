@@ -20,7 +20,7 @@ Rectangle {
         text: modelData[0] + " / " + modelData[1]
         font.pointSize: 72
         fontSizeMode: Text.VerticalFit
-        font.family: fontName
+        font.family: "Comfortaa"
         color: "white"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

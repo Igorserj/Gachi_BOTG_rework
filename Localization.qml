@@ -1,10 +1,10 @@
 import QtQuick 2.15
 
-Item {
+QtObject {
     property string currentLanguage: "Українська"
     readonly property var languages: ["Українська", "English", "Русский"]
 
-    readonly property var exitDialogText: ["Вийти з гри?", "Quit game?", "Выйти из игры?"][languages.indexOf(currentLanguage)]
+    readonly property var exitDialogText: ["Вийти зі гри?", "Quit game?", "Выйти из игры?"][languages.indexOf(currentLanguage)]
     readonly property var exitDialogOptions: [["Не виходити", "Вийти"], ["Do not quit", "Quit"], ["Не выходить", "Выйти"]][languages.indexOf(currentLanguage)]
 
     readonly property var homeButtonNames: [[["Розпочати гру", "Налаштування", "Вихід"], ["Нова гра", "Продовжити", "Назад"]] ,

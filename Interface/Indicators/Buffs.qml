@@ -30,7 +30,7 @@ Column {
             font.pointSize: 72
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            font.family: fontName
+            font.family: "Comfortaa"
             color: "white"
         }
     }

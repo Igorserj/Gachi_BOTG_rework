@@ -20,7 +20,7 @@ Rectangle {
         text: Math.round(modelData[2]) + " / " + modelData[3]
         font.pointSize: 72
         fontSizeMode: Text.VerticalFit
-        font.family: fontName
+        font.family: "Comfortaa"
         color: "white"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

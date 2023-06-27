@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import Qt5Compat.GraphicalEffects
+import QtGraphicalEffects 1.15
 
 Item {
     id: button
@@ -60,7 +60,7 @@ Item {
                                               === "left" ? Text.AlignLeft : Text.AlignRight
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
-            font.family: fontName
+            font.family: "Comfortaa"
             font.italic: true
             color: button.enabled ? "white" : "#CCCCCC"
         }

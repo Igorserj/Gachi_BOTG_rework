@@ -2,7 +2,7 @@ import QtQuick 2.15
 
 Item {
     focus: true
-    Keys.onPressed: (event)=> {
+    Keys.onPressed: {
         if (event.key === Qt.Key_A) {
             toTheLeft()
         } else if (event.key === Qt.Key_D) {
@@ -31,7 +31,7 @@ Item {
             else ifaceLoader.item.state = "ui"
         }
     }
-    Keys.onReleased: (event)=> {
+    Keys.onReleased: {
         if (!event.isAutoRepeat) {
             if (event.key === Qt.Key_A)
                 walkLeft = false

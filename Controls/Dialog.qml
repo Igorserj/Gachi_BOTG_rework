@@ -26,7 +26,7 @@ Rectangle {
                 width: parent.width
                 fontSizeMode: Text.VerticalFit
                 font.pointSize: 72
-                font.family: fontName
+                font.family: "Comfortaa"
                 color: "white"
                 font.bold: true
                 horizontalAlignment: contentWidth > mainTextRect.width ? Text.AlignLeft : Text.AlignHCenter

@@ -1,6 +1,6 @@
 import QtQuick 2.15
 
-Item {
+QtObject {
 
     property var inventoryCells: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
     property var equipmentCells: ['', '', '', '', '']

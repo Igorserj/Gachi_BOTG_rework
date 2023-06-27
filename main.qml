@@ -11,13 +11,11 @@ ApplicationWindow {
     height: 720
     property double recalculatedWidth: width / height > 16 / 9 ? height / 9 * 16 : width
     property double recalculatedHeight: width / height > 16 / 9 ? height : width / 16 * 9
-    property bool closeAccept: false
-    property alias fontName: comfortaa.name
     visible: true
     title: "Gachimuchi: Boss of this gym"
     color: "black"
-    onClosing: (close)=> {
-        close.accepted = closeAccept
+    onClosing: {
+        close.accepted = false
         exitDialog.show()
     }
 
@@ -55,7 +53,7 @@ ApplicationWindow {
 
     FontLoader {
         id: comfortaa
-//        name: "Comfortaa"
+        name: "Comfortaa"
         source: "Fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf"
     }
 
@@ -76,7 +74,6 @@ ApplicationWindow {
         function actionSet(index) {
             if (index === 0) exitDialog.hide()
             else if (index === 1) {
-                closeAccept = true
                 Qt.quit()
             }
         }

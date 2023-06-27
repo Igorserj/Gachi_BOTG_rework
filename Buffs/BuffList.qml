@@ -72,6 +72,7 @@ Item {
         if (currentBuffs.length > 0) {
             for (let i = 0; i < currentBuffs.length; i++) {
                 let buff = repeater.itemAt(i).item
+                console.log(buff)
                 if (buff !== null) {
                     let buff2 = []
                     buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, hp)

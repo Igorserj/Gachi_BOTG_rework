@@ -76,7 +76,7 @@ Rectangle {
     WorkerScript {
         id: objectsScanScript
         source: "objectsScan.mjs"
-        onMessage: (messageObject)=> {
+        onMessage: {
             let index = messageObject.index
             let dir = messageObject.dir
             let hor = messageObject.hor
@@ -96,7 +96,7 @@ Rectangle {
     WorkerScript {
         id: itemsScanScript
         source: "objectsScan.mjs"
-        onMessage: (messageObject)=> {
+        onMessage: {
             let index = messageObject.index
             let dir = messageObject.dir
             let hor = messageObject.hor
@@ -110,7 +110,7 @@ Rectangle {
     WorkerScript {
         id: enemiesScanScript
         source: "enemiesScan.mjs"
-        onMessage: (messageObject)=> {
+        onMessage: {
             const ids = messageObject.ids
             eventHandler.itemAt(entity.parent.entityIndex).punch(entity.parent, messageObject.index, ids)
         }
