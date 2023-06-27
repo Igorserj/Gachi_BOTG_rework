@@ -60,7 +60,7 @@ Item {
                                               === "left" ? Text.AlignLeft : Text.AlignRight
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
-            font.family: "Comfortaa"
+            font.family: fontName
             font.italic: true
             color: button.enabled ? "white" : "#CCCCCC"
         }

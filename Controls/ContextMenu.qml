@@ -38,7 +38,7 @@ Rectangle {
                         width: parent.width
                         text: modelData
                         font.pointSize: 72
-                        font.family: "Comfortaa"
+                        font.family: fontName
                         color: option.enabled ? "white" : "#FFCCCCCC"
                         fontSizeMode: Text.VerticalFit
                         horizontalAlignment: contentWidth > option.width ? Text.AlignLeft : Text.AlignHCenter

@@ -12,6 +12,7 @@ ApplicationWindow {
     property double recalculatedWidth: width / height > 16 / 9 ? height / 9 * 16 : width
     property double recalculatedHeight: width / height > 16 / 9 ? height : width / 16 * 9
     property bool closeAccept: false
+    property alias fontName: comfortaa.name
     visible: true
     title: "Gachimuchi: Boss of this gym"
     color: "black"

@@ -1,10 +1,7 @@
-#QT += \
-#        quick \
-#        gui
-
 !qtConfig(vulkan): error("This example requires Qt built with Vulkan support")
 
 QT += qml quick
+DEFINES += QT_DISABLE_DEPRECATED_UP_TO=0x050F00
 #QSG_RHI_PREFER_SOFTWARE_RENDERER = 0
 #CONFIG += qmltypes
 #QML_IMPORT_NAME = VulkanGachi

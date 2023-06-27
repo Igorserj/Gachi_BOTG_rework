@@ -48,7 +48,7 @@ Item {
             anchors.fill: parent
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
-            font.family: "Comfortaa"
+            font.family: fontName
             color: "white"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
