@@ -24,8 +24,8 @@ Item {
             Button1 {
                 text: modelData
                 anchors.right: parent.right
-                buttonArea.onClicked: actionSet === 0 ? action(index) : action2(
-                                                            index)
+                function clickFunction() { return actionSet === 0 ? action(index) : action2(
+                                                            index) }
             }
         }
     }
@@ -45,7 +45,7 @@ Item {
         composer.state = "settings"
     }
     function quitGame() {
-        Qt.quit()
+        exitDialogLoader.sourceComponent = exitDialog
     }
 
     function action2(index) {

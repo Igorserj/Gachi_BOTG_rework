@@ -8,7 +8,7 @@ Rectangle {
     property var usedByEntity
     width: parent.width * 0.8
     height: parent.height * 0.8
-    color: "#99363636"
+    color: style.blackGlass//"#99363636"
     MouseArea {
         id: inventoryArea
         anchors.fill: parent
@@ -21,14 +21,14 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         spacing: 5
         Repeater {
-            model: Math.ceil(inventoryCells.length / 5)
+            model: usedByEntity !== undefined ? Math.ceil(usedByEntity.inventory.inventoryCells.length / 5) : 0
             Row {
                 id: row
                 property int colIndex: index
                 spacing: 5
                 Repeater {
                     id: repeater
-                    model: inventoryCells.length - index * 5 > 5 ? 5 : inventoryCells.length - index * 5
+                    model: usedByEntity.inventory.inventoryCells.length - index * 5 > 5 ? 5 : usedByEntity.inventory.inventoryCells.length - index * 5
                     InventoryCell {
                         id: invCell
                     }
@@ -50,7 +50,7 @@ Rectangle {
             horizontalAlignment: Text.AlignRight
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
-            font.family: "Comfortaa"
+            font.family: comfortaaName
             color: "white"
         }
     }
@@ -61,7 +61,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         spacing: 5
         Repeater {
-            model: equipmentCells
+            model: usedByEntity !== undefined ? usedByEntity.inventory.equipmentCells : 0
             InventoryCell {
                 type: itemList.equipmnets[index]
             }
@@ -85,11 +85,13 @@ Rectangle {
             if (index === 0) {obj.moveItem()}
             else if (index === 1) {obj.useItem()}
             else if (index === 2) {obj.dropItem()}
+            else if (index === 3) {obj.destroyItem()}
         }
         function actionSet2(index) {
             if (index === 0) {obj.moveItem()}
             else if (index === 1) {obj.equipItem()}
             else if (index === 2) {obj.dropItem()}
+            else if (index === 3) {obj.destroyItem()}
         }
         function actionSet3(index) {
             if (index === 0) {obj.moveItem()}
@@ -98,5 +100,8 @@ Rectangle {
     }
     InventoryItem {
         id: invItem
+    }
+    Styles {
+        id: style
     }
 }

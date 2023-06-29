@@ -8,7 +8,7 @@ Item {
     property int iteration: 0
     property double timeElapsed: parent.timeElapsed
     property int timeLeft: 0
-    property int hp: parent.hp
+    property int points: parent.points
     property string name: ""
     property string description: ""
     property bool isPermanent: parent.isPermanent
@@ -23,15 +23,37 @@ Item {
             loops: isPermanent ? Animation.Infinite : type === "Immediate" ? 1 : type === "Continuous" ? Math.ceil((timeDuration - timeElapsed) / deltaDuration) : 1
             ScriptAction {
                 script: {
-                    if (timeElapsed === 0) {
-                        if (characteristic === "damage") {
-                            usedByEntity.damage *= 1.5
+                    if (type !== "Continuous") {
+                        if (timeElapsed === 0) {
+                            if (characteristic === "damage") {
+                                usedByEntity.damage *= 1.5
+                            }
+                            else if (characteristic === "speed") {
+                                usedByEntity.speed *= 1.1
+                            }
+                            else if (characteristic === "health") {
+                                usedByEntity.maxHealth += points
+                            }
+                            else if (characteristic === "stamina") {
+                                usedByEntity.maxStamina += points
+                            }
                         }
-                        else if (characteristic === "speed") {
-                            usedByEntity.speed *= 1.1
-                        }
-                        else if (characteristic === "health") {
-                            usedByEntity.maxHealth += 20
+                    }
+                    else if (type === "Continuous") {
+                        if (timeElapsed !== 0) {
+                            if (characteristic === "health" && usedByEntity.health + points <= usedByEntity.maxHealth) {
+                                usedByEntity.health += points
+                            }
+                            else if (characteristic === "health" && usedByEntity.health + points > usedByEntity.maxHealth) {
+                                usedByEntity.health = usedByEntity.maxHealth
+                            }
+
+                            if (characteristic === "stamina" && usedByEntity.stamina + points <= usedByEntity.maxStamina) {
+                                usedByEntity.stamina += points
+                            }
+                            else if (characteristic === "stamina" && usedByEntity.stamina + points > usedByEntity.maxStamina) {
+                                usedByEntity.stamina = usedByEntity.maxStamina
+                            }
                         }
                     }
                 }
@@ -65,14 +87,34 @@ Item {
             }
         }
         onFinished: {
-            if (characteristic === "damage") {
-                usedByEntity.damage /= 1.5
+            if (type !== "Continuous") {
+                if (characteristic === "damage") {
+                    usedByEntity.damage /= 1.5
+                }
+                else if (characteristic === "speed") {
+                    usedByEntity.speed /= 1.1
+                }
+                else if (characteristic === "health") {
+                    usedByEntity.maxHealth -= points
+                }
+                else if (characteristic === "stamina") {
+                    usedByEntity.maxStamina -= points
+                }
             }
-            else if (characteristic === "speed") {
-                usedByEntity.speed /= 1.1
-            }
-            else if (characteristic === "health") {
-                usedByEntity.maxHealth -= 20
+            else if (type === "Continuous") {
+                if (characteristic === "health" && usedByEntity.health + points <= usedByEntity.maxHealth) {
+                    usedByEntity.health += points
+                }
+                else if (characteristic === "health" && usedByEntity.health + points > usedByEntity.maxHealth) {
+                    usedByEntity.health = usedByEntity.maxHealth
+                }
+
+                if (characteristic === "stamina" && usedByEntity.stamina + points <= usedByEntity.maxStamina) {
+                    usedByEntity.stamina += points
+                }
+                else if (characteristic === "stamina" && usedByEntity.stamina + points > usedByEntity.maxStamina) {
+                    usedByEntity.stamina = usedByEntity.maxStamina
+                }
             }
             updateBuffs("", parent.currentIndex)
         }
@@ -84,10 +126,23 @@ Item {
         ScriptAction {
             script: {
                 if (characteristic === "health") {
-                    usedByEntity.health += hp
-                    timeElapsed = 0
-                    timeLeft = 0
+                    if (usedByEntity.health + points <= usedByEntity.maxHealth) {
+                        usedByEntity.health += points
+                    }
+                    else {
+                        usedByEntity.health = usedByEntity.maxHealth
+                    }
                 }
+                if (characteristic === "stamina") {
+                    if (usedByEntity.stamina + points <= usedByEntity.maxStamina) {
+                        usedByEntity.stamina += points
+                    }
+                    else {
+                        usedByEntity.stamina = usedByEntity.maxStamina
+                    }
+                }
+                timeElapsed = 0
+                timeLeft = 0
             }
         }
         onFinished: {

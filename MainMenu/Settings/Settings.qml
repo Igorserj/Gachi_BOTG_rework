@@ -20,7 +20,7 @@ Item {
                 Button1 {
                     text: modelData[0] + "x" + modelData[1]
                     enabled: resRep.state === "active" && (screen.width >= modelData[0] && screen.height >= modelData[1])
-                    buttonArea.onClicked: {
+                    function clickFunction() {
                         var w = modelData[0]
                         var h = modelData[1]
                         window.width = w
@@ -34,7 +34,7 @@ Item {
         Button1 {
             text: resRep.state === "active" ? locale.settingsFullScreenTrue : locale.settingsFullScreenFalse
             anchors.horizontalCenter: parent.horizontalCenter
-            buttonArea.onClicked: changeVisibility()
+            function clickFunction() { changeVisibility() }
         }
 //        DropDown {
 //            objects: ["Windowed", "Fullscreen", ""]
@@ -42,18 +42,18 @@ Item {
         Button1 {
             text: frameTimerLoader.status === Loader.Null ? locale.settingsFPSon : locale.settingsFPSoff
             anchors.horizontalCenter: parent.horizontalCenter
-            buttonArea.onClicked: frameTimerLoader.status === Loader.Null ? frameTimerLoader.sourceComponent = frameTimer :
-                                                                            [frameTimerLoader.item.state = frameTimerLoader.item.statesList[0], frameTimerLoader.sourceComponent = undefined]
+            function clickFunction() { return frameTimerLoader.status === Loader.Null ? frameTimerLoader.sourceComponent = frameTimer :
+                                                                            [frameTimerLoader.item.state = frameTimerLoader.item.statesList[0], frameTimerLoader.sourceComponent = undefined] }
         }
         Button1 {
             anchors.horizontalCenter: parent.horizontalCenter
             text: locale.settingsSave
-            buttonArea.onClicked: home()
+            function clickFunction() { home() }
         }
         DropDown {
             index: locale.languages.indexOf(locale.currentLanguage)
             objects: locale.languages
-            activeCells: [true, false, true]
+//            activeCells: [true, false, true]
             function actionSet(index) {
                 locale.currentLanguage = locale.languages[index]
             }
@@ -68,7 +68,6 @@ Item {
             window.visibility = 5
 //            window.flags = (Qt.FramelessWindowHint | Qt.Window /*| Qt.WindowStaysOnTopHint*/)
 //            window.setGeometry(0, 0, screen.width, screen.height)
-//            console.log(screen.width, screen.height, window.visibility)
             resRep.state = "disabled"
 
         }

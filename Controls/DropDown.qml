@@ -89,7 +89,7 @@ Rectangle {
                         height: window.recalculatedHeight * 0.05
                         fontSizeMode: Text.VerticalFit
                         font.pointSize: 72
-                        font.family: "Comfortaa"
+                        font.family: comfortaaName
                         color: rectangle.enabled ? "white" : "#FFCCCCCC"
                     }
                     MouseArea {

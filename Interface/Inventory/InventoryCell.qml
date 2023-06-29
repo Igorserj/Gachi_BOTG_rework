@@ -43,6 +43,7 @@ Rectangle {
         onEntered: showToolTip()
         onExited: toolTip.hide()
         onClicked: showContextMenu(mouseX, mouseY, mouse.button)
+        onHoverEnabledChanged: if (!hoverEnabled) toolTip.hide()
     }
 
     Styles {
@@ -124,12 +125,12 @@ Rectangle {
             let entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
             itemList.customItem.usedByEntity = invInterface.usedByEntity
             itemList.customItem.buffName = entityInv.metadataCells[currentIndex].buffName
-            itemList.customItem.hp = entityInv.metadataCells[currentIndex].hp
+            itemList.customItem.points = entityInv.metadataCells[currentIndex].points
             itemList.customItem.use()
             itemList.customItem.usedByEntity = ""
             itemList.customItem.buffName = ""
         }
-        dropItem()
+        destroyItem()
     }
     function equipItem() {
         var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
@@ -169,12 +170,35 @@ Rectangle {
         entityInv.activeItems()
     }
 
-    function dropItem() {
+    function destroyItem() {
         var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
         if (!isEquipment) {
             entityInv.inventoryCells[currentIndex] = ''
             entityInv.metadataCells[currentIndex] = {}
             interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+        }
+    }
+
+    function dropItem() {
+        var entity = levelLoader.item.entGen.repeater.itemAt(0)
+        if (!isEquipment) {
+            if (entity.item.facingRight === true) {
+                levelLoader.item.itmGen.objects.push([entity.x + entity.item.width + 20, entity.y + entity.item.height - 10, 10, 10])
+            }
+            else {
+                levelLoader.item.itmGen.objects.push([entity.x - 20, entity.y + entity.item.height - 10, 10, 10])
+            }
+            if (entity.item.inventory.metadataCells[currentIndex].name === undefined) {
+                levelLoader.item.itmGen.metadata.push({name: entity.item.inventory.inventoryCells[currentIndex]})
+            }
+            else {
+                levelLoader.item.itmGen.metadata.push(entity.item.inventory.metadataCells[currentIndex])
+            }
+            levelLoader.item.itmGen.repeater.model = levelLoader.item.itmGen.objects
+            destroyItem()
+//            entityInv.inventoryCells[currentIndex] = ''
+//            entityInv.metadataCells[currentIndex] = {}
+//            interfaceLoader.item.inventoryCells = entityInv.inventoryCells
         }
     }
 

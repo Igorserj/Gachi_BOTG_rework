@@ -7,12 +7,15 @@ Item {
     property alias buttonArea: buttonArea
     property int animationDuration: 200
     property string alignment: "center"
+    property bool active: (buttonArea.containsMouse && buttonArea.enabled) || currentIndex === controlModule.currentIndex
+    property int currentIndex: -1
     width: buttonText.contentWidth + window.recalculatedWidth / 1280 * 30
     height: buttonText.contentHeight + window.recalculatedHeight / 720 * 15
+    Component.onCompleted: { currentIndex = controlModule.createdComponents; controlModule.createdComponents++ }
     Rectangle {
         id: buttonRect
-        color: button.enabled ? buttonArea.containsMouse && buttonArea.enabled ? style.darkGlass : style.grayGlass : style.blackGlass
-        radius: button.enabled ? buttonArea.containsMouse && buttonArea.enabled ? button.height / 2.5 : button.height
+        color: button.enabled ? active ? style.darkGlass : style.grayGlass : style.blackGlass
+        radius: button.enabled ? active ? button.height / 2.5 : button.height
                                                             / 5 : button.height / 5
         anchors.fill: parent
 
@@ -47,14 +50,15 @@ Item {
                                               === "left" ? Text.AlignLeft : Text.AlignRight
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
-            font.family: "Comfortaa"
+            font.family: comfortaaName
             color: enabled ? "white" : "#FFCCCCCC"
         }
         MouseArea {
             id: buttonArea
             anchors.fill: parent
             enabled: button.enabled
-            hoverEnabled: true
+            hoverEnabled: enabled
+            onClicked: clickFunction()
         }
     }
     DropShadow {
@@ -66,6 +70,20 @@ Item {
         color: "#80000000"
         source: buttonRect
     }
+    Connections {
+        target: controlModule
+        enabled: true
+        function onActivateChanged() {
+            if (controlModule.activate && active) {
+                clickFunction()
+            }
+        }
+        function onCurrentIndexChanged() {
+            if (controlModule.currentIndex === -1) currentIndex = -1
+        }
+    }
+
+    function clickFunction() {}
 
     Styles {
         id: style

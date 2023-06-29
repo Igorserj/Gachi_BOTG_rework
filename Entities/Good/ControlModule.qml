@@ -3,13 +3,32 @@ import QtQuick 2.15
 Item {
     focus: true
     Keys.onPressed: {
-        if (event.key === Qt.Key_A) {
-            toTheLeft()
-        } else if (event.key === Qt.Key_D) {
-            toTheRight()
-        } else if (event.key === Qt.Key_W) {
+        if (event.key === Qt.Key_A && !movementBlocked) {
+            if (facingRight === false) {
+                toTheLeft()
+            }
+            else {
+             facingRight = false
+                if (run === 1) {
+                    toTheLeft()
+                    stamina -= 2
+                }
+            }
+        } else if (event.key === Qt.Key_D && !movementBlocked) {
+            if (facingRight === true) {
+                toTheRight()
+            }
+            else {
+                facingRight = true
+                if (run === 1) {
+                    toTheRight()
+                    stamina -= 2
+                }
+            }
+        }
+        if (event.key === Qt.Key_W && !movementBlocked) {
             toTheTop()
-        } else if (event.key === Qt.Key_S) {
+        } else if (event.key === Qt.Key_S && !movementBlocked) {
             toTheBot()
         }
         if (event.key === Qt.Key_I) {
@@ -17,12 +36,17 @@ Item {
                 ifaceLoader.item.state = "inventory"
                 ifaceLoader.item.interfaceLoader.item.usedByEntity = mainHero
             }
-            else ifaceLoader.item.state = "ui"
+            else if (ifaceLoader.item.state === "inventory") {
+                ifaceLoader.item.state = "ui"
+            }
         }
-        if (event.key === Qt.Key_J && animations.attackReady) {
+        if (event.key === Qt.Key_E) {
+            loot()
+        }
+        if (event.key === Qt.Key_J && animations.attackReady && !movementBlocked) {
             nmyScan()
         }
-        if (event.key === Qt.Key_Shift) {
+        if (event.key === Qt.Key_Shift && !movementBlocked) {
             mainHero.runActive()
         }
         if (event.key === Qt.Key_Escape) {

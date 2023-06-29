@@ -5,6 +5,10 @@ import "Settings"
 Item {
     id: composer
     state: "home"
+    onStateChanged: {
+        controlModule.createdComponents = 0
+        controlModule.currentIndex = -1
+    }
     states: [
         State {
             name: "home"

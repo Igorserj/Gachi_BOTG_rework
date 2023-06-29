@@ -67,10 +67,10 @@ Item {
             if (stamina > 5 && !recovery) {runActive()}
             else hostile.run = 0
             if (horizontalDirection === 0) {
-                toTheLeft()
+                facingRight === false ? toTheLeft() : facingRight = false
             }
             else if (horizontalDirection === 1) {
-                toTheRight()
+                facingRight === true ? toTheRight() : facingRight = true
             }
             else if (horizontalDirection === -1) {
                 walkLeft = false

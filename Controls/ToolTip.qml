@@ -16,9 +16,6 @@ Rectangle {
         color: "transparent"
         width: parent.width * 0.9
         anchors.horizontalCenter: parent.horizontalCenter
-//        anchors.left: parent.left
-//        anchors.right: parent.right
-//        anchors.margins: parent.width * 0.05
         height: 0.2 * parent.width
         Text {
             id: mainTextText
@@ -27,7 +24,7 @@ Rectangle {
             width: parent.width
             fontSizeMode: Text.VerticalFit
             font.pointSize: 72
-            font.family: "Comfortaa"
+            font.family: comfortaaName
             color: "white"
             font.bold: true
             horizontalAlignment: contentWidth > mainTextRect.width ? Text.AlignLeft : Text.AlignHCenter
@@ -80,7 +77,7 @@ Rectangle {
             x: (parent.width - contentWidth) / 2
             width: parent.width
             font.pixelSize: mainTextText.contentHeight * 0.5
-            font.family: "Comfortaa"
+            font.family: comfortaaName
             color: "white"
             wrapMode: Text.WordWrap
         }
@@ -116,6 +113,7 @@ Rectangle {
         toolTip.x = x1
         toolTip.y = y1
         opacity = 1
+        if (mainTextTextAnimation.running) mainTextTextAnimation.complete()
         mainTextTextAnimation.running = mainTextText.contentWidth > mainTextRect.width
     }
 

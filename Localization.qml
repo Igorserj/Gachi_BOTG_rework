@@ -7,8 +7,8 @@ QtObject {
     readonly property var exitDialogText: ["Вийти зі гри?", "Quit game?", "Выйти из игры?"][languages.indexOf(currentLanguage)]
     readonly property var exitDialogOptions: [["Не виходити", "Вийти"], ["Do not quit", "Quit"], ["Не выходить", "Выйти"]][languages.indexOf(currentLanguage)]
 
-    readonly property var homeButtonNames: [[["Розпочати гру", "Налаштування", "Вихід"], ["Нова гра", "Продовжити", "Назад"]] ,
-                                            [["Start game", "Settings", "Quit game"], ["New game", "Continue", "Back"]] ,
+    readonly property var homeButtonNames: [[["Розпочати гру", "Налаштування", "Вихід"], ["Нова гра", "Продовжити", "Назад"]],
+                                            [["Start game", "Settings", "Quit game"], ["New game", "Continue", "Back"]],
                                             [["Играть", "Настройки", "Выход"], ["Новая игра", "Продолжить", "Назад"]]][languages.indexOf(currentLanguage)]
 
     readonly property var settingsFullScreenTrue: ["На повний екран", "Go fullscreen", "На полный экран"][languages.indexOf(currentLanguage)]
@@ -21,7 +21,7 @@ QtObject {
                                             ["Continue", "Main menu", "Quit"],
                                             ["Продолжить", "Главное меню", "Выход"]][languages.indexOf(currentLanguage)]
 
-    readonly property var inventoryCellOptions: [[["Посунути", "Використати", "Викинути"], ["Посунути", "Екіпіювати", "Викинути"], ["Посунути", "Зняти"]],
-                                                [["Move", "Use", "Drop"], ["Move", "Equip", "Drop"], ["Move", "Unequip"]],
-                                                [["Переместить", "Использовать", "Выбросить"], ["Переместить", "Экипировать", "Выбросить"], ["Переместить", "Снять"]]][languages.indexOf(currentLanguage)]
+    readonly property var inventoryCellOptions: [[["Посунути", "Використати", "Викинути", "Знищити"], ["Посунути", "Екіпіювати", "Викинути", "Знищити"], ["Посунути", "Зняти"]],
+                                                [["Move", "Use", "Drop", "Destroy"], ["Move", "Equip", "Drop", "Destroy"], ["Move", "Unequip"]],
+                                                [["Переместить", "Использовать", "Выбросить", "Уничтожить"], ["Переместить", "Экипировать", "Выбросить", "Уничтожить"], ["Переместить", "Снять"]]][languages.indexOf(currentLanguage)]
 }

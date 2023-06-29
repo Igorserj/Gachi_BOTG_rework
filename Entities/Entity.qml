@@ -8,10 +8,10 @@ Rectangle {
     property int walkRight: 0
     property int walkUp: 0
     property int walkDown: 0
-    property double health: maxHealth
+    property double health: 100
     property double maxHealth: 100
 
-    property double stamina: maxStamina
+    property double stamina: 30
     property double maxStamina: 30
 
     property double speed: 20
@@ -21,10 +21,13 @@ Rectangle {
 
     property bool movementBlocked: false
     property bool interactionBlocked: false
+    property bool canPickUp: true
 
     property alias animations: animations
     property alias inventory: inventory
     property alias buffList: buffList
+    property bool facingRight: true
+    property int rot: 0
 
     property bool recovery: false
 
@@ -32,6 +35,7 @@ Rectangle {
     width: 50
     height: 50
     border.width: 2
+    transform: Rotation { origin.x: width / 2; origin.y: height / 2; axis { x: 0; y: 1; z: 0 } angle: rot }
 
     states: [
         State {
@@ -41,12 +45,15 @@ Rectangle {
                 target: entity
                 movementBlocked: false
                 interactionBlocked: false
+                canPickUp: true
             }
         },
         State {
             name: "paused"
             PropertyChanges {
                 target: entity
+//                movementBlocked: true
+//                interactionBlocked: true
             }
         },
         State {
@@ -56,6 +63,7 @@ Rectangle {
                 target: entity
                 movementBlocked: true
                 interactionBlocked: true
+                canPickUp: false
             }
         },
         State {
@@ -82,8 +90,6 @@ Rectangle {
             let hor = messageObject.hor
             if (index.length > 0) {
                 eventHandler.itemAt(entity.parent.entityIndex).collision(hor, dir, index, entity.parent.entityIndex)
-//                for (let i = 0; i < index.length; i++) {
-//                }
             }
             else {
                 if (hor === 1 && dir === 0) animations.moveLeftRun = true
@@ -98,13 +104,12 @@ Rectangle {
         source: "objectsScan.mjs"
         onMessage: {
             let index = messageObject.index
-            let dir = messageObject.dir
-            let hor = messageObject.hor
             if (index.length > 0) {
                 for (let i = 0; i < index.length; i++) {
-                    eventHandler.itemAt(entity.parent.entityIndex).collisionItem(hor, dir, index[i], entity.parent.entityIndex)
+                    eventHandler.itemAt(entity.parent.entityIndex).collisionItem(index[i], entity.parent.entityIndex)
                 }
             }
+            else canPickUp = true
         }
     }
     WorkerScript {
@@ -113,6 +118,15 @@ Rectangle {
         onMessage: {
             const ids = messageObject.ids
             eventHandler.itemAt(entity.parent.entityIndex).punch(entity.parent, messageObject.index, ids)
+        }
+    }
+
+    WorkerScript {
+        id: deadEnemiesScanScript
+        source: "enemiesScan.mjs"
+        onMessage: {
+            const ids = messageObject.ids
+            eventHandler.itemAt(entity.parent.entityIndex).loot(entity.parent, ids)
         }
     }
 
@@ -131,7 +145,8 @@ Rectangle {
         }
     }
     function itmScan(hor, dir) {
-        if (!movementBlocked) {
+        if (!movementBlocked && canPickUp) {
+            canPickUp = false
             itemsScanScript.sendMessage({
                                               "hor": hor,
                                               "dir": dir,
@@ -149,6 +164,15 @@ Rectangle {
         if (!interactionBlocked) {
             animations.attackReady = false
             enemiesScanScript.sendMessage({
+                                              "objects": entGen.objects,
+                                              "index": entity.parent.entityIndex
+                                          })
+        }
+    }
+
+    function loot() {
+        if (!interactionBlocked) {
+            deadEnemiesScanScript.sendMessage({
                                               "objects": entGen.objects,
                                               "index": entity.parent.entityIndex
                                           })

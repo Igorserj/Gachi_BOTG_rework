@@ -5,13 +5,13 @@ QtObject {
     property string name: ""
     property string additionalInfo: ""
     property string buffName: ""
-    property int hp: 0
+    property int points: 0
     property bool isEquipment: equipmnets.includes(type)
     property var usedByEntity
 
     function use(permanent = false) {
         if (buffName !== "") {
-            usedByEntity.buffList.updateBuffs(buffName, -1, permanent, hp)
+            usedByEntity.buffList.updateBuffs(buffName, -1, permanent, points)
         }
     }
     function removeEffect(permanent = false) {

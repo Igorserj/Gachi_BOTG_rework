@@ -8,7 +8,7 @@ Rectangle {
     width: buttonRow.width * 1.05
     height: childrenRect.height + width * 0.05
     opacity: 0
-    radius: width / 8
+    radius: width / 16
 
     Column {
         anchors.horizontalCenter: parent.horizontalCenter
@@ -26,7 +26,7 @@ Rectangle {
                 width: parent.width
                 fontSizeMode: Text.VerticalFit
                 font.pointSize: 72
-                font.family: "Comfortaa"
+                font.family: comfortaaName
                 color: "white"
                 font.bold: true
                 horizontalAlignment: contentWidth > mainTextRect.width ? Text.AlignLeft : Text.AlignHCenter
@@ -64,7 +64,7 @@ Rectangle {
                 model: objects
                 Button1 {
                     text: modelData
-                    buttonArea.onClicked: actionSet(index)
+                    function clickFunction() {actionSet(index)}
                 }
             }
         }
@@ -81,6 +81,7 @@ Rectangle {
     function hide() {
         opacity = 0
         enabled = false
+        exitDialogLoader.sourceComponent = undefined
     }
     function actionSet(index) {}
 }

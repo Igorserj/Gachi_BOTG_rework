@@ -220,4 +220,23 @@ Item {
             script: dealDamageScript()
         }
     }
+
+    SequentialAnimation {
+        running: facingRight
+        PropertyAnimation {
+            target: entity
+            property: "rot"
+            to: 0
+            easing.type: Easing.OutCubic
+        }
+    }
+    SequentialAnimation {
+        running: !facingRight
+        PropertyAnimation {
+            target: entity
+            property: "rot"
+            to: -180
+            easing.type: Easing.OutCubic
+        }
+    }
 }

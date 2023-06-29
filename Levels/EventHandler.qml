@@ -37,20 +37,50 @@ Repeater {
             }
         }
         WorkerScript {
+            id: lootScript
+            source: "loot.mjs"
+            onMessage: {
+                let index = messageObject.index1
+                if (index !== -1) {
+                    ifaceLoader.item.state = "inventory"
+                    ifaceLoader.item.interfaceLoader.item.usedByEntity = entGen.repeater.itemAt(index).item
+                }
+            }
+        }
+        WorkerScript {
             id: collisionItemScript
             source: "collisionItem.mjs"
             onMessage: {
                 let entity = entGen.repeater.itemAt(messageObject.i).item
                 let i = entity.inventory.inventoryCells.indexOf('')
                 let index = messageObject.index
-                console.log(i, index, messageObject.isPicked)
-                if (i !== -1 && messageObject.isPicked) {
-                    entity.inventory.inventoryCells[i] = itmGen.metadata[index].name
-                    entity.inventory.metadataCells[i] = itmGen.metadata[index]
+                function removing() {
                     itmGen.objects.splice(index, 1)
                     itmGen.metadata.splice(index, 1)
                     itmGen.repeater.model = itmGen.objects
                 }
+                if (itmGen.metadata[index] !== undefined) {
+                    if (itmGen.metadata[index].name === "money" && messageObject.isPicked) {
+                        entity.money += itmGen.metadata[index].pcs
+                        removing()
+                        if (ifaceLoader.item.state === "inventory") {
+                            ifaceLoader.item.state = "ui"
+                            ifaceLoader.item.state = "inventory"
+                            ifaceLoader.item.interfaceLoader.item.usedByEntity = entity
+                        }
+                    }
+                    else if (itmGen.metadata[index].name !== "money" && i !== -1 && messageObject.isPicked) {
+                        entity.inventory.inventoryCells[i] = itmGen.metadata[index].name
+                        entity.inventory.metadataCells[i] = itmGen.metadata[index]
+                        removing()
+                        if (ifaceLoader.item.state === "inventory") {
+                            ifaceLoader.item.state = "ui"
+                            ifaceLoader.item.state = "inventory"
+                            ifaceLoader.item.interfaceLoader.item.usedByEntity = entity
+                        }
+                    }
+                }
+                entity.canPickUp = true
             }
         }
 
@@ -64,10 +94,6 @@ Repeater {
                                            "hor": hor,
                                            "dir": dir,
                                            "objects": objGen.objects,
-//                                           "x": objGen.objects[index][0],
-//                                           "y": objGen.objects[index][1],
-//                                           "width": objGen.objects[index][2],
-//                                           "height": objGen.objects[index][3],
                                            "index": index,
                                            "i": i,
                                            "speed": entity.item.animations.speed
@@ -91,23 +117,38 @@ Repeater {
                                         "index1": index1
                                     })
         }
-        function collisionItem(hor, dir, index, i) {
+        function loot(entity1, ids) {
+            const entity2 = entitiesObjects(ids)
+            lootScript.sendMessage({
+                                        "x": entity1.x,
+                                        "y": entity1.y,
+                                        "width": entity1.item.width,
+                                        "height": entity1.item.height,
+                                        "damage": entity1.item.damage,
+                                        "hX": entity2[0],
+                                        "hY": entity2[1],
+                                        "hW": entity2[2],
+                                        "hH": entity2[3],
+                                        "ids": ids
+                                    })
+        }
+        function collisionItem(index, i) {
             var entity = entGen.repeater.itemAt(i)
-            collisionItemScript.sendMessage({
-                                           "hX": entity.x,
-                                           "hY": entity.y,
-                                           "hW": entity.item.width,
-                                           "hH": entity.item.height,
-                                           "hor": hor,
-                                           "dir": dir,
-                                           "x": itmGen.objects[index][0],
-                                           "y": itmGen.objects[index][1],
-                                           "width": itmGen.objects[index][2],
-                                           "height": itmGen.objects[index][3],
-                                           "index": index,
-                                           "i": i,
-                                           "speed": entity.item.animations.speed
-                                       })
+            if (itmGen.objects[index] !== undefined) {
+                collisionItemScript.sendMessage({
+                                                    "hX": entity.x,
+                                                    "hY": entity.y,
+                                                    "hW": entity.item.width,
+                                                    "hH": entity.item.height,
+                                                    "x": itmGen.objects[index][0],
+                                                    "y": itmGen.objects[index][1],
+                                                    "width": itmGen.objects[index][2],
+                                                    "height": itmGen.objects[index][3],
+                                                    "index": index,
+                                                    "i": i
+//                                                    "speed": entity.item.animations.speed
+                                                })
+            }
         }
     }
 

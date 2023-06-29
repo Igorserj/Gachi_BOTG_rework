@@ -61,5 +61,7 @@
         <file>Controls/Styles.qml</file>
         <file>Levels/Level1/ItemGenerator.qml</file>
         <file>Levels/collisionItem.mjs</file>
+        <file>Levels/loot.mjs</file>
+        <file>ControlModule.qml</file>
     </qresource>
 </RCC>

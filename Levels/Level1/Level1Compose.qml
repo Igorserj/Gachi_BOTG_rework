@@ -4,6 +4,7 @@ import ".."
 Item {
     property alias objGen: objGen
     property alias entGen: entGen
+    property alias itmGen: itmGen
     Image {
         id: room
         source: "Assets/Room.png"
@@ -20,12 +21,12 @@ Item {
     }
     EntityGenerator {
         id: entGen
-        objects: [["hero", 1000, 600]/*, ["hostile", 300, 500], ["hostile", 350, 500], ["hostile", 250, 500], ["hostile", 300, 400], ["hostile", 250, 400]*/]
+        objects: [["hero", 1000, 600], ["hostile", 300, 500]/*, ["hostile", 350, 500], ["hostile", 250, 500], ["hostile", 300, 400], ["hostile", 250, 400]*/]
     }
     ItemGenerator {
         id: itmGen
-        objects: [[350, 310, 10, 10], [350, 550, 10, 10]]
-        metadata: [{name: "Super Vodka", type: "Consumable", isEquipment: false, additionalInfo: "This is super Vodka!", buffName: "HealthHeal", hp: 35}, {name: "Hat"}]
+        objects: [[350, 310, 10, 10], [350, 550, 10, 10], [530, 400, 10, 10]]
+        metadata: [{name: "Super Vodka", type: "Consumable", isEquipment: false, additionalInfo: "This is super Vodka!", buffName: "StaminaHeal", points: 35}, {name: "Hat"}, {name: "money", pcs: 10}]
     }
 
     EventHandler {

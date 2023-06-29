@@ -11,17 +11,19 @@ ApplicationWindow {
     height: 720
     property double recalculatedWidth: width / height > 16 / 9 ? height / 9 * 16 : width
     property double recalculatedHeight: width / height > 16 / 9 ? height : width / 16 * 9
+    property alias comfortaaName: comfortaa.name
+    property alias controlModule: controlModule
     visible: true
     title: "Gachimuchi: Boss of this gym"
     color: "black"
     onClosing: {
         close.accepted = false
-        exitDialog.show()
+        exitDialogLoader.sourceComponent = exitDialog
     }
 
     Loader {
         id: loader
-        focus: true
+//        focus: true
         x: (window.width - recalculatedWidth) / 2
         y: (window.height - recalculatedHeight) / 2
         z: 0
@@ -60,29 +62,47 @@ ApplicationWindow {
     Loader {
         id: frameTimerLoader
     }
+    Loader {
+        id: exitDialogLoader
+        anchors.fill: parent
+        onSourceChanged: {
+            controlModule.createdComponents = 0
+            controlModule.currentIndex = -1
+        }
+        onLoaded: item.show()
+    }
     Component {
         id: frameTimer
         MyControls.FrameTimer {
         }
     }
+    ControlModule {
+        id: controlModule
+    }
 
-    MyControls.Dialog {
+    Component {
         id: exitDialog
-        mainText: locale.exitDialogText
-        anchors.centerIn: parent
-        objects: locale.exitDialogOptions
-        function actionSet(index) {
-            if (index === 0) exitDialog.hide()
-            else if (index === 1) {
-                Qt.quit()
+        MyControls.Dialog {
+            mainText: locale.exitDialogText
+            anchors.centerIn: parent
+            objects: locale.exitDialogOptions
+            function actionSet(index) {
+                if (index === 0) hide()
+                else if (index === 1) {
+                    Qt.quit()
+                }
             }
         }
     }
 
     function loadMenu() {
+        controlModule.focus = true
+        loader.focus = false
         loader.sourceComponent = menuCompose
     }
     function loadLevel() {
+        controlModule.focus = false
+        loader.focus = true
         loader.sourceComponent = levelBuilder
     }
 }

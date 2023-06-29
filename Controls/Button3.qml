@@ -30,7 +30,7 @@ Item {
                                               === "left" ? Text.AlignLeft : Text.AlignRight
             font.pointSize: 72
             fontSizeMode: Text.VerticalFit
-            font.family: "Comfortaa"
+            font.family: comfortaaName
             font.bold: true
             color: buttonArea.containsMouse ? "#CCCCCC" : "#EEEEEE"
             //            style: Text.Outline

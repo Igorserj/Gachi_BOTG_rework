@@ -5,8 +5,11 @@ Item {
         "Vanish", "StaminaRegen", "StaminaHeal", "StaminaUp"]
     readonly property var debuffNames: ["StrengthDown", "SpeedDown", "HealthDown", "HealthDecrease",
         "Stun", "StaminaDown", "StaminaDecrease"]
-    readonly property var types: ["Permanent", "Immediate", "Continuous", "Instant"]
-    readonly property var buffs: [strUp, spUp, hpHeal, , hpUp]
+    readonly property var types: ["Immediate", "Continuous", "Instant"]
+    readonly property var buffs: [strUp, spUp, hpHeal, hpRegen, hpUp,
+        ,staRegen, staHeal, staUp
+    ]
+
     property var currentBuffs: []
     property int buffLevel: 1
     property var usedByEntity: entity
@@ -20,14 +23,14 @@ Item {
             property var currentIndex: index
             property double timeElapsed: modelData[1]
             property bool isPermanent: modelData[2]
-            property int hp: modelData[3]
+            property int points: modelData[3]
             sourceComponent: modelData[0] !== "" ? buffs[buffNames.indexOf(modelData[0])] : undefined
         }
     }
     Component {
         id: strUp
         BuffPattern {
-            type: types[1]
+            type: types[0]
             timeDuration: 10000
             characteristic: "damage"
             name: "Increased damage"
@@ -37,7 +40,7 @@ Item {
     Component {
         id: spUp
         BuffPattern {
-            type: types[1]
+            type: types[0]
             timeDuration: 5000
             characteristic: "speed"
             name: "Increased speed"
@@ -48,34 +51,85 @@ Item {
     Component {
         id: hpHeal
         BuffPattern {
-            type: types[3]
+            type: types[2]
             timeDuration: 1
             characteristic: "health"
             name: "Healing"
             description: "Healed by N hp."
+            points: 20
+        }
+    }
+
+    Component {
+        id: hpRegen
+        BuffPattern {
+            type: types[1]
+            timeDuration: 10000
+            deltaDuration: 1000
+            characteristic: "health"
+            name: "Health regeneration"
+            description: "Heal by 5 every second."
+            points: 5
         }
     }
 
     Component {
         id: hpUp
         BuffPattern {
-            type: types[1]
+            type: types[0]
             timeDuration: 10000
             characteristic: "health"
             name: "Increased max health"
-            description: "Your health increased by 20 hp."
+            description: "Your health increased by points hp."
+            points: 20
         }
     }
 
-    function updateBuffs(addBuff = "", index = -1, permanent = false, hp = 0) {
+    Component {
+        id: staRegen
+        BuffPattern {
+            type: types[1]
+            timeDuration: 10000
+            deltaDuration: 1000
+            characteristic: "stamina"
+            name: "Stamina regeneration"
+            description: "Restore 5 energy every second."
+            points: 5
+        }
+    }
+
+    Component {
+        id: staHeal
+        BuffPattern {
+            type: types[2]
+            timeDuration: 1
+            characteristic: "stamina"
+            name: "Recovery"
+            description: "Restored by N energy."
+            points: 20
+        }
+    }
+
+    Component {
+        id: staUp
+        BuffPattern {
+            type: types[0]
+            timeDuration: 10000
+            characteristic: "stamina"
+            name: "Increased max stamina"
+            description: "Your stamina increased by 20 energy."
+            points: 10
+        }
+    }
+
+    function updateBuffs(addBuff = "", index = -1, permanent = false, points = 0) {
         var buffProperties = []
         if (currentBuffs.length > 0) {
             for (let i = 0; i < currentBuffs.length; i++) {
                 let buff = repeater.itemAt(i).item
-                console.log(buff)
                 if (buff !== null) {
                     let buff2 = []
-                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, hp)
+                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, points)
                     buffProperties.push(buff2)
                 }
             }
@@ -89,7 +143,7 @@ Item {
         }
         else {
             let buff2 = []
-            buff2.push(addBuff, 0, permanent, hp)
+            buff2.push(addBuff, 0, permanent, points)
             buffProperties.push(buff2)
         }
         toolTip.hide()

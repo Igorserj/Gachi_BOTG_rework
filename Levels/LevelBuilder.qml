@@ -44,6 +44,7 @@ Item {
         asynchronous: true
         sourceComponent: levelLoader.item.entGen.ready? iface : undefined
     }
+
     Component {
         id: iface
         Interface {}

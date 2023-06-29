@@ -50,13 +50,11 @@ Item {
         loops: Animation.Infinite
         ScriptAction {
             script: {
-                joystick.enabled ? [posX = (babyImage.x - (base.width - babyImage.width) / 2)
-                                    / babyImage.width / 1.5, posX = Math.abs(posX)
-                                    > 0.2 ? posX : 0, posY = ((base.height - babyImage.height) / 2
-                                                              - babyImage.y) / babyImage.height
-                                    / 1.5, moving = true, console.log(
-                                        posX + " " + posY), posY = Math.abs(
-                                        posY) > 0.2 ? posY : 0, moving = false] : {}
+                joystick.enabled ? [posX = (babyImage.x - (base.width - babyImage.width) / 2) / babyImage.width / 1.5,
+                                    posX = Math.abs(posX) > 0.2 ? posX : 0,
+                                    posY = ((base.height - babyImage.height) / 2 - babyImage.y) / babyImage.height / 1.5,
+                                    moving = true,
+                                    posY = Math.abs(posY) > 0.2 ? posY : 0, moving = false] : {}
             }
         }
         PauseAnimation {

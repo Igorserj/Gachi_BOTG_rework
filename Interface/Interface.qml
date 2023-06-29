@@ -4,9 +4,14 @@ import "Inventory"
 Item {
     state: "ui"
     property alias interfaceLoader: interfaceLoader
+    onStateChanged: toolTip.hide()
     states: [
         State {
             name: "ui"
+            PropertyChanges {
+                target: openUi
+                running: true
+            }
             PropertyChanges {
                 target: unBlurred
                 running: true
@@ -14,6 +19,10 @@ Item {
         },
         State {
             name: "menu"
+            PropertyChanges {
+                target: openMenu
+                running: true
+            }
             PropertyChanges {
                 target: blurred
                 running: true
@@ -25,14 +34,15 @@ Item {
                 target: openInventory
                 running: true
             }
+//            PropertyChanges {
+//                target: blurred
+//                running: true
+//            }
         }
     ]
 
     SequentialAnimation {
         id: blurred
-        ScriptAction {
-            script: interfaceLoader.sourceComponent = menu
-        }
         ScriptAction {
             script: {
                 blur.radius = 32
@@ -48,14 +58,25 @@ Item {
                 blur.opacity = 0
             }
         }
-        ScriptAction {
-            script: interfaceLoader.sourceComponent = ui
-        }
     }
     SequentialAnimation {
         id: openInventory
         ScriptAction {
             script: interfaceLoader.sourceComponent = inventory
+        }
+    }
+
+    SequentialAnimation {
+        id: openMenu
+        ScriptAction {
+            script: interfaceLoader.sourceComponent = menu
+        }
+    }
+
+    SequentialAnimation {
+        id: openUi
+        ScriptAction {
+            script: interfaceLoader.sourceComponent = ui
         }
     }
 
@@ -65,9 +86,7 @@ Item {
     }
     Component {
         id: ui
-        UserInterface {
-            Component.onCompleted: toolTip.hide()
-        }
+        UserInterface {}
     }
 
     Component {
