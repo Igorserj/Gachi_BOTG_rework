@@ -13,7 +13,8 @@ Rectangle {
         x: parent.border.width
         y: (parent.height - height) / 2
         height: parent.height -  parent.border.width * 2
-        width: Math.round((modelData[2] / modelData[3] * parent.width - parent.border.width * 2) * 10) / 10
+        width: modelData[2] / modelData[3] * parent.width - parent.border.width * 2 > sb.width ? sb.width * 1.05 : modelData[2] / modelData[3] * parent.width - parent.border.width * 2
+        z: sb.z - 1
     }
     Text {
         anchors.fill: parent
@@ -28,7 +29,7 @@ Rectangle {
     Rectangle {
         height: sb.height
         width: staminaRect.width - sb.width
-        x: sb.width
+        x: staminaRect.width - width + staminaRect.x
         color: "yellow"
         border.width: 2
     }

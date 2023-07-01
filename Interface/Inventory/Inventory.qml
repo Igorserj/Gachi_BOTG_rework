@@ -6,9 +6,10 @@ Rectangle {
     property var inventoryCells: []
     property var equipmentCells: []
     property var usedByEntity
+//    onUsedByEntityChanged: console.log(usedByEntity)
     width: parent.width * 0.8
     height: parent.height * 0.8
-    color: style.blackGlass//"#99363636"
+    color: style.blackGlass
     MouseArea {
         id: inventoryArea
         anchors.fill: parent
@@ -86,16 +87,19 @@ Rectangle {
             else if (index === 1) {obj.useItem()}
             else if (index === 2) {obj.dropItem()}
             else if (index === 3) {obj.destroyItem()}
+            update()
         }
         function actionSet2(index) {
             if (index === 0) {obj.moveItem()}
             else if (index === 1) {obj.equipItem()}
             else if (index === 2) {obj.dropItem()}
             else if (index === 3) {obj.destroyItem()}
+            update()
         }
         function actionSet3(index) {
             if (index === 0) {obj.moveItem()}
             else if (index === 1) {obj.unEquipItem()}
+            update()
         }
     }
     InventoryItem {
@@ -103,5 +107,8 @@ Rectangle {
     }
     Styles {
         id: style
+    }
+    function update() {
+        ifaceLoader.item.interfaceLoader.item.usedByEntity = usedByEntity
     }
 }

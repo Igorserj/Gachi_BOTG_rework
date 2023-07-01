@@ -13,14 +13,8 @@ Rectangle {
         x: parent.border.width
         y: (parent.height - height) / 2
         height: parent.height - parent.border.width * 2
-        width: modelData[0] / modelData[1] * parent.width - parent.border.width * 2
-        Behavior on width {
-            PropertyAnimation {
-                target: healthBar
-                property: "width"
-                duration: 100
-            }
-        }
+        width: modelData[0] / modelData[1] * parent.width - parent.border.width * 2 > hb.width ? hb.width * 1.05 : modelData[0] / modelData[1] * parent.width - parent.border.width * 2
+        z: hb.z - 1
     }
     Text {
         anchors.fill: parent
@@ -35,7 +29,7 @@ Rectangle {
     Rectangle {
         height: hb.height
         width: healthBar.width - hb.width
-        x: hb.width
+        x: healthBar.width - width + healthBar.x
         color: "yellow"
         border.width: 2
     }

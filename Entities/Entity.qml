@@ -14,7 +14,8 @@ Rectangle {
     property double stamina: 30
     property double maxStamina: 30
 
-    property double speed: 20
+    property int speedCoeff: 20
+    property double speed: speedCoeff * recalculatedWidth / 1280
     property double damage: 10
     property double defense: 0 //20 max
     property int money: 0
@@ -28,6 +29,7 @@ Rectangle {
     property alias buffList: buffList
     property bool facingRight: true
     property int rot: 0
+    property string name: ""
 
     property bool recovery: false
 

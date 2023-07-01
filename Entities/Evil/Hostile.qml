@@ -7,6 +7,6 @@ Entity {
     color: "red"
     stamina: maxStamina
     maxStamina: 15
-    speed: 15
+    speedCoeff: 15
     Logic {}
 }

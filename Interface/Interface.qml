@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import "Inventory"
+import "Dialogue"
 
 Item {
     state: "ui"
@@ -34,10 +35,13 @@ Item {
                 target: openInventory
                 running: true
             }
-//            PropertyChanges {
-//                target: blurred
-//                running: true
-//            }
+        },
+        State {
+            name: "dialogue"
+            PropertyChanges {
+                target: openDialogue
+                running: true
+            }
         }
     ]
 
@@ -59,6 +63,7 @@ Item {
             }
         }
     }
+
     SequentialAnimation {
         id: openInventory
         ScriptAction {
@@ -80,6 +85,13 @@ Item {
         }
     }
 
+    SequentialAnimation {
+        id: openDialogue
+        ScriptAction {
+            script: interfaceLoader.sourceComponent = dialogue
+        }
+    }
+
     Loader {
         id: interfaceLoader
         anchors.fill: parent
@@ -92,6 +104,11 @@ Item {
     Component {
         id: menu
         Menu {}
+    }
+
+    Component {
+        id: dialogue
+        Dialogue {}
     }
 
     Component {

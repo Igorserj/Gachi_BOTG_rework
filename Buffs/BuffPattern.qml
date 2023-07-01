@@ -29,7 +29,7 @@ Item {
                                 usedByEntity.damage *= 1.5
                             }
                             else if (characteristic === "speed") {
-                                usedByEntity.speed *= 1.1
+                                usedByEntity.speedCoeff *= 1.1
                             }
                             else if (characteristic === "health") {
                                 usedByEntity.maxHealth += points
@@ -92,7 +92,7 @@ Item {
                     usedByEntity.damage /= 1.5
                 }
                 else if (characteristic === "speed") {
-                    usedByEntity.speed /= 1.1
+                    usedByEntity.speedCoeff /= 1.1
                 }
                 else if (characteristic === "health") {
                     usedByEntity.maxHealth -= points

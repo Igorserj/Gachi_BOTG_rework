@@ -4,7 +4,7 @@ Item {
     readonly property var itemNames: ["Vodka", "Bat", "Hat"]
     readonly property var items: [vodka, bat, hat]
     readonly property var types: ["Head", "Body", "Legs", "One Hand", "Two Hands", "Consumable"]
-    readonly property var equipmnets: ["Head", "Body", "Legs", "One Hand", "Two Hands"]
+    readonly property var equipmnets: ["Head", "Body", "Legs", "One Hand", "One Hand", "Two Hands"]
     property alias customItem: customItem
     visible: false
 

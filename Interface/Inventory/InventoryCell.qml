@@ -68,7 +68,7 @@ Rectangle {
                 }
             }
             else {
-                var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+                var entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
                 var itemType
                 var itemIsEquipment
                 if (isEquipment) {
@@ -92,12 +92,14 @@ Rectangle {
                     return locale.inventoryCellOptions[0]
                 }
             }
+//            update()
         }
         return [""]
     }
     function itemName() {
-        if (isEquipment) return equipmentCells[currentIndex]
-        else return inventoryCells[currentIndex]
+        var entityInv = usedByEntity.inventory
+        if (isEquipment) return entityInv.equipmentCells[currentIndex]
+        else return entityInv.inventoryCells[currentIndex]
     }
 
     function unMoveItem() {
@@ -111,7 +113,7 @@ Rectangle {
         invItem.itemName = cellText.text
         invItem.index = currentIndex
         invItem.isEquipment = isEquipment
-        invItem.metadata = levelLoader.item.entGen.repeater.itemAt(0).item.inventory.metadataCells[currentIndex]
+        invItem.metadata = usedByEntity.inventory.metadataCells[currentIndex]//levelLoader.item.entGen.repeater.itemAt(0).item.inventory.metadataCells[currentIndex]
         inventoryArea.enabled = true
     }
     function useItem() {
@@ -122,18 +124,18 @@ Rectangle {
             itemList.items[i].use()
         }
         else {
-            let entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+            let entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
             itemList.customItem.usedByEntity = invInterface.usedByEntity
             itemList.customItem.buffName = entityInv.metadataCells[currentIndex].buffName
             itemList.customItem.points = entityInv.metadataCells[currentIndex].points
             itemList.customItem.use()
-            itemList.customItem.usedByEntity = ""
+            itemList.customItem.usedByEntity = undefined
             itemList.customItem.buffName = ""
         }
         destroyItem()
     }
     function equipItem() {
-        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+        var entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
         for (let i = 0; i < entityInv.equipmentCells.length; i++) {
             if (itemList.itemNames.indexOf(cellText.text) !== -1) {
                 if (itemList.items[itemList.itemNames.indexOf(cellText.text)].type === itemList.equipmnets[i]) {
@@ -156,7 +158,7 @@ Rectangle {
         swapCells()
     }
     function unEquipItem() {
-        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+        var entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
         let i = entityInv.inventoryCells.indexOf('')
         inventoryArea.enabled = true
         entityInv.equipmentCells[currentIndex] = entityInv.inventoryCells[i]
@@ -167,20 +169,22 @@ Rectangle {
         unMoveItem()
         interfaceLoader.item.inventoryCells = entityInv.inventoryCells
         interfaceLoader.item.equipmentCells = entityInv.equipmentCells
-        entityInv.activeItems()
+        invInterface.update()
+        entityInv.activeArmor()
     }
 
     function destroyItem() {
-        var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+        var entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
         if (!isEquipment) {
             entityInv.inventoryCells[currentIndex] = ''
             entityInv.metadataCells[currentIndex] = {}
             interfaceLoader.item.inventoryCells = entityInv.inventoryCells
         }
+        invInterface.update()
     }
 
     function dropItem() {
-        var entity = levelLoader.item.entGen.repeater.itemAt(0)
+        var entity = usedByEntity.parent//levelLoader.item.entGen.repeater.itemAt(0)
         if (!isEquipment) {
             if (entity.item.facingRight === true) {
                 levelLoader.item.itmGen.objects.push([entity.x + entity.item.width + 20, entity.y + entity.item.height - 10, 10, 10])
@@ -213,7 +217,7 @@ Rectangle {
                     toolTip.show(cell.x + cell.width + equipRow.x, equipRow.y)
                 }
                 else {
-                    let entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+                    let entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
                     toolTip.mainText = cells
                     toolTip.addText = entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex].additionalInfo
                     toolTip.show(cell.x + cell.width + equipRow.x, equipRow.y)
@@ -229,7 +233,7 @@ Rectangle {
                     toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
                 }
                 else {
-                    let entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+                    let entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
                     toolTip.mainText = cells
                     toolTip.addText = entityInv.metadataCells[currentIndex].additionalInfo
                     toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
@@ -251,7 +255,7 @@ Rectangle {
 
     function swapCells() {
         if (invItem.visible) {
-            var entityInv = levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+            var entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
             var localMeta
             if (!isEquipment) {
                 if (invItem.isEquipment && !(entityInv.equipmentCells[invItem.index] !== "" && cellText.text !== "")) {
@@ -270,7 +274,7 @@ Rectangle {
                 unMoveItem()
                 interfaceLoader.item.inventoryCells = entityInv.inventoryCells
                 interfaceLoader.item.equipmentCells = entityInv.equipmentCells
-                entityInv.activeItems()
+                entityInv.activeArmor()
             }
             else if (isEquipment) {
                 if (itemList.itemNames.indexOf(invItem.itemName) !== -1 && invItem.itemName !== "") {
@@ -290,7 +294,7 @@ Rectangle {
                         unMoveItem()
                         interfaceLoader.item.inventoryCells = entityInv.inventoryCells
                         interfaceLoader.item.equipmentCells = entityInv.equipmentCells
-                        entityInv.activeItems()
+                        entityInv.activeArmor()
                     }
                 }
                 else if (!!entityInv.metadataCells[invItem.index].type && invItem.itemName !== "") {
@@ -310,10 +314,11 @@ Rectangle {
                         unMoveItem()
                         interfaceLoader.item.inventoryCells = entityInv.inventoryCells
                         interfaceLoader.item.equipmentCells = entityInv.equipmentCells
-                        entityInv.activeItems()
+                        entityInv.activeArmor()
                     }
                 }
             }
+            invInterface.update()
         }
     }
 }

@@ -3,56 +3,56 @@ import QtQuick 2.15
 Item {
     focus: true
     Keys.onPressed: {
-        if (event.key === Qt.Key_A && !movementBlocked) {
-            if (facingRight === false) {
-                toTheLeft()
+
+        if (ifaceLoader.item.state === "ui") {
+            function killEnemy() {
+                entGen.repeater.itemAt(1).item.health = 0
             }
-            else {
-             facingRight = false
-                if (run === 1) {
-                    toTheLeft()
-                    stamina -= 2
-                }
-            }
-        } else if (event.key === Qt.Key_D && !movementBlocked) {
-            if (facingRight === true) {
-                toTheRight()
-            }
-            else {
-                facingRight = true
-                if (run === 1) {
-                    toTheRight()
-                    stamina -= 2
-                }
-            }
-        }
-        if (event.key === Qt.Key_W && !movementBlocked) {
-            toTheTop()
-        } else if (event.key === Qt.Key_S && !movementBlocked) {
-            toTheBot()
-        }
-        if (event.key === Qt.Key_I) {
-            if (ifaceLoader.item.state === "ui") {
+            walking(event.key)
+            if (event.key === Qt.Key_I) {
                 ifaceLoader.item.state = "inventory"
                 ifaceLoader.item.interfaceLoader.item.usedByEntity = mainHero
             }
-            else if (ifaceLoader.item.state === "inventory") {
+            if (event.key === Qt.Key_E) {
+                loot()
+            }
+            if (event.key === Qt.Key_J && animations.attackReady && !movementBlocked) {
+                nmyScan()
+            }
+            if (event.key === Qt.Key_Shift && !movementBlocked) {
+                mainHero.runActive()
+            }
+            if (event.key === Qt.Key_Escape) {
+                ifaceLoader.item.state = "menu"
+            }
+            if (event.key === Qt.Key_R) {
+                ifaceLoader.item.state = "dialogue"
+                ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
+                ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(1).item
+                ifaceLoader.item.interfaceLoader.item.actionAfterClose = killEnemy()
+            }
+        }
+        else if (ifaceLoader.item.state === "inventory") {
+            walking(event.key)
+            if (event.key === Qt.Key_I) {
+                ifaceLoader.item.state = "ui"
+            }
+            if (event.key === Qt.Key_Escape) {
                 ifaceLoader.item.state = "ui"
             }
         }
-        if (event.key === Qt.Key_E) {
-            loot()
+        else if (ifaceLoader.item.state === "menu") {
+            if (event.key === Qt.Key_Escape) {
+                ifaceLoader.item.state = "ui"
+            }
         }
-        if (event.key === Qt.Key_J && animations.attackReady && !movementBlocked) {
-            nmyScan()
-        }
-        if (event.key === Qt.Key_Shift && !movementBlocked) {
-            mainHero.runActive()
-        }
-        if (event.key === Qt.Key_Escape) {
-            if (ifaceLoader.item.state === "ui")
-                ifaceLoader.item.state = "menu"
-            else ifaceLoader.item.state = "ui"
+        else if (ifaceLoader.item.state === "dialogue") {
+            if (event.key === Qt.Key_Escape || event.key === Qt.Key_R) {//disable on release
+                ifaceLoader.item.state = "ui"
+            }
+            if (event.key === Qt.Key_Space) {
+                ifaceLoader.item.interfaceLoader.item.indexUp()
+            }
         }
     }
     Keys.onReleased: {
@@ -69,6 +69,37 @@ Item {
             if (event.key === Qt.Key_Shift) {
                 mainHero.run = 0
             }
+        }
+    }
+
+    function walking(key) {
+        if (key === Qt.Key_A && !movementBlocked) {
+            if (facingRight === false) {
+                toTheLeft()
+            }
+            else {
+                facingRight = false
+                if (run === 1) {
+                    toTheLeft()
+                    stamina -= 2
+                }
+            }
+        } else if (key === Qt.Key_D && !movementBlocked) {
+            if (facingRight === true) {
+                toTheRight()
+            }
+            else {
+                facingRight = true
+                if (run === 1) {
+                    toTheRight()
+                    stamina -= 2
+                }
+            }
+        }
+        if (key === Qt.Key_W && !movementBlocked) {
+            toTheTop()
+        } else if (key === Qt.Key_S && !movementBlocked) {
+            toTheBot()
         }
     }
 }

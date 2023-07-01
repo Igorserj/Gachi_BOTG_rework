@@ -63,5 +63,7 @@
         <file>Levels/collisionItem.mjs</file>
         <file>Levels/loot.mjs</file>
         <file>ControlModule.qml</file>
+        <file>Interface/Dialogue/Dialogue.qml</file>
+        <file>Interface/Dialogue/FaceImage.qml</file>
     </qresource>
 </RCC>

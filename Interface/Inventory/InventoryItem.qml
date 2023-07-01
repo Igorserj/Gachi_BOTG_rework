@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import "../../Controls"
 
 Rectangle {
     id: invItem
@@ -11,7 +12,11 @@ Rectangle {
     height: invInterface.height / 7
     width: height
     radius: width / 8
-    color: "#DD363436"
+    color: style.blackGlass
     x: inventoryArea.mouseX - width / 2
     y: inventoryArea.mouseY - height / 2
+
+    Styles {
+        id: style
+    }
 }

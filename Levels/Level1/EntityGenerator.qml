@@ -5,6 +5,7 @@ import "../../Entities/Evil"
 Item {
     property alias repeater: repeater
     property var objects: []
+    property var metadata: []
     property bool ready: repeater.numberOfCreatedObjects / objects.length === 1
     Repeater {
         id: repeater
@@ -19,7 +20,13 @@ Item {
             x: modelData[1]
             y: modelData[2]
             Component.onCompleted: entityIndex = index
-            onLoaded: repeater.numberOfCreatedObjects++
+            onLoaded: {
+                item.name = metadata[index].name
+                if (index !== 0 && metadata[index].hp !== undefined) {
+                    item.health = metadata[index].hp
+                }
+                repeater.numberOfCreatedObjects++
+            }
         }
     }
 
