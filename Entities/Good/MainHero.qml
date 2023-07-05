@@ -6,10 +6,10 @@ Entity {
     damage: 20
     defense: 0
     money: 300
-    inventory.inventoryCells: ['Baseball bat', "Penis ball", '', '', '', '', '', '', 'Bat', '', '', '', '', '', '', '', '', '', '', '']
-    inventory.equipmentCells: ['', '', '', '', '', '']
+    inventory.inventoryCells: ['Baseball bat', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    inventory.equipmentCells: ['', '', '', '', "Penis ball", 'Bat']
     inventory.metadataCells:  [{name: "Baseball bat", type: "One Hand", isEquipment: true, additionalInfo: "Beat this bitches", buffName: "StrengthUp"},
-                                {name: "Penis ball", type: "One Hand", isEquipment: true, additionalInfo: "Beat this balls", buffName: "StaminaUp"}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-                              {}, {}, {}, {}, {}, {}]
+                                {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+                              {}, {}, {}, {}, {name: "Penis ball", type: "One Hand", isEquipment: true, additionalInfo: "Beat this balls", buffName: "StaminaUp"}, {}]
     ControlModule {}
 }

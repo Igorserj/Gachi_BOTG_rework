@@ -11,7 +11,7 @@ QtObject {
     property var metadataCells: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
         {}, {}, {}, {}, {}, {}] //inventoryCells + equipmentCells
 
-    Component.onCompleted: { activeArmor(); activeWeapon() }
+    Component.onCompleted: { activeArmor() }
 
     function activeArmor() {
         var index = -1
@@ -29,29 +29,34 @@ QtObject {
     function activeWeapon() {
         var index = -1
         const armorCellsQ = itemList.equipmnets.length
-        for (let i = 3; i < armorCellsQ; i++) {
-            let j = i - 3
+        let i = 3
+        let j = 0
+        for (i = 3; i < armorCellsQ; i++) {
+            j = i - 3
+            console.log(j)
+            if (equipmentCells[i] === '' && equipmentCells[i] !== previousEquipment[i]) {
+                takeEffect(index, i)
+                activatedWeapon[j] = false
+            }
             if (equipmentCells[i] !== '') {
-                if (twoHands && itemList.equipmnets[i] === "Two Hands" && !activatedWeapon[j]) {
-                    giveEffect(index, i)
-                    activatedWeapon[j] = true
-                }
-                else if (twoHands && itemList.equipmnets[i] === "One Hand" && activatedWeapon[j]) {
-                    takeEffect(index, i, true)
-                    activatedWeapon[j] = false
-                }
-                if (!twoHands && itemList.equipmnets[i] === "One Hand"  && !activatedWeapon[j]) {
-                    giveEffect(index, i)
-                    activatedWeapon[j] = true
-                }
-                else if (!twoHands && itemList.equipmnets[i] === "Two Hands" && activatedWeapon[j]) {
+                if ((twoHands && itemList.equipmnets[i] === "One Hand" && activatedWeapon[j])
+                         || (!twoHands && itemList.equipmnets[i] === "Two Hands" && activatedWeapon[j])) {
+                    console.log("Take")
                     takeEffect(index, i, true)
                     activatedWeapon[j] = false
                 }
             }
-            else if (equipmentCells[i] === '' && equipmentCells[i] !== previousEquipment[i]) {
-                takeEffect(index, i)
-                activatedWeapon[j] = false
+        }
+        for (i = 3; i < armorCellsQ; i++) {
+            j = i - 3
+            console.log(j)
+            if (equipmentCells[i] !== '') {
+                if ((twoHands && itemList.equipmnets[i] === "Two Hands" && !activatedWeapon[j])
+                        || (!twoHands && itemList.equipmnets[i] === "One Hand"  && !activatedWeapon[j])) {
+                    console.log("Give")
+                    giveEffect(index, i)
+                    activatedWeapon[j] = true
+                }
             }
             previousEquipment[i] = equipmentCells[i].slice()
         }
@@ -59,41 +64,24 @@ QtObject {
 
     function takeEffect(index, i, isWeapon = false) {
         index = itemList.itemNames.indexOf(previousEquipment[i])
+        let index2 = equipmentCells.indexOf(previousEquipment[i])
+        let index3 = inventoryCells.indexOf(previousEquipment[i])
         if (index !== -1) {
             if (itemList.items[index].isEquipment) {
                 itemList.items[index].usedByEntity = entity
                 itemList.items[index].removeEffect(true)
             }
         }
-        else if (isWeapon) {
-            index = equipmentCells.indexOf(previousEquipment[i])
-            if (metadataCells[index + inventoryCells.length].isEquipment) {
-//                itemList.customItem.usedByEntity = entity
-//                itemList.customItem.buffName = metadataCells[index + inventoryCells.length].buffName
-//                itemList.customItem.removeEffect(true)
-//                itemList.customItem.buffName = ""
-                console.log("act1")
-//                let items = itemList.customItem.model
-//                items.push({buffName: metadataCells[index + inventoryCells.length].buffName, usedByEntity: entity, action: "remove", permanent: true})
-//                itemList.customItem.model = items
-                itemList.customItem.pool.push({buffName: metadataCells[index + inventoryCells.length].buffName, usedByEntity: entity, action: "remove", permanent: true})
+        else if (index2 !== -1/*isWeapon*/) {
+            if (metadataCells[index2 + inventoryCells.length].isEquipment) {
+                itemList.customItem.pool.push({buffName: metadataCells[index2 + inventoryCells.length].buffName, usedByEntity: entity, action: "remove", permanent: true})
                 itemList.customItem.modelUpdate()
-                //[{type: "", name: "", additionalInfo: "", buffName: "", points: 0, usedByEntity: undefined, action = "use", permanent = false}]
             }
         }
-        else {
-            index = inventoryCells.indexOf(previousEquipment[i])
-            if (metadataCells[index].isEquipment) {
-//                itemList.customItem.usedByEntity = entity
-//                itemList.customItem.buffName = metadataCells[index].buffName
-//                itemList.customItem.removeEffect(true)
-                console.log("act2")
-//                let items = itemList.customItem.model
-//                items.push({buffName: metadataCells[index].buffName, usedByEntity: entity, action: "remove", permanent: true})
-//                itemList.customItem.model = items
-                itemList.customItem.pool.push({buffName: metadataCells[index].buffName, usedByEntity: entity, action: "remove", permanent: true})
+        else if (index3 !== -1) {
+            if (metadataCells[index3].isEquipment) {
+                itemList.customItem.pool.push({buffName: metadataCells[index3].buffName, usedByEntity: entity, action: "remove", permanent: true})
                 itemList.customItem.modelUpdate()
-//                itemList.customItem.buffName = ""
             }
         }
     }
@@ -108,13 +96,6 @@ QtObject {
         }
         else {
             if (metadataCells[inventoryCells.length + i].isEquipment) {
-//                itemList.customItem.usedByEntity = entity
-//                itemList.customItem.buffName = metadataCells[inventoryCells.length + i].buffName
-//                itemList.customItem.use(true)
-                console.log("act3")
-//                let items = itemList.customItem.model
-//                items.push({buffName: metadataCells[inventoryCells.length + i].buffName, usedByEntity: entity, action: "use", permanent: true})
-//                itemList.customItem.model = items
                 itemList.customItem.pool.push({buffName: metadataCells[inventoryCells.length + i].buffName, usedByEntity: entity, action: "use", permanent: true})
                 itemList.customItem.modelUpdate()
             }

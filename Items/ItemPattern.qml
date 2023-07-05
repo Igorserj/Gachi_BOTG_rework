@@ -10,11 +10,13 @@ Item {
     property var usedByEntity
 
     function use(permanent = false) {
+//        console.log("use")
         if (buffName !== "") {
             usedByEntity.buffList.updateBuffs(buffName, -1, permanent, points)
         }
     }
     function removeEffect(permanent = false) {
+//        console.log("remove")
         let buffList = usedByEntity.buffList.currentBuffs
         for (let i = 0; i < buffList.length; i++) {
             if (buffName === buffList[i][0] && permanent === buffList[i][2]) {

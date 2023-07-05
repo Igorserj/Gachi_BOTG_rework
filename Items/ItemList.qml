@@ -33,8 +33,6 @@ Item {
                 else if (modelData.action === "remove") {
                     removeEffect(permanent)
                 }
-
-                console.log(customItem.pool)
                 customItem.pool.shift()
                 customItem.modelUpdate()
             }

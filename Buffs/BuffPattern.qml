@@ -36,6 +36,7 @@ Item {
                             }
                             else if (characteristic === "stamina") {
                                 usedByEntity.maxStamina += points
+                                console.log(usedByEntity.maxStamina)
                             }
                         }
                     }
@@ -104,6 +105,7 @@ Item {
                     usedByEntity.maxStamina -= points
                     if (usedByEntity.stamina > usedByEntity.maxStamina) {
                         usedByEntity.stamina = usedByEntity.maxStamina
+                        console.log(usedByEntity.maxStamina)
                     }
                 }
             }
