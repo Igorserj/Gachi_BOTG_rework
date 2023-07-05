@@ -96,9 +96,15 @@ Item {
                 }
                 else if (characteristic === "health") {
                     usedByEntity.maxHealth -= points
+                    if (usedByEntity.health > usedByEntity.maxHealth) {
+                        usedByEntity.health = usedByEntity.maxHealth
+                    }
                 }
                 else if (characteristic === "stamina") {
                     usedByEntity.maxStamina -= points
+                    if (usedByEntity.stamina > usedByEntity.maxStamina) {
+                        usedByEntity.stamina = usedByEntity.maxStamina
+                    }
                 }
             }
             else if (type === "Continuous") {

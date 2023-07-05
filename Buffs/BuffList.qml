@@ -7,7 +7,7 @@ Item {
         "Stun", "StaminaDown", "StaminaDecrease"]
     readonly property var types: ["Immediate", "Continuous", "Instant"]
     readonly property var buffs: [strUp, spUp, hpHeal, hpRegen, hpUp,
-        ,staRegen, staHeal, staUp
+        , staRegen, staHeal, staUp
     ]
 
     property var currentBuffs: []

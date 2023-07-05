@@ -65,5 +65,6 @@
         <file>ControlModule.qml</file>
         <file>Interface/Dialogue/Dialogue.qml</file>
         <file>Interface/Dialogue/FaceImage.qml</file>
+        <file>Levels/Highlighter.qml</file>
     </qresource>
 </RCC>

@@ -125,12 +125,18 @@ Rectangle {
         }
         else {
             let entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
-            itemList.customItem.usedByEntity = invInterface.usedByEntity
-            itemList.customItem.buffName = entityInv.metadataCells[currentIndex].buffName
-            itemList.customItem.points = entityInv.metadataCells[currentIndex].points
-            itemList.customItem.use()
-            itemList.customItem.usedByEntity = undefined
-            itemList.customItem.buffName = ""
+//            itemList.customItem.usedByEntity = invInterface.usedByEntity
+//            itemList.customItem.buffName = entityInv.metadataCells[currentIndex].buffName
+//            itemList.customItem.points = entityInv.metadataCells[currentIndex].points
+//            itemList.customItem.use()
+//            itemList.customItem.usedByEntity = undefined
+//            itemList.customItem.buffName = ""
+            console.log("act4")
+//            let items = itemList.customItem.model
+//            items.push({buffName: entityInv.metadataCells[currentIndex].buffName, points: entityInv.metadataCells[currentIndex].points, usedByEntity: invInterface.usedByEntity, action: "use"})
+//            itemList.customItem.model = items
+            itemList.customItem.pool.push({buffName: entityInv.metadataCells[currentIndex].buffName, points: entityInv.metadataCells[currentIndex].points, usedByEntity: invInterface.usedByEntity, action: "use"})
+            itemList.customItem.modelUpdate()
         }
         destroyItem()
     }
@@ -249,7 +255,6 @@ Rectangle {
             else contextMenu.show(cell.x + parent.x + col.x + mouseX, parent.y + col.y + mouseY)
         }
         else contextMenu.hide()
-
         swapCells()
     }
 

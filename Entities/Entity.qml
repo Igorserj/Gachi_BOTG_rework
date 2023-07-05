@@ -54,8 +54,8 @@ Rectangle {
             name: "paused"
             PropertyChanges {
                 target: entity
-//                movementBlocked: true
-//                interactionBlocked: true
+                movementBlocked: true
+                interactionBlocked: true
             }
         },
         State {
@@ -86,50 +86,56 @@ Rectangle {
     WorkerScript {
         id: objectsScanScript
         source: "objectsScan.mjs"
-        onMessage: {
-            let index = messageObject.index
-            let dir = messageObject.dir
-            let hor = messageObject.hor
-            if (index.length > 0) {
-                eventHandler.itemAt(entity.parent.entityIndex).collision(hor, dir, index, entity.parent.entityIndex)
-            }
-            else {
-                if (hor === 1 && dir === 0) animations.moveLeftRun = true
-                else if (hor === 1 && dir === 1) animations.moveRightRun = true
-                else if (hor === 0 && dir === 0) animations.moveUpRun = true
-                else if (hor === 0 && dir === 1) animations.moveDownRun = true
-            }
-        }
+        onMessage: scannedObjects(messageObject)
     }
     WorkerScript {
         id: itemsScanScript
         source: "objectsScan.mjs"
-        onMessage: {
-            let index = messageObject.index
-            if (index.length > 0) {
-                for (let i = 0; i < index.length; i++) {
-                    eventHandler.itemAt(entity.parent.entityIndex).collisionItem(index[i], entity.parent.entityIndex)
-                }
-            }
-            else canPickUp = true
-        }
+        onMessage: scannedItems(messageObject)
     }
     WorkerScript {
         id: enemiesScanScript
         source: "enemiesScan.mjs"
-        onMessage: {
-            const ids = messageObject.ids
-            eventHandler.itemAt(entity.parent.entityIndex).punch(entity.parent, messageObject.index, ids)
-        }
+        onMessage: scannedEnemies(messageObject)
     }
 
     WorkerScript {
         id: deadEnemiesScanScript
         source: "enemiesScan.mjs"
-        onMessage: {
-            const ids = messageObject.ids
-            eventHandler.itemAt(entity.parent.entityIndex).loot(entity.parent, ids)
+        onMessage: scannedDeadEnemies(messageObject)
+    }
+
+    function scannedObjects(messageObject) {
+        let index = messageObject.index
+        let dir = messageObject.dir
+        let hor = messageObject.hor
+        if (index.length > 0) {
+            eventHandler.itemAt(entity.parent.entityIndex).collision(hor, dir, index, entity.parent.entityIndex)
         }
+        else {
+            if (hor === 1 && dir === 0) animations.moveLeftRun = true
+            else if (hor === 1 && dir === 1) animations.moveRightRun = true
+            else if (hor === 0 && dir === 0) animations.moveUpRun = true
+            else if (hor === 0 && dir === 1) animations.moveDownRun = true
+        }
+    }
+
+    function scannedItems(messageObject) {
+        let index = messageObject.index
+        if (index.length > 0) {
+            for (let i = 0; i < index.length; i++) {
+                eventHandler.itemAt(entity.parent.entityIndex).collisionItem(index[i], entity.parent.entityIndex)
+            }
+        }
+        else canPickUp = true
+    }
+
+    function scannedEnemies(messageObject) {
+        eventHandler.itemAt(entity.parent.entityIndex).punch(entity.parent, messageObject.index, messageObject.ids)
+    }
+
+    function scannedDeadEnemies(messageObject) {
+        eventHandler.itemAt(entity.parent.entityIndex).loot(entity.parent, messageObject.ids)
     }
 
     function objScan(hor, dir) {

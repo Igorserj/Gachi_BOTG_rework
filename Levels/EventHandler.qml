@@ -3,6 +3,18 @@ import QtQuick 2.15
 Repeater {
     model: entGen.objects
     Item {
+//        Connections {
+//            target: entGen.ready ? entGen.repeater.itemAt(index).item : undefined
+//            function onStateChanged() {
+//                if (entGen.repeater.itemAt(index).item.state === "dead") {
+//                    highlighter.sizes = entGen.repeater.itemAt(index)
+//                    highlighter.source = entGen.repeater.itemAt(index).item
+//                }
+//            }
+//        }
+//        Highlighter {
+//            id: highlighter
+//        }
         WorkerScript {
             id: colliderScript
             source: "collision.mjs"

@@ -19,7 +19,6 @@ Item {
 
     FastBlur {
         id: blur
-        //        anchors.fill: levelLoader
         width: levelLoader.width
         height: levelLoader.height
         source: levelLoader

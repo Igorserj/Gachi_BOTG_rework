@@ -17,6 +17,7 @@ Item {
     property bool attackReady: true
     property var targets: []
     property var healths: []
+    property bool pauseCondition: ifaceLoader.item.state === "menu" || ifaceLoader.item.state === "dialogue"
     /*--------------------------------------------*/
 
     function comeCloser(hor, edge) {
@@ -47,7 +48,7 @@ Item {
     SequentialAnimation {
         id: moveLeft
         running: (moveLeftRun && entity.walkLeft === 1) && !movementBlocked
-        paused: running ? ifaceLoader.item.state === "menu" : false
+        paused: running ? pauseCondition : false
         ScriptAction {
             script: {
                 moveRightRun = false
@@ -75,7 +76,7 @@ Item {
     SequentialAnimation {
         id: moveRight
         running: (moveRightRun && entity.walkRight === 1) && !movementBlocked
-        paused: running ? ifaceLoader.item.state === "menu" : false
+        paused: running ? pauseCondition : false
         ScriptAction {
             script: {
                 moveLeftRun = false
@@ -103,7 +104,7 @@ Item {
     SequentialAnimation {
         id: moveUp
         running: (moveUpRun && entity.walkUp === 1) && !movementBlocked
-        paused: running ? ifaceLoader.item.state === "menu" : false
+        paused: running ? pauseCondition : false
         ScriptAction {
             script: {
                 moveDownRun = false
@@ -131,7 +132,7 @@ Item {
     SequentialAnimation {
         id: moveDown
         running: (moveDownRun && entity.walkDown === 1) && !movementBlocked
-        paused: running ? ifaceLoader.item.state === "menu" : false
+        paused: running ? pauseCondition : false
         ScriptAction {
             script: {
                 moveUpRun = false
@@ -190,7 +191,7 @@ Item {
 
     SequentialAnimation {
         id: horizontalCloser
-        paused: running ? ifaceLoader.item.state === "menu" : false
+        paused: running ? pauseCondition : false
         PropertyAnimation {
             id: horizontalCloserX
             target: entity.parent
@@ -200,7 +201,7 @@ Item {
     }
     SequentialAnimation {
         id: verticalCloser
-        paused: running ? ifaceLoader.item.state === "menu" : false
+        paused: running ? pauseCondition : false
         PropertyAnimation {
             id: verticalCloserY
             target: entity.parent
@@ -211,7 +212,7 @@ Item {
 
     SequentialAnimation {
         id: decrasing
-        paused: running ? ifaceLoader.item.state === "menu" : false
+        paused: running ? pauseCondition : false
         PauseAnimation {
             duration: 350
         }

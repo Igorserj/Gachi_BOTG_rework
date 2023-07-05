@@ -12,8 +12,9 @@ Item {
     property bool enabled2: false
     property int index: 0
     property alias dialogueRect: dialogueRect
-    property var actionAfterClose //function actionAfterClose() {}
+    property bool actionAfterClose: false
     property var text: [[name1, "Oh shit, i'm sorry"], [name2, "Sorry for what?"]]
+    function onActionAfterCloseChanged() {}
 
     Rectangle {
         id: dialogueRect
@@ -260,7 +261,9 @@ Item {
         }
         else {
             ifaceLoader.item.state = "ui"
-            return actionAfterClose
+            actionAfterClose = true
         }
     }
+
+//    function actionAfterClose() {}
 }

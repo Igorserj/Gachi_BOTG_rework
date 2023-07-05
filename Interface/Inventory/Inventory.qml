@@ -6,7 +6,6 @@ Rectangle {
     property var inventoryCells: []
     property var equipmentCells: []
     property var usedByEntity
-//    onUsedByEntityChanged: console.log(usedByEntity)
     width: parent.width * 0.8
     height: parent.height * 0.8
     color: style.blackGlass

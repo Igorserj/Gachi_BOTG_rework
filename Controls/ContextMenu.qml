@@ -11,9 +11,11 @@ Rectangle {
     color: style.blackGlass
     radius: width / 8
     opacity: 0
-    onOpacityChanged: {
-        toolTip.visible = opacity < 1
-    }
+//    onOpacityChanged: {
+//        if (opacity === 1) {
+//            toolTip.hide()
+//        }
+//    }
     onHeightChanged: borderDetect()
     onYChanged: {
         borderDetect()
@@ -86,6 +88,10 @@ Rectangle {
         }
     }
 
+    Styles {
+        id: style
+    }
+
     function borderDetect() {
         if (y + height > loader.y + loader.height) {
             y = loader.y + loader.height - height - 1
@@ -100,6 +106,7 @@ Rectangle {
         contextMenu.x = x1
         contextMenu.y = y1
         contextMenu.opacity = 1
+        toolTip.hide()
     }
 
     function hide() {
@@ -110,7 +117,4 @@ Rectangle {
         contextMenu.set = -1
     }
 
-    Styles {
-        id: style
-    }
 }

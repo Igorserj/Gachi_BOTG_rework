@@ -3,7 +3,7 @@
 #        gui
 
 !qtConfig(vulkan): error("This example requires Qt built with Vulkan support")
-
+QMAKE_CXXFLAGS += -DQT_QUICK_BACKEND=vulkan
 QT += qml quick
 #QSG_RHI_PREFER_SOFTWARE_RENDERER = 0
 #CONFIG += qmltypes

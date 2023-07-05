@@ -3,11 +3,7 @@ import QtQuick 2.15
 Item {
     focus: true
     Keys.onPressed: {
-
         if (ifaceLoader.item.state === "ui") {
-            function killEnemy() {
-                entGen.repeater.itemAt(1).item.health = 0
-            }
             walking(event.key)
             if (event.key === Qt.Key_I) {
                 ifaceLoader.item.state = "inventory"
@@ -15,6 +11,10 @@ Item {
             }
             if (event.key === Qt.Key_E) {
                 loot()
+            }
+            if (event.key === Qt.Key_F) {
+                mainHero.inventory.twoHands = !mainHero.inventory.twoHands
+                mainHero.inventory.activeWeapon()
             }
             if (event.key === Qt.Key_J && animations.attackReady && !movementBlocked) {
                 nmyScan()
@@ -29,7 +29,9 @@ Item {
                 ifaceLoader.item.state = "dialogue"
                 ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
                 ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(1).item
-                ifaceLoader.item.interfaceLoader.item.actionAfterClose = killEnemy()
+//                dialogueLoader.sourceComponent = dialogueScript
+                connection.target = ifaceLoader.item.interfaceLoader.item
+                //                ifaceLoader.item.interfaceLoader.item.actionAfterClose = killEnemy()
             }
         }
         else if (ifaceLoader.item.state === "inventory") {
@@ -101,5 +103,17 @@ Item {
         } else if (key === Qt.Key_S && !movementBlocked) {
             toTheBot()
         }
+    }
+
+
+        Connections {
+            id: connection
+            ignoreUnknownSignals: true
+            function onActionAfterCloseChanged() {
+                return killEnemy()
+            }
+        }
+    function killEnemy() {
+        entGen.repeater.itemAt(1).item.health = 0
     }
 }

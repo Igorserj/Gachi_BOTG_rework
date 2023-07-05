@@ -8,9 +8,45 @@ Item {
     property alias customItem: customItem
     visible: false
 
-    ItemPattern {
+    Repeater {
         id: customItem
+        property var pool: []
+        model: []
+//        onPoolChanged: modelUpdate()
+//      properties = [{type: "", name: "", additionalInfo: "", buffName: "", points: 0, usedByEntity: undefined, action = "use", permanent = false}]
+
+        ItemPattern {
+            type: modelData.type !== undefined ? modelData.type : ""
+            name: modelData.name !== undefined ? modelData.name : ""
+            additionalInfo: modelData.additionalInfo !== undefined ? modelData.additionalInfo : ""
+            buffName: modelData.buffName !== undefined ? modelData.buffName : ""
+            points: modelData.points !== undefined ? modelData.points : 0
+            usedByEntity: modelData.usedByEntity !== undefined ? modelData.usedByEntity : undefined
+            Component.onCompleted: {
+                let permanent
+                if (modelData.permanent === undefined) permanent = false
+                else permanent = modelData.permanent
+
+                if (modelData.action === "use") {
+                    use(permanent)
+                }
+                else if (modelData.action === "remove") {
+                    removeEffect(permanent)
+                }
+
+                console.log(customItem.pool)
+                customItem.pool.shift()
+                customItem.modelUpdate()
+            }
+        }
+
+        function modelUpdate() {
+            if (pool.length > 0) {
+                customItem.model = [pool[0]]
+            }
+        }
     }
+
 
     ItemPattern {
         id: hat

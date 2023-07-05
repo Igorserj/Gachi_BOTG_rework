@@ -4,7 +4,7 @@ Item {
 
     SequentialAnimation {
         running: entGen.repeater.numberOfCreatedObjects / entGen.objects.length === 1
-        paused: ifaceLoader.item.state === "menu"
+        paused: ifaceLoader.item.state === "menu" || ifaceLoader.item.state === "dialogue"
         loops: Animation.Infinite
         ScriptAction {
             script: dir()//hostile.state !== "idle" ? dir() : idle()
