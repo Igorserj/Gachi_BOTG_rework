@@ -3,7 +3,7 @@ import "../../Controls"
 
 Item {
     id: settings
-    property var resolutions: [[1280, 720], [1366, 768], [1600, 900], [1920, 1080], [2560, 1440]]
+    property var resolutions: [[640, 360], [1280, 720], [1366, 768], [1600, 900], [1920, 1080], [2560, 1440]]
     Column {
         spacing: height / 20
         height: settings.height * 0.9

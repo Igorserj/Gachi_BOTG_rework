@@ -12,15 +12,17 @@ Item {
     property string name: ""
     property string description: ""
     property bool isPermanent: parent.isPermanent
+    property bool isReversible: parent.isReversible
     property alias animation: animation
     property alias instantAnimation: instantAnimation
+
     ParallelAnimation {
         id: animation
-        running: type !== "Instant"
+        running: type !== "Instant" && !isPermanent
         paused: running ? ifaceLoader.item.state === "menu" : false
         SequentialAnimation {
             id: buffRun
-            loops: isPermanent ? Animation.Infinite : type === "Immediate" ? 1 : type === "Continuous" ? Math.ceil((timeDuration - timeElapsed) / deltaDuration) : 1
+            loops: type === "Immediate" ? 1 : type === "Continuous" ? Math.ceil((timeDuration - timeElapsed) / deltaDuration) : 1
             ScriptAction {
                 script: {
                     if (type !== "Continuous") {
@@ -36,7 +38,6 @@ Item {
                             }
                             else if (characteristic === "stamina") {
                                 usedByEntity.maxStamina += points
-                                console.log(usedByEntity.maxStamina)
                             }
                         }
                     }
@@ -60,7 +61,7 @@ Item {
                 }
             }
             PauseAnimation {
-                duration: isPermanent ? 9999999 : type === "Immediate" ? (timeDuration - timeElapsed) : deltaDuration
+                duration: type === "Immediate" ? (timeDuration - timeElapsed) : deltaDuration
             }
             ScriptAction {
                 script: {
@@ -76,14 +77,8 @@ Item {
             }
             ScriptAction {
                 script: {
-                    if (isPermanent) {
-                        timeElapsed = 1
-                        timeLeft = 9999999
-                    }
-                    else {
-                        timeElapsed += 250
-                        timeLeft = ((timeDuration - timeElapsed) / 1000)
-                    }
+                    timeElapsed += 250
+                    timeLeft = ((timeDuration - timeElapsed) / 1000)
                 }
             }
         }
@@ -105,7 +100,6 @@ Item {
                     usedByEntity.maxStamina -= points
                     if (usedByEntity.stamina > usedByEntity.maxStamina) {
                         usedByEntity.stamina = usedByEntity.maxStamina
-                        console.log(usedByEntity.maxStamina)
                     }
                 }
             }
@@ -130,31 +124,69 @@ Item {
 
     SequentialAnimation {
         id: instantAnimation
-        running: type === "Instant"
+        running: type === "Instant" || isPermanent
         ScriptAction {
             script: {
-                if (characteristic === "health") {
-                    if (usedByEntity.health + points <= usedByEntity.maxHealth) {
-                        usedByEntity.health += points
-                    }
-                    else {
-                        usedByEntity.health = usedByEntity.maxHealth
-                    }
+                if (isPermanent) {
+                    permanentScript()
                 }
-                if (characteristic === "stamina") {
-                    if (usedByEntity.stamina + points <= usedByEntity.maxStamina) {
-                        usedByEntity.stamina += points
-                    }
-                    else {
-                        usedByEntity.stamina = usedByEntity.maxStamina
-                    }
-                }
-                timeElapsed = 0
-                timeLeft = 0
+                else instantScript()
             }
         }
         onFinished: {
             updateBuffs("", parent.currentIndex)
         }
+    }
+
+    function instantScript() {
+
+        if (characteristic === "health") {
+            if (usedByEntity.health + points <= usedByEntity.maxHealth) {
+                usedByEntity.health += points
+            }
+            else {
+                usedByEntity.health = usedByEntity.maxHealth
+            }
+        }
+        if (characteristic === "stamina") {
+            if (usedByEntity.stamina + points <= usedByEntity.maxStamina) {
+                usedByEntity.stamina += points
+            }
+            else {
+                usedByEntity.stamina = usedByEntity.maxStamina
+            }
+        }
+        timeElapsed = 0
+        timeLeft = 0
+    }
+
+    function permanentScript() {
+        if (isReversible) {
+            points = -points
+        }
+        if (characteristic === "maxHealth") {
+            usedByEntity.maxHealth += points
+        }
+        else if (characteristic === "health") {
+            usedByEntity.health += points
+        }
+        else if (characteristic === "maxStamina") {
+            usedByEntity.maxStamina += points
+        }
+        else if (characteristic === "stamina") {
+            usedByEntity.stamina += points
+        }
+        else if (characteristic === "damage") {
+            usedByEntity.damage += points
+        }
+        else if (characteristic === "speed") {
+            usedByEntity.speedCoeff += points
+        }
+        else if (characteristic === "defense") {
+            usedByEntity.defense += points
+        }
+
+        timeElapsed = 0
+        timeLeft = 0
     }
 }

@@ -28,7 +28,7 @@ Item {
         id: itmGen
         objects: [[350, 310, 10, 10], [350, 550, 10, 10], [530, 400, 10, 10]]
         metadata: [{name: "Super Vodka", type: "Consumable", isEquipment: false, additionalInfo: "This is super Vodka!", buffName: "StaminaUp", points: 35},
-                   {name: "Mask", additionalInfo: "Maska tupa", buffName: "HealthUp", type: "Head", isEquipment: true},
+                   {name: "Mask", additionalInfo: "Maska tupa", buffName: "HealthUp", points: 10, type: "Head", isEquipment: true},
                    {name: "money", pcs: 10}]
     }
 

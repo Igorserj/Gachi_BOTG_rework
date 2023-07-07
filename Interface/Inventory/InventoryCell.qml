@@ -54,7 +54,9 @@ Rectangle {
         var text = cellText.text
         if (text !== "") {
             if (itemList.itemNames.includes(text)) {
-                if (type === itemList.items[itemList.itemNames.indexOf(text)].type) {
+                var entityInv = usedByEntity.inventory
+                let type1 = itemList.items[itemList.itemNames.indexOf(text)].type
+                if (type === type1) {
                     contextMenu.set = 2
                     return locale.inventoryCellOptions[2]
                 }
@@ -68,7 +70,7 @@ Rectangle {
                 }
             }
             else {
-                var entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+                var entityInv = usedByEntity.inventory
                 var itemType
                 var itemIsEquipment
                 if (isEquipment) {
@@ -112,7 +114,7 @@ Rectangle {
         invItem.itemName = cellText.text
         invItem.index = currentIndex
         invItem.isEquipment = isEquipment
-        invItem.metadata = usedByEntity.inventory.metadataCells[currentIndex]//levelLoader.item.entGen.repeater.itemAt(0).item.inventory.metadataCells[currentIndex]
+        invItem.metadata = usedByEntity.inventory.metadataCells[currentIndex]
         inventoryArea.enabled = true
     }
     function useItem() {
@@ -123,35 +125,45 @@ Rectangle {
             itemList.items[i].use()
         }
         else {
-            let entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
-            console.log("act4")
-            itemList.customItem.pool.push({buffName: entityInv.metadataCells[currentIndex].buffName, points: entityInv.metadataCells[currentIndex].points, usedByEntity: invInterface.usedByEntity, action: "use"})
+//            let entityInv =
+            const cell = usedByEntity.inventory.metadataCells[currentIndex]
+            itemList.customItem.pool.push({buffName: cell.buffName, points: cell.points, usedByEntity: invInterface.usedByEntity, action: "use", hp: cell.hp, defense: cell.defense})
             itemList.customItem.modelUpdate()
         }
         destroyItem()
     }
     function equipItem() {
-        var entityInv = usedByEntity.inventory//levelLoader.item.entGen.repeater.itemAt(0).item.inventory
+        var entityInv = usedByEntity.inventory
+        let isSwappable = false
+        let type
+        let name = ""
+
+        if (itemList.itemNames.indexOf(cellText.text) !== -1) type = itemList.items[itemList.itemNames.indexOf(cellText.text)].type
+        else type = entityInv.metadataCells[currentIndex].type
+
         for (let i = 0; i < entityInv.equipmentCells.length; i++) {
-            if (itemList.itemNames.indexOf(cellText.text) !== -1) {
-                if (itemList.items[itemList.itemNames.indexOf(cellText.text)].type === itemList.equipmnets[i]) {
-                    invItem.index = i
-                    invItem.isEquipment = true
-                    invItem.itemName = entityInv.equipmentCells[i]
-                }
-            }
-            else {
-                if (entityInv.metadataCells[currentIndex].type === itemList.equipmnets[i]) {
+                if (type === itemList.equipmnets[i] && entityInv.equipmentCells[i] === "") {
                     invItem.index = i
                     invItem.isEquipment = true
                     invItem.itemName = entityInv.equipmentCells[i]
                     invItem.metadata = entityInv.metadataCells[entityInv.inventoryCells.length + i]
+                    isSwappable = true
+                }
+                else if (type === itemList.equipmnets[i] && entityInv.equipmentCells[i] !== "") {
+                    name = entityInv.equipmentCells[i]
                 }
             }
+
+        if (isSwappable) {
+            invItem.itemName2 = cellText.text
+            inventoryArea.enabled = true
+            swapCells()
         }
-        invItem.itemName2 = cellText.text
-        inventoryArea.enabled = true
-        swapCells()
+        else {
+            toolTip.mainText = "Unequip item!"// "There is no vacant cell of type " + type
+            toolTip.addText = "There is no vacant cell of type " + type + ". Unequip " + name
+            toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
+        }
     }
     function unEquipItem() {
         var entityInv = usedByEntity.inventory

@@ -23,7 +23,6 @@ ApplicationWindow {
 
     Loader {
         id: loader
-//        focus: true
         x: (window.width - recalculatedWidth) / 2
         y: (window.height - recalculatedHeight) / 2
         z: 0

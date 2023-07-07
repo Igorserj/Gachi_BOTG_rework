@@ -33,7 +33,6 @@ QtObject {
         let j = 0
         for (i = 3; i < armorCellsQ; i++) {
             j = i - 3
-            console.log(j)
             if (equipmentCells[i] === '' && equipmentCells[i] !== previousEquipment[i]) {
                 takeEffect(index, i)
                 activatedWeapon[j] = false
@@ -41,7 +40,6 @@ QtObject {
             if (equipmentCells[i] !== '') {
                 if ((twoHands && itemList.equipmnets[i] === "One Hand" && activatedWeapon[j])
                          || (!twoHands && itemList.equipmnets[i] === "Two Hands" && activatedWeapon[j])) {
-                    console.log("Take")
                     takeEffect(index, i, true)
                     activatedWeapon[j] = false
                 }
@@ -49,11 +47,9 @@ QtObject {
         }
         for (i = 3; i < armorCellsQ; i++) {
             j = i - 3
-            console.log(j)
             if (equipmentCells[i] !== '') {
                 if ((twoHands && itemList.equipmnets[i] === "Two Hands" && !activatedWeapon[j])
                         || (!twoHands && itemList.equipmnets[i] === "One Hand"  && !activatedWeapon[j])) {
-                    console.log("Give")
                     giveEffect(index, i)
                     activatedWeapon[j] = true
                 }
@@ -69,18 +65,20 @@ QtObject {
         if (index !== -1) {
             if (itemList.items[index].isEquipment) {
                 itemList.items[index].usedByEntity = entity
-                itemList.items[index].removeEffect(true)
+                itemList.items[index].removeEffect(true, true)
             }
         }
-        else if (index2 !== -1/*isWeapon*/) {
+        else if (index2 !== -1) {
             if (metadataCells[index2 + inventoryCells.length].isEquipment) {
-                itemList.customItem.pool.push({buffName: metadataCells[index2 + inventoryCells.length].buffName, usedByEntity: entity, action: "remove", permanent: true})
+                const cell = metadataCells[index2 + inventoryCells.length]
+                itemList.customItem.pool.push({buffName: cell.buffName, usedByEntity: entity, action: "remove", permanent: true, points: cell.points, reversible: true, hp: cell.hp, defense: cell.defense})
                 itemList.customItem.modelUpdate()
             }
         }
         else if (index3 !== -1) {
             if (metadataCells[index3].isEquipment) {
-                itemList.customItem.pool.push({buffName: metadataCells[index3].buffName, usedByEntity: entity, action: "remove", permanent: true})
+                const cell = metadataCells[index3]
+                itemList.customItem.pool.push({buffName: cell.buffName, usedByEntity: entity, action: "remove", permanent: true, points: cell.points, reversible: true, hp: cell.hp, defense: cell.defense})
                 itemList.customItem.modelUpdate()
             }
         }
@@ -96,7 +94,8 @@ QtObject {
         }
         else {
             if (metadataCells[inventoryCells.length + i].isEquipment) {
-                itemList.customItem.pool.push({buffName: metadataCells[inventoryCells.length + i].buffName, usedByEntity: entity, action: "use", permanent: true})
+                const cell = metadataCells[inventoryCells.length + i]
+                itemList.customItem.pool.push({buffName: cell.buffName, usedByEntity: entity, action: "use", permanent: true, points: cell.points, hp: cell.hp, defense: cell.defense})
                 itemList.customItem.modelUpdate()
             }
         }

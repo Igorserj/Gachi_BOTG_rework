@@ -21,17 +21,23 @@ Item {
             additionalInfo: modelData.additionalInfo !== undefined ? modelData.additionalInfo : ""
             buffName: modelData.buffName !== undefined ? modelData.buffName : ""
             points: modelData.points !== undefined ? modelData.points : 0
+            hp: modelData.hp !== undefined ? modelData.hp : 0
+            defense: modelData.defense !== undefined ? modelData.defense : 0
             usedByEntity: modelData.usedByEntity !== undefined ? modelData.usedByEntity : undefined
             Component.onCompleted: {
                 let permanent
+                let reversible
                 if (modelData.permanent === undefined) permanent = false
                 else permanent = modelData.permanent
+
+                if (modelData.reversible === undefined) reversible = false
+                else reversible = modelData.reversible
 
                 if (modelData.action === "use") {
                     use(permanent)
                 }
                 else if (modelData.action === "remove") {
-                    removeEffect(permanent)
+                    removeEffect(permanent, reversible)
                 }
                 customItem.pool.shift()
                 customItem.modelUpdate()

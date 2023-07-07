@@ -2,12 +2,12 @@ import QtQuick 2.15
 
 Item {
     readonly property var buffNames: ["StrengthUp", "SpeedUp", "HealthHeal", "HealthRegen", "HealthUp",
-        "Vanish", "StaminaRegen", "StaminaHeal", "StaminaUp"]
+        "Vanish", "StaminaRegen", "StaminaHeal", "StaminaUp", "DefenseUp"]
     readonly property var debuffNames: ["StrengthDown", "SpeedDown", "HealthDown", "HealthDecrease",
         "Stun", "StaminaDown", "StaminaDecrease"]
     readonly property var types: ["Immediate", "Continuous", "Instant"]
     readonly property var buffs: [strUp, spUp, hpHeal, hpRegen, hpUp,
-        , staRegen, staHeal, staUp
+        , staRegen, staHeal, staUp, defUp
     ]
 
     property var currentBuffs: []
@@ -24,6 +24,7 @@ Item {
             property double timeElapsed: modelData[1]
             property bool isPermanent: modelData[2]
             property int points: modelData[3]
+            property bool isReversible: modelData[4]
             sourceComponent: modelData[0] !== "" ? buffs[buffNames.indexOf(modelData[0])] : undefined
         }
     }
@@ -56,7 +57,7 @@ Item {
             characteristic: "health"
             name: "Healing"
             description: "Healed by N hp."
-            points: 20
+//            points: 20
         }
     }
 
@@ -69,7 +70,7 @@ Item {
             characteristic: "health"
             name: "Health regeneration"
             description: "Heal by 5 every second."
-            points: 5
+//            points: 5
         }
     }
 
@@ -78,10 +79,10 @@ Item {
         BuffPattern {
             type: types[0]
             timeDuration: 10000
-            characteristic: "health"
+            characteristic: "maxHealth"
             name: "Increased max health"
             description: "Your health increased by points hp."
-            points: 20
+//            points: 20
         }
     }
 
@@ -94,7 +95,7 @@ Item {
             characteristic: "stamina"
             name: "Stamina regeneration"
             description: "Restore 5 energy every second."
-            points: 5
+//            points: 5
         }
     }
 
@@ -106,7 +107,7 @@ Item {
             characteristic: "stamina"
             name: "Recovery"
             description: "Restored by N energy."
-            points: 20
+//            points: 20
         }
     }
 
@@ -115,21 +116,33 @@ Item {
         BuffPattern {
             type: types[0]
             timeDuration: 10000
-            characteristic: "stamina"
+            characteristic: "maxStamina"
             name: "Increased max stamina"
             description: "Your stamina increased by 20 energy."
-            points: 10
+//            points: 10
         }
     }
 
-    function updateBuffs(addBuff = "", index = -1, permanent = false, points = 0) {
+    Component {
+        id: defUp
+        BuffPattern {
+            type: types[0]
+            timeDuration: 10000
+            characteristic: "defense"
+            name: "Increased defense"
+            description: ""
+//            points: 10
+        }
+    }
+
+    function updateBuffs(addBuff = "", index = -1, permanent = false, points = 0, reversible = false) {
         var buffProperties = []
         if (currentBuffs.length > 0) {
             for (let i = 0; i < currentBuffs.length; i++) {
                 let buff = repeater.itemAt(i).item
                 if (buff !== null) {
                     let buff2 = []
-                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, points)
+                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, points, reversible)
                     buffProperties.push(buff2)
                 }
             }
@@ -143,7 +156,7 @@ Item {
         }
         else {
             let buff2 = []
-            buff2.push(addBuff, 0, permanent, points)
+            buff2.push(addBuff, 0, permanent, points, reversible)
             buffProperties.push(buff2)
         }
         toolTip.hide()
