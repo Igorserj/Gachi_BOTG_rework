@@ -3,20 +3,20 @@ import QtQuick 2.15
 QtObject {
 
     property var inventoryCells: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-    property var equipmentCells: ['', '', '', '', '', '']
-    property var previousEquipment: ['', '', '', '', '', '']
+    property var equipmentCells: ['', '', '', '', '', '', '']
+    property var previousEquipment: ['', '', '', '', '', '', '']
     property var activatedWeapon: [false, false, false]
     property bool twoHands: false
 
     property var metadataCells: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-        {}, {}, {}, {}, {}, {}] //inventoryCells + equipmentCells
+        {}, {}, {}, {}, {}, {}, {}] //inventoryCells + equipmentCells
 
     Component.onCompleted: { activeArmor() }
 
     function activeArmor() {
         var index = -1
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 4; i++) {
             const effectIsApplied = (equipmentCells[i] !== '' && previousEquipment[i] === '')
             const effectIsTaken = (equipmentCells[i] === '' && previousEquipment[i] !== '')
             if (effectIsApplied) giveEffect(index, i)
@@ -29,7 +29,7 @@ QtObject {
     function activeWeapon() {
         var index = -1
         const armorCellsQ = itemList.equipmnets.length
-        let i = 3
+        let i = 4
         let j = 0
         for (i = 3; i < armorCellsQ; i++) {
             j = i - 3
@@ -45,7 +45,7 @@ QtObject {
                 }
             }
         }
-        for (i = 3; i < armorCellsQ; i++) {
+        for (i = 4; i < armorCellsQ; i++) {
             j = i - 3
             if (equipmentCells[i] !== '') {
                 if ((twoHands && itemList.equipmnets[i] === "Two Hands" && !activatedWeapon[j])

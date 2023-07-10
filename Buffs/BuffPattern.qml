@@ -8,7 +8,8 @@ Item {
     property int iteration: 0
     property double timeElapsed: parent.timeElapsed
     property int timeLeft: 0
-    property int points: parent.points
+    property int points: parent.points !== 0 ? parent.points : predefinedPoints
+    property int predefinedPoints: 0
     property string name: ""
     property string description: ""
     property bool isPermanent: parent.isPermanent
@@ -25,8 +26,9 @@ Item {
             loops: type === "Immediate" ? 1 : type === "Continuous" ? Math.ceil((timeDuration - timeElapsed) / deltaDuration) : 1
             ScriptAction {
                 script: {
-                    if (type !== "Continuous") {
+                    if (type === "Immediate") {
                         if (timeElapsed === 0) {
+                            console.log(characteristic, points)
                             if (characteristic === "damage") {
                                 usedByEntity.damage *= 1.5
                             }
@@ -34,9 +36,15 @@ Item {
                                 usedByEntity.speedCoeff *= 1.1
                             }
                             else if (characteristic === "health") {
-                                usedByEntity.maxHealth += points
+                                usedByEntity.health += points
                             }
                             else if (characteristic === "stamina") {
+                                usedByEntity.stamina += points
+                            }
+                            else if (characteristic === "maxHealth") {
+                                usedByEntity.maxHealth += points
+                            }
+                            else if (characteristic === "maxStamina") {
                                 usedByEntity.maxStamina += points
                             }
                         }
@@ -83,20 +91,20 @@ Item {
             }
         }
         onFinished: {
-            if (type !== "Continuous") {
+            if (type === "Immediate") {
                 if (characteristic === "damage") {
                     usedByEntity.damage /= 1.5
                 }
                 else if (characteristic === "speed") {
                     usedByEntity.speedCoeff /= 1.1
                 }
-                else if (characteristic === "health") {
+                else if (characteristic === "maxHealth") {
                     usedByEntity.maxHealth -= points
                     if (usedByEntity.health > usedByEntity.maxHealth) {
                         usedByEntity.health = usedByEntity.maxHealth
                     }
                 }
-                else if (characteristic === "stamina") {
+                else if (characteristic === "maxStamina") {
                     usedByEntity.maxStamina -= points
                     if (usedByEntity.stamina > usedByEntity.maxStamina) {
                         usedByEntity.stamina = usedByEntity.maxStamina

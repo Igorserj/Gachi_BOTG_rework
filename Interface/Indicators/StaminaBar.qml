@@ -1,11 +1,12 @@
 import QtQuick 2.15
+import "../../Controls"
 
 Rectangle {
     id: sb
-    property color stamColor: "blue"
-    width: 180
-    height: 21
-    color: "transparent"
+    property color stamColor: "#3333AA"//"blue"
+    width: 180 * recalculatedWidth / 1280
+    height: 21 * recalculatedHeight / 720
+    color: style.blackGlass
     border.width: 2
     Rectangle {
         id: staminaRect
@@ -14,7 +15,7 @@ Rectangle {
         y: (parent.height - height) / 2
         height: parent.height -  parent.border.width * 2
         width: modelData[2] / modelData[3] * parent.width - parent.border.width * 2 > sb.width ? sb.width * 1.05 : modelData[2] / modelData[3] * parent.width - parent.border.width * 2
-        z: sb.z - 1
+//        z: sb.z - 1
     }
     Text {
         anchors.fill: parent
@@ -32,5 +33,9 @@ Rectangle {
         x: staminaRect.width - width + staminaRect.x
         color: "yellow"
         border.width: 2
+    }
+
+    Styles {
+        id: style
     }
 }

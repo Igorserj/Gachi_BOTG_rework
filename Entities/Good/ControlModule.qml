@@ -8,6 +8,7 @@ Item {
             if (event.key === Qt.Key_I) {
                 ifaceLoader.item.state = "inventory"
                 ifaceLoader.item.interfaceLoader.item.usedByEntity = mainHero
+                ifaceLoader.item.interfaceLoader.item.heroEntity = mainHero
             }
             if (event.key === Qt.Key_E) {
                 loot()
@@ -29,7 +30,7 @@ Item {
                 ifaceLoader.item.state = "dialogue"
                 ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
                 ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(1).item
-//                dialogueLoader.sourceComponent = dialogueScript
+                //                dialogueLoader.sourceComponent = dialogueScript
                 connection.target = ifaceLoader.item.interfaceLoader.item
                 //                ifaceLoader.item.interfaceLoader.item.actionAfterClose = killEnemy()
             }
@@ -105,15 +106,15 @@ Item {
         }
     }
 
-
-        Connections {
-            id: connection
-            ignoreUnknownSignals: true
-            function onActionAfterCloseChanged() {
-                return killEnemy()
-            }
-        }
     function killEnemy() {
         entGen.repeater.itemAt(1).item.health = 0
+    }
+
+    Connections {
+        id: connection
+        ignoreUnknownSignals: true
+        function onActionAfterCloseChanged() {
+            return killEnemy()
+        }
     }
 }

@@ -1,11 +1,12 @@
 import QtQuick 2.15
+import "../../Controls"
 
 Rectangle {
     id: hb
-    property color hpColor: "green"
-    width: 180
-    height: 21
-    color: "transparent"
+    property color hpColor: "#008800"//"green"
+    width: 180 * recalculatedWidth / 1280
+    height: 21 * recalculatedHeight / 720
+    color: style.blackGlass
     border.width: 2
     Rectangle {
         id: healthBar
@@ -14,7 +15,7 @@ Rectangle {
         y: (parent.height - height) / 2
         height: parent.height - parent.border.width * 2
         width: modelData[0] / modelData[1] * parent.width - parent.border.width * 2 > hb.width ? hb.width * 1.05 : modelData[0] / modelData[1] * parent.width - parent.border.width * 2
-        z: hb.z - 1
+//        z: hb.z - 1
     }
     Text {
         anchors.fill: parent
@@ -32,5 +33,9 @@ Rectangle {
         x: healthBar.width - width + healthBar.x
         color: "yellow"
         border.width: 2
+    }
+
+    Styles {
+        id: style
     }
 }

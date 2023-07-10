@@ -9,7 +9,10 @@ Rectangle {
     height: childrenRect.height + width * 0.05
     opacity: 0
     radius: width / 8
-    onYChanged: borderDetect()
+    onHeightChanged: borderVDetect()
+    onWidthChanged: borderHDetect()
+    onYChanged: borderVDetect()
+    onXChanged: borderHDetect()
     Rectangle {
         id: mainTextRect
         clip: true
@@ -100,12 +103,21 @@ Rectangle {
         id: style
     }
 
-    function borderDetect() {
+    function borderVDetect() {
         if (y + height > loader.y + loader.height) {
             y = loader.y + loader.height - height - 1
         }
         else if (y < loader.y) {
             y = loader.y + 1
+        }
+    }
+
+    function borderHDetect() {
+        if (x + width > loader.x + recalculatedWidth) {
+            x = loader.x + recalculatedWidth - width - 1
+        }
+        else if (x < loader.x) {
+            x = loader.x + 1
         }
     }
 

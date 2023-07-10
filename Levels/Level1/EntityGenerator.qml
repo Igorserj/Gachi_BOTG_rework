@@ -22,8 +22,11 @@ Item {
             Component.onCompleted: entityIndex = index
             onLoaded: {
                 item.name = metadata[index].name
-                if (index !== 0 && metadata[index].hp !== undefined) {
+                if (metadata[index].hp !== undefined) {
                     item.health = metadata[index].hp
+                }
+                if (metadata[index].equipment !== undefined) {
+                    item.inventory.equipmentCells = metadata[index].equipment
                 }
                 repeater.numberOfCreatedObjects++
             }

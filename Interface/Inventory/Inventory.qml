@@ -6,6 +6,7 @@ Rectangle {
     property var inventoryCells: []
     property var equipmentCells: []
     property var usedByEntity
+    property var heroEntity
     width: parent.width * 0.8
     height: parent.height * 0.8
     color: style.blackGlass
@@ -79,6 +80,9 @@ Rectangle {
             else if (set === 2) {
                 actionSet3(index)
             }
+            else if (set === 3) {
+                actionSet4(index)
+            }
         }
 
         function actionSet1(index) {
@@ -98,6 +102,13 @@ Rectangle {
         function actionSet3(index) {
             if (index === 0) {obj.moveItem()}
             else if (index === 1) {obj.unEquipItem()}
+            update()
+        }
+
+        function actionSet4(index) {
+            if (index === 0) {obj.lootItem()}
+            else if (index === 1) {obj.moveItem()}
+            else if (index === 2) {obj.destroyItem()}
             update()
         }
     }

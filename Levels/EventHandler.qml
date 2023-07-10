@@ -3,18 +3,19 @@ import QtQuick 2.15
 Repeater {
     model: entGen.objects
     Item {
-//        Connections {
-//            target: entGen.ready ? entGen.repeater.itemAt(index).item : undefined
-//            function onStateChanged() {
-//                if (entGen.repeater.itemAt(index).item.state === "dead") {
-//                    highlighter.sizes = entGen.repeater.itemAt(index)
-//                    highlighter.source = entGen.repeater.itemAt(index).item
-//                }
-//            }
-//        }
-//        Highlighter {
-//            id: highlighter
-//        }
+        //        Connections {
+        //            target: entGen.ready ? entGen.repeater.itemAt(index).item : undefined
+        //            function onStateChanged() {
+        //                if (entGen.repeater.itemAt(index).item.state === "dead") {
+        //                    highlighter.sizes = entGen.repeater.itemAt(index)
+        //                    highlighter.source = entGen.repeater.itemAt(index).item
+        //                }
+        //            }
+        //        }
+        //        Highlighter {
+        //            id: highlighter
+        //        }
+
         WorkerScript {
             id: colliderScript
             source: "collision.mjs"
@@ -27,6 +28,7 @@ Repeater {
                 let dir = messageObject.dir
                 let edge = messageObject.edge
                 let entity = entGen.repeater.itemAt(messageObject.i).item
+
                 if (hor === 1 && dir === 0) entity.animations.moveLeftRun = walkLeft === 1
                 else if (hor === 1 && dir === 1) entity.animations.moveRightRun = walkRight === 1
                 else if (hor === 0 && dir === 0) entity.animations.moveUpRun = walkUp === 1
@@ -53,9 +55,22 @@ Repeater {
             source: "loot.mjs"
             onMessage: {
                 let index = messageObject.index1
-                if (index !== -1) {
-                    ifaceLoader.item.state = "inventory"
-                    ifaceLoader.item.interfaceLoader.item.usedByEntity = entGen.repeater.itemAt(index).item
+                if (index.length !== 0) {
+                    if (index.length > 1) {
+                        let names = []
+                        for (let i = 0; i < index.length; i++) {
+                            names.push("Loot " + entGen.metadata[index[i]].name)
+                        }
+                        ifaceLoader.item.interfaceLoader.item.contextMenu.variable = index
+                        ifaceLoader.item.interfaceLoader.item.contextMenu.objects = names
+                        ifaceLoader.item.interfaceLoader.item.contextMenu.set = 0
+                        ifaceLoader.item.interfaceLoader.item.contextMenu.show(entGen.repeater.itemAt(0).x, entGen.repeater.itemAt(0).y)
+                    }
+                    else {
+                        ifaceLoader.item.state = "inventory"
+                        ifaceLoader.item.interfaceLoader.item.usedByEntity = entGen.repeater.itemAt(index[0]).item
+                        ifaceLoader.item.interfaceLoader.item.heroEntity = entGen.repeater.itemAt(0).item
+                    }
                 }
             }
         }
@@ -132,17 +147,18 @@ Repeater {
         function loot(entity1, ids) {
             const entity2 = entitiesObjects(ids)
             lootScript.sendMessage({
-                                        "x": entity1.x,
-                                        "y": entity1.y,
-                                        "width": entity1.item.width,
-                                        "height": entity1.item.height,
-                                        "damage": entity1.item.damage,
-                                        "hX": entity2[0],
-                                        "hY": entity2[1],
-                                        "hW": entity2[2],
-                                        "hH": entity2[3],
-                                        "ids": ids
-                                    })
+                                       "x": entity1.x,
+                                       "y": entity1.y,
+                                       "width": entity1.item.width,
+                                       "height": entity1.item.height,
+                                       "damage": entity1.item.damage,
+                                       "hX": entity2[0],
+                                       "hY": entity2[1],
+                                       "hW": entity2[2],
+                                       "hH": entity2[3],
+                                       "state": entity2[6],
+                                       "ids": ids
+                                   })
         }
         function collisionItem(index, i) {
             var entity = entGen.repeater.itemAt(i)
@@ -158,7 +174,7 @@ Repeater {
                                                     "height": itmGen.objects[index][3],
                                                     "index": index,
                                                     "i": i
-//                                                    "speed": entity.item.animations.speed
+                                                    //                                                    "speed": entity.item.animations.speed
                                                 })
             }
         }
@@ -171,6 +187,7 @@ Repeater {
         var height = []
         var health = []
         var defense = []
+        var state = []
         for (var i = 0; i < ids.length; i++) {
             x.push(entGen.repeater.itemAt(ids[i]).x)
             y.push(entGen.repeater.itemAt(ids[i]).y)
@@ -178,8 +195,9 @@ Repeater {
             height.push(entGen.repeater.itemAt(ids[i]).item.height)
             health.push(entGen.repeater.itemAt(ids[i]).item.health)
             defense.push(entGen.repeater.itemAt(ids[i]).item.defense)
+            state.push(entGen.repeater.itemAt(ids[i]).item.state)
         }
-        return [x, y, width, height, health, defense]
+        return [x, y, width, height, health, defense, state]
     }
 
     function entityList(ids) {

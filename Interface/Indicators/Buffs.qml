@@ -3,8 +3,8 @@ import QtQuick 2.15
 Column {
     id: buffCol
     Rectangle {
-        height: 21
-        width: 21
+        width: height
+        height: 21 * recalculatedHeight / 720
         radius: width / 8
         MouseArea {
             anchors.fill: parent
@@ -20,8 +20,8 @@ Column {
     Rectangle {
         id: textPlaceholder
         color: "#DD363436"
-        width: 21
-        height: 21
+        width: height
+        height: 21 * recalculatedHeight / 720
         Text {
             text: modelData[0] > 99 ? "##" : modelData[0]
             height: parent.height

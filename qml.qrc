@@ -66,5 +66,6 @@
         <file>Interface/Dialogue/Dialogue.qml</file>
         <file>Interface/Dialogue/FaceImage.qml</file>
         <file>Levels/Highlighter.qml</file>
+        <file>Interface/Indicators/NameFrame.qml</file>
     </qresource>
 </RCC>

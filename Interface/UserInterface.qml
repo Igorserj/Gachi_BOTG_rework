@@ -1,14 +1,19 @@
 import QtQuick 2.15
 import "Indicators"
+import "../Controls"
 
 Item {
     id: ui
     property var entGen: levelLoader.item.entGen
+    property alias contextMenu: contextMenu
     Column {
         spacing: ui.height * 0.03
         Repeater {
             id: heroesRepeater
             Column {
+                NameFrame {
+                    name: entGen.metadata[index].name
+                }
                 HealthBar {}
                 StaminaBar {}
                 Row {
@@ -26,9 +31,30 @@ Item {
         anchors.right: parent.right
         Repeater {
             id: hostilesRepeater
-            HealthBar {
-                hpColor: "red"
+            Column {
+                NameFrame {
+                    name: entGen.metadata[index + 1].name
+                }
+                HealthBar {
+                    hpColor: "#AA3333"//"red"
+                }
             }
+        }
+    }
+    ContextMenu {
+        id: contextMenu
+        opacity: 0
+        property var variable
+        function actionSet(index = -1) {
+            if (set === 0) {
+                actionSet1(index)
+            }
+        }
+
+        function actionSet1(index) {
+            iface.state = "inventory"
+            interfaceLoader.item.usedByEntity = entGen.repeater.itemAt(variable[index]).item
+            interfaceLoader.item.heroEntity = entGen.repeater.itemAt(0).item
         }
     }
 

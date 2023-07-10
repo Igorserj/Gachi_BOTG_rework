@@ -10,12 +10,13 @@ WorkerScript.onMessage = function (message) {
     let hW = message.hW
     let hH = message.hH
     let ids = message.ids
+    let state = message.state
 
-    let index1 = -1
+    let index1 = []
 
     for (let i = 0; i < ids.length; i++) {
-        if (Math.abs((x + width / 2) - (hX[i] + hW[i] / 2)) <= (width + hW[i] / 2) && Math.abs((y + height / 2) - (hY[i] + hH[i] / 2)) <= (height + hH[i] / 2)) {
-            index1 = ids[i]
+        if (Math.abs((x + width / 2) - (hX[i] + hW[i] / 2)) <= (width + hW[i] / 2) && Math.abs((y + height / 2) - (hY[i] + hH[i] / 2)) <= (height + hH[i] / 2) && state[i] === "dead") {
+            index1.push(ids[i])
         }
     }
 

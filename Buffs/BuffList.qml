@@ -32,7 +32,7 @@ Item {
         id: strUp
         BuffPattern {
             type: types[0]
-            timeDuration: 10000
+            timeDuration: 15000
             characteristic: "damage"
             name: "Increased damage"
             description: "Your damage increased by 1.5 times."
@@ -42,7 +42,7 @@ Item {
         id: spUp
         BuffPattern {
             type: types[0]
-            timeDuration: 5000
+            timeDuration: 15000
             characteristic: "speed"
             name: "Increased speed"
             description: "Your speed increased by 1.1 times."
@@ -57,7 +57,7 @@ Item {
             characteristic: "health"
             name: "Healing"
             description: "Healed by N hp."
-//            points: 20
+            predefinedPoints: 20
         }
     }
 
@@ -70,7 +70,7 @@ Item {
             characteristic: "health"
             name: "Health regeneration"
             description: "Heal by 5 every second."
-//            points: 5
+            predefinedPoints: 5
         }
     }
 
@@ -78,11 +78,11 @@ Item {
         id: hpUp
         BuffPattern {
             type: types[0]
-            timeDuration: 10000
+            timeDuration: 30000
             characteristic: "maxHealth"
             name: "Increased max health"
             description: "Your health increased by points hp."
-//            points: 20
+            predefinedPoints: 20
         }
     }
 
@@ -95,7 +95,7 @@ Item {
             characteristic: "stamina"
             name: "Stamina regeneration"
             description: "Restore 5 energy every second."
-//            points: 5
+            predefinedPoints: 5
         }
     }
 
@@ -107,7 +107,7 @@ Item {
             characteristic: "stamina"
             name: "Recovery"
             description: "Restored by N energy."
-//            points: 20
+            predefinedPoints: 20
         }
     }
 
@@ -115,11 +115,11 @@ Item {
         id: staUp
         BuffPattern {
             type: types[0]
-            timeDuration: 10000
+            timeDuration: 30000
             characteristic: "maxStamina"
             name: "Increased max stamina"
-            description: "Your stamina increased by 20 energy."
-//            points: 10
+            description: "Your stamina increased by 10 energy."
+            predefinedPoints: 10
         }
     }
 
@@ -127,11 +127,11 @@ Item {
         id: defUp
         BuffPattern {
             type: types[0]
-            timeDuration: 10000
+            timeDuration: 30000
             characteristic: "defense"
             name: "Increased defense"
             description: ""
-//            points: 10
+            predefinedPoints: 10
         }
     }
 

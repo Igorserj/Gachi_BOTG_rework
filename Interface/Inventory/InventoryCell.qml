@@ -81,17 +81,29 @@ Rectangle {
                     itemType = entityInv.metadataCells[currentIndex].type
                     itemIsEquipment = entityInv.metadataCells[currentIndex].isEquipment
                 }
-                if (type === itemType) {
-                    contextMenu.set = 2
-                    return locale.inventoryCellOptions[2]
+                if (usedByEntity === heroEntity) {
+                    if (type === itemType) { // Equipment cell
+                        contextMenu.set = 2
+                        return locale.inventoryCellOptions[2]
+                    }
+                    else if (itemIsEquipment) { //Equipment item in inventory cell
+                        contextMenu.set = 1
+                        return locale.inventoryCellOptions[1]
+                    }
+                    else if (!itemIsEquipment) { //Not equipment item
+                        contextMenu.set = 0
+                        return locale.inventoryCellOptions[0]
+                    }
                 }
-                else if (itemIsEquipment) {
-                    contextMenu.set = 1
-                    return locale.inventoryCellOptions[1]
-                }
-                else if (!itemIsEquipment) {
-                    contextMenu.set = 0
-                    return locale.inventoryCellOptions[0]
+                else if (usedByEntity !== heroEntity) {
+                    if (type === itemType) { // Equipment cell
+                        contextMenu.set = 2
+                        return locale.inventoryCellOptions[2]
+                    }
+                    else {
+                        contextMenu.set = 3
+                        return locale.inventoryCellOptions[3]
+                    }
                 }
             }
         }
@@ -125,7 +137,6 @@ Rectangle {
             itemList.items[i].use()
         }
         else {
-//            let entityInv =
             const cell = usedByEntity.inventory.metadataCells[currentIndex]
             itemList.customItem.pool.push({buffName: cell.buffName, points: cell.points, usedByEntity: invInterface.usedByEntity, action: "use", hp: cell.hp, defense: cell.defense})
             itemList.customItem.modelUpdate()
@@ -160,7 +171,7 @@ Rectangle {
             swapCells()
         }
         else {
-            toolTip.mainText = "Unequip item!"// "There is no vacant cell of type " + type
+            toolTip.mainText = "Unequip item!"
             toolTip.addText = "There is no vacant cell of type " + type + ". Unequip " + name
             toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
         }
@@ -168,17 +179,24 @@ Rectangle {
     function unEquipItem() {
         var entityInv = usedByEntity.inventory
         let i = entityInv.inventoryCells.indexOf('')
-        inventoryArea.enabled = true
-        entityInv.equipmentCells[currentIndex] = entityInv.inventoryCells[i]
-        let localMeta = entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex]
-        entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex] = entityInv.metadataCells[i]
-        entityInv.metadataCells[i] = localMeta
-        entityInv.inventoryCells[i] = cellText.text
-        unMoveItem()
-        interfaceLoader.item.inventoryCells = entityInv.inventoryCells
-        interfaceLoader.item.equipmentCells = entityInv.equipmentCells
-        invInterface.update()
-        entityInv.activeArmor()
+        if (i !== -1) {
+            inventoryArea.enabled = true
+            entityInv.equipmentCells[currentIndex] = entityInv.inventoryCells[i]
+            let localMeta = entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex]
+            entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex] = entityInv.metadataCells[i]
+            entityInv.metadataCells[i] = localMeta
+            entityInv.inventoryCells[i] = cellText.text
+            unMoveItem()
+            interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+            interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+            invInterface.update()
+            entityInv.activeArmor()
+        }
+        else {
+            toolTip.mainText = "Not enough space!"
+            toolTip.addText = "There is no vacant cell in your inventory"
+            toolTip.show(equipRow.x + col.x + cell.width, equipRow.y + col.y)
+        }
     }
 
     function destroyItem() {
@@ -208,6 +226,29 @@ Rectangle {
             }
             levelLoader.item.itmGen.repeater.model = levelLoader.item.itmGen.objects
             destroyItem()
+        }
+    }
+
+    function lootItem() {
+        var entityInv = usedByEntity.inventory
+        var heroInv = heroEntity.inventory
+        let i = heroInv.inventoryCells.indexOf('')
+        if (i !== -1) {
+            inventoryArea.enabled = true
+            entityInv.inventoryCells[currentIndex] = heroInv.inventoryCells[i]
+            let localMeta = entityInv.metadataCells[currentIndex]
+            entityInv.metadataCells[currentIndex] = heroInv.metadataCells[i]
+            heroInv.metadataCells[i] = localMeta
+            heroInv.inventoryCells[i] = cellText.text
+            unMoveItem()
+            interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+            invInterface.update()
+            entityInv.activeArmor()
+        }
+        else {
+            toolTip.mainText = "Not enough space!"
+            toolTip.addText = "There is no vacant cells in your inventory"
+            toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
         }
     }
 

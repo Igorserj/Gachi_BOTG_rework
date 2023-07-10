@@ -3,6 +3,7 @@ import "Inventory"
 import "Dialogue"
 
 Item {
+    id:  iface
     state: "ui"
     property alias interfaceLoader: interfaceLoader
     onStateChanged: toolTip.hide()
