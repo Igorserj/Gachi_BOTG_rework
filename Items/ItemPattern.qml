@@ -26,7 +26,7 @@ Item {
         let buffList = usedByEntity.buffList.currentBuffs
         for (let i = 0; i < buffList.length; i++) {
             if (buffName === buffList[i][0] && permanent === buffList[i][2]) {
-                usedByEntity.buffList.updateBuffs(buffName, i, permanent, 0, reversible)
+                usedByEntity.buffList.updateBuffs(buffName, i, permanent, points, reversible)
             }
         }
         if (permanent && reversible) {

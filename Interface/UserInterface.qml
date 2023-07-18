@@ -41,10 +41,23 @@ Item {
             }
         }
     }
+
+//    Row {
+
+//    }
+
+
     ContextMenu {
         id: contextMenu
         opacity: 0
         property var variable
+
+        Connections {
+            target: levelLoader.item.entGen.repeater.itemAt(0)
+            function onXChanged() {contextMenu.hide()}
+            function onYChanged() {contextMenu.hide()}
+        }
+
         function actionSet(index = -1) {
             if (set === 0) {
                 actionSet1(index)

@@ -86,29 +86,29 @@ Rectangle {
         }
 
         function actionSet1(index) {
-            if (index === 0) {obj.moveItem()}
-            else if (index === 1) {obj.useItem()}
-            else if (index === 2) {obj.dropItem()}
-            else if (index === 3) {obj.destroyItem()}
+            if (index === 0) {obj.cl.moveItem()}
+            else if (index === 1) {obj.cl.useItem()}
+            else if (index === 2) {obj.cl.dropItem()}
+            else if (index === 3) {obj.cl.destroyItem()}
             update()
         }
         function actionSet2(index) {
-            if (index === 0) {obj.moveItem()}
-            else if (index === 1) {obj.equipItem()}
-            else if (index === 2) {obj.dropItem()}
-            else if (index === 3) {obj.destroyItem()}
+            if (index === 0) {obj.cl.moveItem()}
+            else if (index === 1) {obj.cl.equipItem()}
+            else if (index === 2) {obj.cl.dropItem()}
+            else if (index === 3) {obj.cl.destroyItem()}
             update()
         }
         function actionSet3(index) {
-            if (index === 0) {obj.moveItem()}
-            else if (index === 1) {obj.unEquipItem()}
+            if (index === 0) {obj.cl.moveItem()}
+            else if (index === 1) {obj.cl.unEquipItem()}
             update()
         }
 
         function actionSet4(index) {
-            if (index === 0) {obj.lootItem()}
-            else if (index === 1) {obj.moveItem()}
-            else if (index === 2) {obj.destroyItem()}
+            if (index === 0) {obj.cl.lootItem()}
+            else if (index === 1) {obj.cl.moveItem()}
+            else if (index === 2) {obj.cl.destroyItem()}
             update()
         }
     }

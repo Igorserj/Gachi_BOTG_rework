@@ -20,12 +20,13 @@ Item {
         id: repeater
         Loader {
             id: buffLoad
+            property string buffName: modelData[0]
             property var currentIndex: index
             property double timeElapsed: modelData[1]
             property bool isPermanent: modelData[2]
             property int points: modelData[3]
             property bool isReversible: modelData[4]
-            sourceComponent: modelData[0] !== "" ? buffs[buffNames.indexOf(modelData[0])] : undefined
+            sourceComponent: buffName !== "" ? buffs[buffNames.indexOf(buffName)] : undefined
         }
     }
     Component {
@@ -43,9 +44,10 @@ Item {
         BuffPattern {
             type: types[0]
             timeDuration: 15000
+            points: 10
             characteristic: "speed"
             name: "Increased speed"
-            description: "Your speed increased by 1.1 times."
+            description: "Your speed increased on 10 points."
         }
     }
 
@@ -115,7 +117,7 @@ Item {
         id: staUp
         BuffPattern {
             type: types[0]
-            timeDuration: 30000
+            timeDuration: 10000
             characteristic: "maxStamina"
             name: "Increased max stamina"
             description: "Your stamina increased by 10 energy."
@@ -137,12 +139,34 @@ Item {
 
     function updateBuffs(addBuff = "", index = -1, permanent = false, points = 0, reversible = false) {
         var buffProperties = []
+        //        if (currentBuffs.length > 0) {
+        //            for (let i = 0; i < currentBuffs.length; i++) {
+        //                let buff = repeater.itemAt(i).item
+        //                if (buff !== null) {
+        //                    let buff2 = []
+        //                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, points, reversible)
+        //                    buffProperties.push(buff2)
+        //                }
+        //            }
+        //        }
+        //        if (index !== -1) {
+        //            let buff = repeater.itemAt(index).item
+        //            if (buff !== null) {
+        //                buff.animation.stop()
+        //            }
+        //            buffProperties.splice(index, 1)
+        //        }
+        //        else {
+        //            let buff2 = []
+        //            buff2.push(addBuff, 0, permanent, points, reversible)
+        //            buffProperties.push(buff2)
+        //        }
         if (currentBuffs.length > 0) {
             for (let i = 0; i < currentBuffs.length; i++) {
-                let buff = repeater.itemAt(i).item
-                if (buff !== null) {
+                var buff = repeater.itemAt(i)
+                if (buff.item !== null) {
                     let buff2 = []
-                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, points, reversible)
+                    buff2.push(buff.buffName, buff.item.timeElapsed, buff.isPermanent, buff.points, buff.isReversible)
                     buffProperties.push(buff2)
                 }
             }

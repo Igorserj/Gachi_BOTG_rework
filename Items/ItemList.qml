@@ -12,7 +12,6 @@ Item {
         id: customItem
         property var pool: []
         model: []
-//        onPoolChanged: modelUpdate()
 //      properties = [{type: "", name: "", additionalInfo: "", buffName: "", points: 0, usedByEntity: undefined, action = "use", permanent = false}]
 
         ItemPattern {

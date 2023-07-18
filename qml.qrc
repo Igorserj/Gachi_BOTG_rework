@@ -67,5 +67,7 @@
         <file>Interface/Dialogue/FaceImage.qml</file>
         <file>Levels/Highlighter.qml</file>
         <file>Interface/Indicators/NameFrame.qml</file>
+        <file>Interface/Inventory/CellLogic.qml</file>
+        <file>Interface/Inventory/InventoryCellView.qml</file>
     </qresource>
 </RCC>

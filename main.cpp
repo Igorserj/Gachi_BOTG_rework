@@ -10,7 +10,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
 //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
-//    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::GLSL);
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -21,12 +20,4 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     return app.exec();
-//    QQuickWindow window;
-//    QString title = "Gachimuchi: Boss of this gym";
-//    window.setTitle(title);
-////    window.setResizeMode(QQuickView::SizeRootObjectToView);
-////    window.setSource(QUrl("qrc:///main.qml"));
-//    window.show();
-
-//    return app.exec();
 }
