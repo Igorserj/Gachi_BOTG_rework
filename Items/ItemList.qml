@@ -1,8 +1,8 @@
 import QtQuick 2.15
 
 Item {
-    readonly property var itemNames: ["Vodka", "Bat", "Hat"]
-    readonly property var items: [vodka, bat, hat]
+    readonly property var itemNames: ["Vodka", "Bat", "Hat", "Jacket", "Jeans", "Sneakers"]
+    readonly property var items: [vodka, bat, hat, jacket, jeans, sneakers]
     readonly property var types: ["Head", "Body", "Legs", "Feet", "One Hand", "Two Hands", "Consumable"]
     readonly property var equipmnets: ["Head", "Body", "Legs", "Feet", "One Hand", "One Hand", "Two Hands"]
     property alias customItem: customItem
@@ -56,7 +56,7 @@ Item {
         type: types[0]
         name: "Hat"
         additionalInfo: "Just a normal hat"
-        buffName: "HealthUp"
+        defense: 5
     }
 
     ItemPattern {
@@ -73,5 +73,29 @@ Item {
         name: "Bat"
         additionalInfo: "Beat them up!"
         buffName: "SpeedUp"
+    }
+
+    ItemPattern {
+        id: jacket
+        type: types[1]
+        name: "Jacket"
+        additionalInfo: "Leather jacket"
+        defense: 5
+    }
+
+    ItemPattern {
+        id: jeans
+        type: types[2]
+        name: "Jeans"
+        additionalInfo: " "
+        defense: 5
+    }
+
+    ItemPattern {
+        id: sneakers
+        type: types[3]
+        name: "Sneakers"
+        additionalInfo: "Put my sneakers on"
+        defense: 5
     }
 }

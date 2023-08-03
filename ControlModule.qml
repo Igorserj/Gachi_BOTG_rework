@@ -4,9 +4,9 @@ Item {
     property int createdComponents: 0
     property int currentIndex: -1
     property bool activate: false
-    focus: true
-    Keys.onTabPressed: if (currentIndex + 1 >= createdComponents) currentIndex = 0; else currentIndex++
-    Keys.onBacktabPressed: if (currentIndex - 1 < 0) currentIndex = createdComponents; else currentIndex--
+//    focus: true
+//    Keys.onTabPressed: if (currentIndex + 1 >= createdComponents) currentIndex = 0; else currentIndex++
+//    Keys.onBacktabPressed: if (currentIndex - 1 < 0) currentIndex = createdComponents; else currentIndex--
     Keys.onReleased: {
         if (event.key === Qt.Key_Space) {
             activate = false

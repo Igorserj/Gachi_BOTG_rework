@@ -37,6 +37,7 @@ Item {
                 }
                 HealthBar {
                     hpColor: "#AA3333"//"red"
+                    leftAlign: false
                 }
             }
         }

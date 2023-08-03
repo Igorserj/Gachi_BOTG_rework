@@ -128,6 +128,7 @@ Repeater {
         }
         function punch(entity1, index1, ids) {
             const entity2 = entitiesObjects(ids)
+            console.log("attack")
             punchScript.sendMessage({
                                         "x": entity1.x,
                                         "y": entity1.y,

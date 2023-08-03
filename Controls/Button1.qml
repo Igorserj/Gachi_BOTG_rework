@@ -9,6 +9,7 @@ Item {
     property string alignment: "center"
     property bool active: (buttonArea.containsMouse && buttonArea.enabled) || currentIndex === controlModule.currentIndex
     property int currentIndex: -1
+    activeFocusOnTab: true
     width: buttonText.contentWidth + window.recalculatedWidth / 1280 * 30
     height: buttonText.contentHeight + window.recalculatedHeight / 720 * 15
     Component.onCompleted: { currentIndex = controlModule.createdComponents; controlModule.createdComponents++ }

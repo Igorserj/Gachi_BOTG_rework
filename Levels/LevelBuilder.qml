@@ -3,6 +3,7 @@ import QtGraphicalEffects 1.15
 import "Level1"
 import "../Interface"
 import "../Items"
+import "../Shaders"
 
 Item {
     property int blurDuration: 500
@@ -10,7 +11,9 @@ Item {
         id: levelLoader
         anchors.fill: parent
         focus: true
+        activeFocusOnTab: true
         Component.onCompleted: levelChooser()
+        onLoaded: lightingLoader.sourceComponent = spot
     }
     Component {
         id: level1Compose
@@ -40,6 +43,10 @@ Item {
         }
     }
     Loader {
+        id: lightingLoader
+        anchors.fill: parent
+    }
+    Loader {
         id: ifaceLoader
         anchors.fill: parent
         asynchronous: true
@@ -50,6 +57,14 @@ Item {
         id: iface
         Interface {}
     }
+
+    Component {
+        id: spot
+        SpotLight {
+            image: levelLoader.item
+        }
+    }
+
     ItemList {
         id: itemList
     }

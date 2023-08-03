@@ -31,9 +31,8 @@ QtObject {
         const armorCellsQ = itemList.equipmnets.length
         let i = 4
         let j = 0
-        console.log("active weapon")
-        for (i = 3; i < armorCellsQ; i++) {
-            j = i - 3
+        for (i = 4; i < armorCellsQ; i++) {
+            j = i - 4
             if (equipmentCells[i] === '' && equipmentCells[i] !== previousEquipment[i]) {
                 takeEffect(index, i)
                 activatedWeapon[j] = false
@@ -47,7 +46,7 @@ QtObject {
             }
         }
         for (i = 4; i < armorCellsQ; i++) {
-            j = i - 3
+            j = i - 4
             if (equipmentCells[i] !== '') {
                 if ((twoHands && itemList.equipmnets[i] === "Two Hands" && !activatedWeapon[j])
                         || (!twoHands && itemList.equipmnets[i] === "One Hand"  && !activatedWeapon[j])) {
@@ -60,7 +59,6 @@ QtObject {
     }
 
     function takeEffect(index, i, isWeapon = false) {
-        console.log("take")
         index = itemList.itemNames.indexOf(previousEquipment[i])
         let index2 = equipmentCells.indexOf(previousEquipment[i])
         let index3 = inventoryCells.indexOf(previousEquipment[i])
@@ -87,7 +85,6 @@ QtObject {
     }
 
     function giveEffect(index, i) {
-        console.log("give")
         index = itemList.itemNames.indexOf(equipmentCells[i])
         if (index !== -1) {
             if (itemList.items[index].isEquipment) {

@@ -28,6 +28,7 @@ Item {
                 if (metadata[index].equipment !== undefined) {
                     item.inventory.equipmentCells = metadata[index].equipment
                 }
+                item.inventory.activeArmor()
                 repeater.numberOfCreatedObjects++
             }
         }

@@ -70,6 +70,7 @@ ApplicationWindow {
         }
         onLoaded: item.show()
     }
+
     Component {
         id: frameTimer
         MyControls.FrameTimer {

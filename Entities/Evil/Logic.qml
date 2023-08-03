@@ -7,7 +7,7 @@ Item {
         paused: ifaceLoader.item.state === "menu" || ifaceLoader.item.state === "dialogue"
         loops: Animation.Infinite
         ScriptAction {
-            script: dir()//hostile.state !== "idle" ? dir() : idle()
+            script: dir()
         }
 
         PauseAnimation {
@@ -64,33 +64,34 @@ Item {
     }
 
     function controls(horizontalDirection, verticalDirection) {
-            if (stamina > 5 && !recovery) {runActive()}
-            else hostile.run = 0
-            if (horizontalDirection === 0) {
-                facingRight === false ? toTheLeft() : facingRight = false
-            }
-            else if (horizontalDirection === 1) {
-                facingRight === true ? toTheRight() : facingRight = true
-            }
-            else if (horizontalDirection === -1) {
-                walkLeft = false
-                animations.moveLeftRun = false
-                walkRight = false
-                animations.moveRightRun = false
-            }
+        if (stamina > 5 && !recovery) {runActive()}
+        else hostile.run = 0
 
-            if (verticalDirection === 0) {
-                toTheTop()
-            }
-            else if (verticalDirection === 1) {
-                toTheBot()
-            }
-            else if (verticalDirection === -1) {
-                walkUp = false
-                animations.moveUpRun = false
-                walkDown = false
-                animations.moveDownRun = false
-            }
-        if (animations.attackReady) nmyScan()
+        if (horizontalDirection === 0) {
+            facingRight === false ? toTheLeft() : facingRight = false
+        }
+        else if (horizontalDirection === 1) {
+            facingRight === true ? toTheRight() : facingRight = true
+        }
+        else if (horizontalDirection === -1) {
+            walkLeft = false
+            animations.moveLeftRun = false
+            walkRight = false
+            animations.moveRightRun = false
+        }
+
+        if (verticalDirection === 0) {
+            toTheTop()
+        }
+        else if (verticalDirection === 1) {
+            toTheBot()
+        }
+        else if (verticalDirection === -1) {
+            walkUp = false
+            animations.moveUpRun = false
+            walkDown = false
+            animations.moveDownRun = false
+        }
+        if ((horizontalDirection === -1 && verticalDirection === -1) && animations.attackReady) nmyScan()
     }
 }

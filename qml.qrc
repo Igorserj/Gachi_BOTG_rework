@@ -69,5 +69,6 @@
         <file>Interface/Indicators/NameFrame.qml</file>
         <file>Interface/Inventory/CellLogic.qml</file>
         <file>Interface/Inventory/InventoryCellView.qml</file>
+        <file>Shaders/SpotLight.qml</file>
     </qresource>
 </RCC>
