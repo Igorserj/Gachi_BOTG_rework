@@ -22,7 +22,7 @@ Item {
     EntityGenerator {
         id: entGen
         objects: [["hero", 1000, 600], ["hostile", 300, 500], ["hostile", 350, 500]/*, ["hostile", 250, 500], ["hostile", 300, 400], ["hostile", 250, 400]*/]
-        metadata: [{name: "Semen", hp: 110, equipment: ['Hat', 'Jacket', 'Jeans', 'Sneakers', '', 'Bat', '']}, {name: "Xyi", hp: 10}, {name: "Pisya", hp: 10}]
+        metadata: [{name: "Semen", hp: 110, equipment: ['Hat', 'Jacket', 'Jeans', 'Sneakers', '', 'Bat', '']/*, inventory: []*/}, {name: "Xyi", hp: 10}, {name: "Pisya", hp: 10}]
     }
     ItemGenerator {
         id: itmGen

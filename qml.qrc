@@ -70,5 +70,8 @@
         <file>Interface/Inventory/CellLogic.qml</file>
         <file>Interface/Inventory/InventoryCellView.qml</file>
         <file>Shaders/SpotLight.qml</file>
+        <file>Entities/NPC/NPC.qml</file>
+        <file>Interface/Inventory/dropItem.mjs</file>
+        <file>Interface/Inventory/equipItem.mjs</file>
     </qresource>
 </RCC>

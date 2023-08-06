@@ -21,12 +21,17 @@ Item {
             y: modelData[2]
             Component.onCompleted: entityIndex = index
             onLoaded: {
-                item.name = metadata[index].name
+                if (metadata[index].name !== undefined) {
+                    item.name = metadata[index].name
+                }
                 if (metadata[index].hp !== undefined) {
                     item.health = metadata[index].hp
                 }
                 if (metadata[index].equipment !== undefined) {
                     item.inventory.equipmentCells = metadata[index].equipment
+                }
+                if (metadata[index].inventory !== undefined) {
+                    item.inventory.inventoryCells = metadata[index].inventory
                 }
                 item.inventory.activeArmor()
                 repeater.numberOfCreatedObjects++

@@ -61,6 +61,10 @@ Item {
     Component {
         id: spot
         SpotLight {
+            colorR: 1.0
+            colorG: 1.0
+            colorB: 1.0
+            hideControls: true
             image: levelLoader.item
         }
     }

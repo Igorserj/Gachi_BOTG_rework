@@ -3,6 +3,7 @@ import QtQuick 2.15
 QtObject {
 
     property var inventoryCells: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    property var previousInventory: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
     property var equipmentCells: ['', '', '', '', '', '', '']
     property var previousEquipment: ['', '', '', '', '', '', '']
     property var activatedWeapon: [false, false, false]
@@ -10,20 +11,44 @@ QtObject {
 
     property var metadataCells: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
         {}, {}, {}, {}, {}, {}, {}] //inventoryCells + equipmentCells
+    property var previousMetadata: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}]
+
+    onInventoryCellsChanged: {
+        if (inventoryCells.length !== previousInventory.length) {
+            for (let i = inventoryCells.length; i < previousInventory.length; i++) {
+                inventoryCells.push(previousInventory[i])
+                metadataCells[i] = previousMetadata[i]
+            }
+        }
+        previousInventory = inventoryCells.slice()
+        previousMetadata = metadataCells.slice()
+    }
+    onEquipmentCellsChanged: {
+        if (equipmentCells.length !== previousEquipment.length) {
+            for (let i = equipmentCells.length; i < previousEquipment.length; i++) {
+                equipmentCells.push(previousEquipment[i])
+                metadataCells[i + previousInventory.length] = previousMetadata[i + previousInventory.length]
+            }
+        }
+        previousMetadata = metadataCells.slice()
+        activeArmor()
+    }
 
     Component.onCompleted: { activeArmor() }
 
     function activeArmor() {
-        var index = -1
-
-        for (let i = 0; i < 4; i++) {
-            const effectIsApplied = (equipmentCells[i] !== '' && previousEquipment[i] === '')
-            const effectIsTaken = (equipmentCells[i] === '' && previousEquipment[i] !== '')
-            if (effectIsApplied) giveEffect(index, i)
-            else if (effectIsTaken) takeEffect(index, i)
-            previousEquipment[i] = equipmentCells[i].slice()
+        if (equipmentCells.length === 7) {
+            var index = -1
+            for (let i = 0; i < 4; i++) {
+                const effectIsApplied = (equipmentCells[i] !== '' && previousEquipment[i] === '')
+                const effectIsTaken = (equipmentCells[i] === '' && previousEquipment[i] !== '')
+                if (effectIsApplied) giveEffect(index, i)
+                else if (effectIsTaken) takeEffect(index, i)
+                previousEquipment[i] = equipmentCells[i].slice()
+            }
+            activeWeapon()
         }
-        activeWeapon()
     }
 
     function activeWeapon() {
@@ -34,12 +59,14 @@ QtObject {
         for (i = 4; i < armorCellsQ; i++) {
             j = i - 4
             if (equipmentCells[i] === '' && equipmentCells[i] !== previousEquipment[i]) {
-                takeEffect(index, i)
-                activatedWeapon[j] = false
+                if (activatedWeapon[j]) {
+                    takeEffect(index, i)
+                    activatedWeapon[j] = false
+                }
             }
             if (equipmentCells[i] !== '') {
                 if ((twoHands && itemList.equipmnets[i] === "One Hand" && activatedWeapon[j])
-                         || (!twoHands && itemList.equipmnets[i] === "Two Hands" && activatedWeapon[j])) {
+                        || (!twoHands && itemList.equipmnets[i] === "Two Hands" && activatedWeapon[j])) {
                     takeEffect(index, i, true)
                     activatedWeapon[j] = false
                 }

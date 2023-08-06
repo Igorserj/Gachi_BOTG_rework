@@ -9,42 +9,7 @@ Item {
     property alias cl: cl
     height: invInterface.height / 7
     width: height
-//    radius: width / 8
-//    clip: true
-//    color: "#9E9E9E"
-//    Rectangle {
-//        id: frontRect
-//        width: parent.width * 0.9
-//        height: parent.height * 0.9
-//        anchors.centerIn: parent
-//        radius: width / 8
-//        visible: false
-//        color: style.darkGlass
-//    }
-//    FastBlur {
-//        anchors.fill: frontRect
-//        source: frontRect
-//        radius: 32
-//        transparentBorder: true
-//    }
 
-//    Text {
-//        id: cellText
-//        anchors.fill: parent
-//        verticalAlignment: Text.AlignVCenter
-//        horizontalAlignment: Text.AlignHCenter
-//        color: "white"
-//        text: cl.itemName()
-//    }
-//    MouseArea {
-//        anchors.fill: parent
-//        hoverEnabled: !invItem.visible
-//        acceptedButtons: Qt.LeftButton | Qt.RightButton
-//        onEntered: cl.showToolTip()
-//        onExited: toolTip.hide()
-//        onClicked: cl.showContextMenu(mouseX, mouseY, mouse.button)
-//        onHoverEnabledChanged: if (!hoverEnabled) toolTip.hide()
-//    }
     InventoryCellView {
         id: cellView
         type: cell.type
@@ -57,5 +22,21 @@ Item {
 
     CellLogic {
         id: cl
+    }
+    WorkerScript {
+        id: ws
+        source: "dropItem.mjs"
+        onMessage: if (messageObject.canBePlaced) cl.dropping(messageObject.item)
+    }
+    WorkerScript {
+        id: ws2
+        source: "equipItem.mjs"
+        onMessage: {
+            invItem.index = messageObject.index
+            invItem.isEquipment = messageObject.isEquipment
+            invItem.itemName = messageObject.itemName
+            invItem.metadata = messageObject.metadata
+            cl.equiped(messageObject.isSwappable, messageObject.type, messageObject.name)
+        }
     }
 }

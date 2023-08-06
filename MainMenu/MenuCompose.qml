@@ -16,6 +16,10 @@ Item {
                 target: composeLoader
                 sourceComponent: home
             }
+            PropertyChanges {
+                target: vignetteLoader
+                sourceComponent: vignette
+            }
         },
         State {
             name: "start"
@@ -24,6 +28,10 @@ Item {
                 buttonsModel: composeLoader.item.buttonNames[1]
                 actionSet: 1
             }
+            PropertyChanges {
+                target: vignetteLoader
+                sourceComponent: vignette
+            }
         },
         State {
             name: "settings"
@@ -31,9 +39,13 @@ Item {
                 target: composeLoader
                 sourceComponent: settings
             }
+            PropertyChanges {
+                target: vignetteLoader
+                sourceComponent: vignette
+            }
         }
     ]
-    Background {}
+    Background {id: bg}
     Loader {
         id: composeLoader
         sourceComponent: home

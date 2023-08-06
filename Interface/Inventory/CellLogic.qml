@@ -95,27 +95,28 @@ QtObject {
         destroyItem()
     }
     function equipItem() {
+        function equiping(type) {
+            ws2.sendMessage({
+                                "type" : type,
+                                "metadata" : entityInv.metadataCells,
+                                "equipment" : entityInv.equipmentCells,
+                                "inventory" : entityInv.inventoryCells,
+                                "equipments" :itemList.equipmnets,
+                                "currentIndex" :currentIndex
+                            })
+        }
+
         var entityInv = usedByEntity.inventory
-        let isSwappable = false
-        let type
-        let name = ""
-
-        if (itemList.itemNames.indexOf(cellView.cellText) !== -1) type = itemList.items[itemList.itemNames.indexOf(cellView.cellText)].type
+        const itemNames = itemList.itemNames
+        const cellText = cellView.cellText
+        const items = itemList.items
+        let type = ""
+        if (itemNames.indexOf(cellText) !== -1) type = items[itemNames.indexOf(cellText)].type
         else type = entityInv.metadataCells[currentIndex].type
+        equiping(type)
+    }
 
-        for (let i = 0; i < entityInv.equipmentCells.length; i++) {
-                if (type === itemList.equipmnets[i] && entityInv.equipmentCells[i] === "") {
-                    invItem.index = i
-                    invItem.isEquipment = true
-                    invItem.itemName = entityInv.equipmentCells[i]
-                    invItem.metadata = entityInv.metadataCells[entityInv.inventoryCells.length + i]
-                    isSwappable = true
-                }
-                else if (type === itemList.equipmnets[i] && entityInv.equipmentCells[i] !== "") {
-                    name = entityInv.equipmentCells[i]
-                }
-            }
-
+    function equiped(isSwappable, type, name) {
         if (isSwappable) {
             invItem.itemName2 = cellView.cellText
             inventoryArea.enabled = true
@@ -127,6 +128,7 @@ QtObject {
             toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
         }
     }
+
     function unEquipItem() {
         var entityInv = usedByEntity.inventory
         let i = entityInv.inventoryCells.indexOf('')
@@ -161,23 +163,36 @@ QtObject {
     }
 
     function dropItem() {
+
+        function itemDrop() {
+            ws.sendMessage({
+                               "objects": levelLoader.item.objGen.objects,
+                               'facingRight': entity.item.facingRight,
+                               "entityX": entity.x,
+                               "entityY": entity.y,
+                               "entityW": entity.item.width,
+                               "entityH": entity.item.height
+                           })
+        }
+
         var entity = usedByEntity.parent
         if (!isEquipment) {
-            if (entity.item.facingRight === true) {
-                levelLoader.item.itmGen.objects.push([entity.x + entity.item.width + 20, entity.y + entity.item.height - 10, 10, 10])
-            }
-            else {
-                levelLoader.item.itmGen.objects.push([entity.x - 20, entity.y + entity.item.height - 10, 10, 10])
-            }
-            if (entity.item.inventory.metadataCells[currentIndex].name === undefined) {
-                levelLoader.item.itmGen.metadata.push({name: entity.item.inventory.inventoryCells[currentIndex]})
-            }
-            else {
-                levelLoader.item.itmGen.metadata.push(entity.item.inventory.metadataCells[currentIndex])
-            }
-            levelLoader.item.itmGen.repeater.model = levelLoader.item.itmGen.objects
-            destroyItem()
+            itemDrop()
         }
+    }
+    function pushing(item) {
+        levelLoader.item.itmGen.objects.push(item)
+        if (usedByEntity.parent.item.inventory.metadataCells[currentIndex].name === undefined) {
+            levelLoader.item.itmGen.metadata.push({name: usedByEntity.parent.item.inventory.inventoryCells[currentIndex]})
+        }
+        else {
+            levelLoader.item.itmGen.metadata.push(usedByEntity.parent.item.inventory.metadataCells[currentIndex])
+        }
+    }
+    function dropping(item) {
+        pushing(item)
+        levelLoader.item.itmGen.repeater.model = levelLoader.item.itmGen.objects
+        destroyItem()
     }
 
     function lootItem() {

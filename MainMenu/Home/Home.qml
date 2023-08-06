@@ -25,7 +25,7 @@ Item {
                 text: modelData
                 anchors.right: parent.right
                 function clickFunction() { return actionSet === 0 ? action(index) : action2(
-                                                            index) }
+                                                                        index) }
             }
         }
     }
@@ -49,20 +49,25 @@ Item {
     }
 
     function action2(index) {
-        if (index === 0)
+        if (index === 0) {
             newGame()
-        else if (index === 1)
+        }
+        else if (index === 1) {
             continueGame()
+        }
         else if (index === 2)
             back()
     }
 
     function newGame() {
-//        loader.state = "level"
+        vignetteLoader.sourceComponent = undefined
+        //        loader.state = "level"
         loadLevel()
     }
 
-    function continueGame() {}
+    function continueGame() {
+        vignetteLoader.sourceComponent = undefined
+    }
 
     function back() {
         composer.state = "home"

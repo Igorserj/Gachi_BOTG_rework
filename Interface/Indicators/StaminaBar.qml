@@ -29,8 +29,8 @@ Rectangle {
     }
     Rectangle {
         height: sb.height
-        width: staminaRect.width - sb.width
-        x: staminaRect.width - width + staminaRect.x
+        width: staminaRect.width - sb.width + staminaRect.border.width * 2 + staminaRect.x
+        x: sb.width - staminaRect.border.width * 2
         color: "yellow"
         border.width: 2
     }

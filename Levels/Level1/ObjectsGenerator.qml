@@ -3,6 +3,7 @@ import "../../PhysicalObjects"
 
 Item {
     property var objects: []
+    property alias repeater: repeater
     Repeater {
         id: repeater
         model: objects

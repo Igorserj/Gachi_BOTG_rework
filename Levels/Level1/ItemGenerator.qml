@@ -8,13 +8,14 @@ Item {
         id: repeater
         model: objects
         Rectangle {
+            id: rect
             x: modelData[0]
             y: modelData[1]
             width: modelData[2]
             height: modelData[3]
             Text {
-                text: metadata[index].name
                 anchors.fill: parent
+                text: metadata[index].name
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }

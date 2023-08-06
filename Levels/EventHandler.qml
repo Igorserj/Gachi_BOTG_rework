@@ -175,7 +175,6 @@ Repeater {
                                                     "height": itmGen.objects[index][3],
                                                     "index": index,
                                                     "i": i
-                                                    //                                                    "speed": entity.item.animations.speed
                                                 })
             }
         }

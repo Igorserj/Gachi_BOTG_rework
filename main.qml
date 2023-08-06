@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import "MainMenu"
 import "Levels"
+import "Shaders"
 import "Controls" as MyControls
 
 ApplicationWindow {
@@ -31,6 +32,27 @@ ApplicationWindow {
         MyControls.ToolTip {
             id: toolTip
             z: 1
+        }
+    }
+    Loader {
+        id: vignetteLoader
+        sourceComponent: vignette
+    }
+
+    Component {
+        id: vignette
+        SpotLight {
+            image: loader
+            upperLimit: 0.625
+            lowerLimit: 1.0
+            colorR: .85
+            colorG: .85
+            colorB: .85
+            lightPosX: 0.875
+            lightPosY: 0.5
+            hideControls: true
+            animationDuration: 5500
+            pulsationRunning: true
         }
     }
     Localization {
