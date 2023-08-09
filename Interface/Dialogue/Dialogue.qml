@@ -12,9 +12,10 @@ Item {
     property bool enabled2: false
     property int index: 0
     property alias dialogueRect: dialogueRect
-    property bool actionAfterClose: false
-    property var text: [[name1, "Oh shit, i'm sorry"], [name2, "Sorry for what?"]]
-    function onActionAfterCloseChanged() {}
+//    property bool actionAfterClose: false
+    property var text: [[name1, "Oh shit, i'm sorry"], [name2, "Sorry for what?"], ["script", name2 + " is dead"]]
+    onIndexChanged: if (text[index][0] === "script") { scriptRun() }
+//    function onActionAfterCloseChanged() {}
 
     Rectangle {
         id: dialogueRect
@@ -89,6 +90,8 @@ Item {
     }
     Rectangle {//second person frame
         id: frame2
+        visible: name2 !== ""
+        enabled: visible
         anchors.verticalCenter: dialogueRect.top
         x: dialogueRect.width * 0.95 - width
         radius: width / 8
@@ -261,9 +264,8 @@ Item {
         }
         else {
             ifaceLoader.item.state = "ui"
-            actionAfterClose = true
         }
     }
 
-//    function actionAfterClose() {}
+    function scriptRun() {}
 }

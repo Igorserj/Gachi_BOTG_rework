@@ -6,7 +6,7 @@ WorkerScript.onMessage = function (message) {
     let type = message.objects[index][0]
     let enemyIdsPool = []
     for (let i = 0; i < objects.length; i++) {
-        if (message.objects[i][0] !== type) {
+        if (message.objects[i][0] !== type && message.objects[i][0] !== "npc") {
             enemyIdsPool.push(i)
         }
     }

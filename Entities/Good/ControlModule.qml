@@ -2,6 +2,7 @@ import QtQuick 2.15
 
 Item {
     focus: true
+//    property alias connection: connection
     Keys.onPressed: {
         if (ifaceLoader.item.state === "ui") {
             walking(event.key)
@@ -11,7 +12,7 @@ Item {
                 ifaceLoader.item.interfaceLoader.item.heroEntity = mainHero
             }
             if (event.key === Qt.Key_E) {
-                loot()
+                interaction()
             }
             if (event.key === Qt.Key_F) {
                 mainHero.inventory.twoHands = !mainHero.inventory.twoHands
@@ -29,10 +30,8 @@ Item {
             if (event.key === Qt.Key_R) {
                 ifaceLoader.item.state = "dialogue"
                 ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
-                ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(1).item
-                //                dialogueLoader.sourceComponent = dialogueScript
-                connection.target = ifaceLoader.item.interfaceLoader.item
-                //                ifaceLoader.item.interfaceLoader.item.actionAfterClose = killEnemy()
+                //                ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(1).item
+                //                connection.target = ifaceLoader.item.interfaceLoader.item
             }
         }
         else if (ifaceLoader.item.state === "inventory") {
@@ -106,15 +105,15 @@ Item {
         }
     }
 
-    function killEnemy() {
-        entGen.repeater.itemAt(1).item.health = 0
-    }
+    //    function killEnemy() {
+    //        entGen.repeater.itemAt(1).item.health = 0
+    //    }
 
-    Connections {
-        id: connection
-        ignoreUnknownSignals: true
-        function onActionAfterCloseChanged() {
-            return killEnemy()
-        }
-    }
+    //    Connections {
+    //        id: connection
+    //        ignoreUnknownSignals: true
+    //        function onActionAfterCloseChanged() {
+    //            return killEnemy()
+    //        }
+    //    }
 }

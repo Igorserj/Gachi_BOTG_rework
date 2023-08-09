@@ -109,7 +109,11 @@ Item {
 
     Component {
         id: dialogue
-        Dialogue {}
+        Dialogue {
+            function scriptRun() {
+                levelLoader.item.entGen.repeater.itemAt(1).item.health = 0
+            }
+        }
     }
 
     Component {

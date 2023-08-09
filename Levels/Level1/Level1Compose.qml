@@ -21,8 +21,8 @@ Item {
     }
     EntityGenerator {
         id: entGen
-        objects: [["hero", 1000, 600], ["hostile", 300, 500], ["hostile", 350, 500]/*, ["hostile", 250, 500], ["hostile", 300, 400], ["hostile", 250, 400]*/]
-        metadata: [{name: "Semen", hp: 110, equipment: ['Hat', 'Jacket', 'Jeans', 'Sneakers', '', 'Bat', '']/*, inventory: []*/}, {name: "Xyi", hp: 10}, {name: "Pisya", hp: 10}]
+        objects: [["hero", 1000, 600], ["npc", 490, 470], ["interact", 1000, 350]/*, ["hostile", 300, 500], ["hostile", 350, 500], ["hostile", 250, 500], ["hostile", 300, 400], ["hostile", 250, 400]*/]
+        metadata: [{name: "Semen", hp: 110, equipment: ['Hat', 'Jacket', 'Jeans', 'Sneakers', '', 'Bat', '']/*, inventory: []*/}, {name: "Xyi", hp: 10, money: 5}, {name: "Pisya", hp: 10, money: 3}, {name: "Churka", hp: 1}]
     }
     ItemGenerator {
         id: itmGen

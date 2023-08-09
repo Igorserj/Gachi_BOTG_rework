@@ -14,7 +14,6 @@
         <file>MainMenu/Assets/logo.png</file>
         <file>Levels/Level1/Assets/Room.png</file>
         <file>Levels/Level1/Level1Compose.qml</file>
-        <file>PhysicalObjects/Collider.qml</file>
         <file>Levels/Level1/ObjectsGenerator.qml</file>
         <file>Entities/Evil/Hostile.qml</file>
         <file>Entities/Good/ControlModule.qml</file>
@@ -73,5 +72,12 @@
         <file>Entities/NPC/NPC.qml</file>
         <file>Interface/Inventory/dropItem.mjs</file>
         <file>Interface/Inventory/equipItem.mjs</file>
+        <file>Shaders/LightBlend.qml</file>
+        <file>Entities/Interact/Interact.qml</file>
+        <file>Shaders/Clouds.qml</file>
+        <file>MainMenu/Assets/logo2.png</file>
+        <file>Fonts/Monoton/Monoton-Regular.ttf</file>
+        <file>Fonts/Monoton/OFL.txt</file>
+        <file>MainMenu/Home/Logo.qml</file>
     </qresource>
 </RCC>

@@ -38,8 +38,8 @@ Item {
             #endif
             #define PI 3.14159265359
 
-            uniform highp vec2 windowSize;
-            uniform highp vec2 lightPos;
+            uniform lowp vec2 windowSize;
+            uniform lowp vec2 lightPos;
             uniform lowp float upperLimit;
             uniform lowp float lowerLimit;
             uniform lowp float l;
@@ -57,7 +57,6 @@ Item {
                 st.x *= windowSize.x/windowSize.y;
                 float length = smoothstep(lowerLimit, upperLimit, max(distance(st, vec2(lightPos.x-l, lightPos.y-angle)),distance(st, vec2(lightPos.x+l, lightPos.y+angle))));
                 vec3 map = vec3(length);
-                //vec3 lightColor = vec3(1.0, 0.8, 0.8);
                 src.rgb *= map * lightColor;
                 gl_FragColor = vec4(src.rgb, 1.0);
             }"

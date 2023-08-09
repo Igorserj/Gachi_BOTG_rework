@@ -94,7 +94,7 @@ Rectangle {
         onMessage: scannedItems(messageObject)
     }
     WorkerScript {
-        id: enemiesScanScript
+        id: enemiesPunchScript
         source: "enemiesScan.mjs"
         onMessage: scannedEnemies(messageObject)
     }
@@ -135,7 +135,7 @@ Rectangle {
     }
 
     function scannedDeadEnemies(messageObject) {
-        eventHandler.itemAt(entity.parent.entityIndex).loot(entity.parent, messageObject.ids)
+        eventHandler.itemAt(entity.parent.entityIndex).interaction(entity.parent, messageObject.ids)
     }
 
     function objScan(hor, dir) {
@@ -171,14 +171,14 @@ Rectangle {
     function nmyScan() {
         if (!interactionBlocked) {
             animations.attackReady = false
-            enemiesScanScript.sendMessage({
+            enemiesPunchScript.sendMessage({
                                               "objects": entGen.objects,
                                               "index": entity.parent.entityIndex
                                           })
         }
     }
 
-    function loot() {
+    function interaction() {
         if (!interactionBlocked) {
             deadEnemiesScanScript.sendMessage({
                                               "objects": entGen.objects,

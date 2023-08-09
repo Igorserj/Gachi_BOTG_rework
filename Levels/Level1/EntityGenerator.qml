@@ -1,6 +1,8 @@
 import QtQuick 2.15
 import "../../Entities/Good"
 import "../../Entities/Evil"
+import "../../Entities/NPC"
+import "../../Entities/Interact"
 
 Item {
     property alias repeater: repeater
@@ -15,7 +17,13 @@ Item {
             id: entityLoader
             property int entityIndex: -1
             asynchronous: true
-            sourceComponent: modelData[0] === "hero" ? hero : modelData[0] === "hostile" ? hostile : undefined
+            sourceComponent: {
+                if (modelData[0] === "hero") {return hero}
+                else if (modelData[0] === "hostile") { return hostile }
+                else if (modelData[0] === "npc") {return npc }
+                else if (modelData[0] === "interact") { return interact }
+                else return undefined
+            }
             focus: modelData[0] === "hero"
             x: modelData[1]
             y: modelData[2]
@@ -33,6 +41,9 @@ Item {
                 if (metadata[index].inventory !== undefined) {
                     item.inventory.inventoryCells = metadata[index].inventory
                 }
+                if (metadata[index].money !== undefined) {
+                    item.money = metadata[index].money
+                }
                 item.inventory.activeArmor()
                 repeater.numberOfCreatedObjects++
             }
@@ -46,5 +57,13 @@ Item {
     Component {
         id: hostile
         Hostile {}
+    }
+    Component {
+        id: npc
+        NPC {}
+    }
+    Component {
+        id: interact
+        Interact {}
     }
 }

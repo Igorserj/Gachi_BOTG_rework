@@ -7,12 +7,12 @@ Item {
     property alias buttonArea: buttonArea
     property int animationDuration: 200
     property string alignment: "center"
-    property bool active: (buttonArea.containsMouse && buttonArea.enabled) || currentIndex === controlModule.currentIndex
+    property bool active: (buttonArea.containsMouse && buttonArea.enabled)// || currentIndex === controlModule.currentIndex
     property int currentIndex: -1
     activeFocusOnTab: true
     width: buttonText.contentWidth + window.recalculatedWidth / 1280 * 30
     height: buttonText.contentHeight + window.recalculatedHeight / 720 * 15
-    Component.onCompleted: { currentIndex = controlModule.createdComponents; controlModule.createdComponents++ }
+//    Component.onCompleted: { currentIndex = controlModule.createdComponents; controlModule.createdComponents++ }
     Rectangle {
         id: buttonRect
         color: button.enabled ? active ? style.darkGlass : style.grayGlass : style.blackGlass
@@ -71,20 +71,20 @@ Item {
         color: "#80000000"
         source: buttonRect
     }
-    Connections {
-        target: controlModule
-        enabled: true
-        function onActivateChanged() {
-            if (controlModule.activate && active) {
-                clickFunction()
-            }
-        }
-        function onCurrentIndexChanged() {
-            if (controlModule.currentIndex === -1) currentIndex = -1
-        }
-    }
+//    Connections {
+//        target: controlModule
+//        enabled: true
+//        function onActivateChanged() {
+//            if (controlModule.activate && active) {
+//                clickFunction()
+//            }
+//        }
+//        function onCurrentIndexChanged() {
+//            if (controlModule.currentIndex === -1) currentIndex = -1
+//        }
+//    }
 
-    function clickFunction() {}
+//    function clickFunction() {}
 
     Styles {
         id: style

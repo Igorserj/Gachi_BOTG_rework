@@ -43,15 +43,9 @@ Item {
         }
     }
 
-//    Row {
-
-//    }
-
-
     ContextMenu {
         id: contextMenu
         opacity: 0
-        property var variable
 
         Connections {
             target: levelLoader.item.entGen.repeater.itemAt(0)
@@ -66,10 +60,26 @@ Item {
         }
 
         function actionSet1(index) {
-            iface.state = "inventory"
-            interfaceLoader.item.usedByEntity = entGen.repeater.itemAt(variable[index]).item
-            interfaceLoader.item.heroEntity = entGen.repeater.itemAt(0).item
+            if (entGen.objects[obj[index]][0] === "hostile") {
+                inventoryOpen(obj, index)
+            }
+            else if (entGen.objects[obj[index]][0] === "npc") {
+                dialogueOpen(obj, index)
+            }
         }
+    }
+
+    function inventoryOpen(obj, index) {
+        iface.state = "inventory"
+        interfaceLoader.item.usedByEntity = entGen.repeater.itemAt(obj[index]).item
+        interfaceLoader.item.heroEntity = entGen.repeater.itemAt(0).item
+    }
+
+    function dialogueOpen(obj, index) {
+        iface.state = "dialogue"
+        ifaceLoader.item.interfaceLoader.item.entity1 = entGen.repeater.itemAt(0).item
+        ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(obj[index]).item
+//        entGen.repeater.itemAt(0).item.connection.target = ifaceLoader.item.interfaceLoader.item
     }
 
     function heroes() {

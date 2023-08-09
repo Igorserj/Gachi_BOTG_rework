@@ -13,18 +13,36 @@ Item {
         focus: true
         activeFocusOnTab: true
         Component.onCompleted: levelChooser()
-        onLoaded: lightingLoader.sourceComponent = spot
+        onLoaded: { lightingLoader.sourceComponent = spot
+            lightingLoader2.sourceComponent = spot
+        }
     }
     Component {
         id: level1Compose
         Level1Compose {}
     }
 
+    Loader {
+        id: lightingLoader
+        visible: false
+        anchors.fill: parent
+    }
+    Loader {
+        id: lightingLoader2
+        visible: false
+        anchors.fill: parent
+    }
+    LightBlend {
+        id: blend
+        anchors.fill: parent
+        image: lightingLoader.item
+        image2: lightingLoader2.item
+    }
     FastBlur {
         id: blur
         width: levelLoader.width
         height: levelLoader.height
-        source: levelLoader
+        source: blend
         opacity: 0
         radius: 0
         Behavior on radius {
@@ -42,10 +60,7 @@ Item {
             }
         }
     }
-    Loader {
-        id: lightingLoader
-        anchors.fill: parent
-    }
+
     Loader {
         id: ifaceLoader
         anchors.fill: parent

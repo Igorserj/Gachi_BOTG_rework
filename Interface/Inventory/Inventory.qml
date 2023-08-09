@@ -37,23 +37,13 @@ Rectangle {
             }
         }
     }
-    Rectangle {
+    Button1 {
         anchors.top: col.bottom
         anchors.right: col.right
-        width: col.width
+        enabled: (usedByEntity !== heroEntity && usedByEntity.money > 0)
         height: equipRow.y - (col.y + col.height)
-        color: "transparent"
-        Text {
-            id: name
-            text: usedByEntity !== undefined ? "$" + usedByEntity.money : "$0"
-            height: parent.height
-            width: parent.width
-            horizontalAlignment: Text.AlignRight
-            font.pointSize: 72
-            fontSizeMode: Text.VerticalFit
-            font.family: comfortaaName
-            color: "white"
-        }
+        text: usedByEntity !== undefined ? "$" + usedByEntity.money : "$0"
+        buttonArea.onClicked: { heroEntity.money += usedByEntity.money; usedByEntity.money = 0 }
     }
     Row {
         id: equipRow

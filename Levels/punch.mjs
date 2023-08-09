@@ -26,7 +26,6 @@ WorkerScript.onMessage = function (message) {
         }
     }
 
-
     WorkerScript.sendMessage({
                                  "hHealth": healthList,
                                  "ids": idList,
