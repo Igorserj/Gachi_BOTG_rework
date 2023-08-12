@@ -18,8 +18,8 @@ Item {
         }
     }
     Component {
-        id: level1Compose
-        Level1Compose {}
+        id: level1View
+        Level1View {}
     }
 
     Loader {
@@ -89,6 +89,6 @@ Item {
     }
 
     function levelChooser() {
-        levelLoader.sourceComponent = level1Compose
+        levelLoader.sourceComponent = level1View
     }
 }

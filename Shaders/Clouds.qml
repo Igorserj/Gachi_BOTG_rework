@@ -9,7 +9,7 @@ Item {
         height: window.height
         property point windowSize: Qt.point(window.width, window.height)
         property real time: 0
-        property real shiftSpeed: 100.*window.height/720
+        property real shiftSpeed: 100. * window.height / 720
         fragmentShader: "
             #ifdef GL_ES
             precision highp float;

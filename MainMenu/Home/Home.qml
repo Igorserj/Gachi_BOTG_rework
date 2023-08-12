@@ -6,25 +6,18 @@ Item {
     property var buttonNames: locale.homeButtonNames/*[["Почати гру", "Налаштування", "Вихід"], ["Нова гра", "Продовжити", "Назад"]]*/
     property int actionSet: 0
     property alias buttonsModel: buttons.model
-//    Image {
-//        source: "../Assets/logo2.png"
-//        fillMode: Image.PreserveAspectFit
-//        width: height * 2
-//        height: (parent.height - homeColumn.height) / 2
-//        x: parent.width - width - composer.width / 30
-//        Glow {
-//            anchors.fill: parent
-//            radius: 8.0
-//            samples: 17
-//            spread: 0.3
-//            color: "#80000000"
-//            source: parent
-//            z: parent.z-1
-//        }
-//    }
     Logo {
         height: (parent.height - homeColumn.height) / 2
         x: parent.width - width - composer.width / 30
+        Glow {
+            anchors.fill: parent
+            radius: 6.0
+            samples: 17
+            spread: 0.3
+            color: "#80000000"
+            source: parent
+            z: parent.z - 1
+        }
     }
     Column {
         id: homeColumn
@@ -38,8 +31,7 @@ Item {
             Button1 {
                 text: modelData
                 anchors.right: parent.right
-                function clickFunction() { return actionSet === 0 ? action(index) : action2(
-                                                                        index) }
+                function clickFunction() { return actionSet === 0 ? action(index) : action2(index) }
             }
         }
     }

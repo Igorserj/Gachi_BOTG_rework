@@ -88,8 +88,8 @@ Rectangle {
     }
 
     function borderVDetect() {
-        if (y + height > loader.y + loader.height) {
-            y = loader.y + loader.height - height - 1
+        if (y + height > loader.y + recalculatedHeight) {
+            y = loader.y + recalculatedHeight - height - 1
         }
         else if (y < loader.y) {
             y = loader.y + 1

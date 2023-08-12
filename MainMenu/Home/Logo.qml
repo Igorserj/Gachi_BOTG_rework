@@ -6,7 +6,7 @@ Rectangle {
     Text {
         id: gachi
 //        anchors.top: parent.top
-        font.family: "Monoton"
+        font.family: monotonName
         height: parent.height / 2.4
         anchors.left: parent.left
         anchors.right: parent.right
@@ -22,7 +22,7 @@ Rectangle {
         anchors.top: gachi.bottom
         anchors.leftMargin: gachi.width*0.237//228
         anchors.topMargin: -gachi.height*0.35//-77
-        font.family: "Monoton"
+        font.family: monotonName
         height: parent.height / 3.1
         width: parent.width / 3.1
         anchors.left: parent.left
@@ -39,7 +39,7 @@ Rectangle {
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignTop
         lineHeight: 0.65
-        font.family: "Monoton"
+        font.family: monotonName
         height: parent.height / 3.3
         width: parent.width / 7
         fontSizeMode: Text.Fit
@@ -50,7 +50,7 @@ Rectangle {
 
     Text {
         anchors.top: boss.top
-        font.family: "Monoton"
+        font.family: monotonName
         height: parent.height / 3.1
         width: parent.width / 3.1
         anchors.left: of.right

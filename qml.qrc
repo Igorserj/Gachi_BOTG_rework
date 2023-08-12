@@ -13,8 +13,6 @@
         <file>MainMenu/Assets/bg.png</file>
         <file>MainMenu/Assets/logo.png</file>
         <file>Levels/Level1/Assets/Room.png</file>
-        <file>Levels/Level1/Level1Compose.qml</file>
-        <file>Levels/Level1/ObjectsGenerator.qml</file>
         <file>Entities/Evil/Hostile.qml</file>
         <file>Entities/Good/ControlModule.qml</file>
         <file>Entities/Entity.qml</file>
@@ -25,7 +23,6 @@
         <file>Entities/Evil/direction.mjs</file>
         <file>Levels/EventHandler.qml</file>
         <file>Levels/collision.mjs</file>
-        <file>Levels/Level1/EntityGenerator.qml</file>
         <file>Entities/enemiesScan.mjs</file>
         <file>Levels/punch.mjs</file>
         <file>Interface/Interface.qml</file>
@@ -35,14 +32,6 @@
         <file>Localization.qml</file>
         <file>Controls/DropDown.qml</file>
         <file>Entities/InventoryItems.qml</file>
-        <file>Fonts/Comfortaa/static/Comfortaa-Bold.ttf</file>
-        <file>Fonts/Comfortaa/static/Comfortaa-Light.ttf</file>
-        <file>Fonts/Comfortaa/static/Comfortaa-Medium.ttf</file>
-        <file>Fonts/Comfortaa/static/Comfortaa-Regular.ttf</file>
-        <file>Fonts/Comfortaa/static/Comfortaa-SemiBold.ttf</file>
-        <file>Fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf</file>
-        <file>Fonts/Comfortaa/OFL.txt</file>
-        <file>Fonts/Comfortaa/README.txt</file>
         <file>Controls/ToolTip.qml</file>
         <file>Items/ItemList.qml</file>
         <file>Items/ItemPattern.qml</file>
@@ -58,13 +47,10 @@
         <file>Interface/Inventory/InventoryItem.qml</file>
         <file>Controls/Dialog.qml</file>
         <file>Controls/Styles.qml</file>
-        <file>Levels/Level1/ItemGenerator.qml</file>
         <file>Levels/collisionItem.mjs</file>
         <file>Levels/loot.mjs</file>
-        <file>ControlModule.qml</file>
         <file>Interface/Dialogue/Dialogue.qml</file>
         <file>Interface/Dialogue/FaceImage.qml</file>
-        <file>Levels/Highlighter.qml</file>
         <file>Interface/Indicators/NameFrame.qml</file>
         <file>Interface/Inventory/CellLogic.qml</file>
         <file>Interface/Inventory/InventoryCellView.qml</file>
@@ -76,8 +62,14 @@
         <file>Entities/Interact/Interact.qml</file>
         <file>Shaders/Clouds.qml</file>
         <file>MainMenu/Assets/logo2.png</file>
-        <file>Fonts/Monoton/Monoton-Regular.ttf</file>
-        <file>Fonts/Monoton/OFL.txt</file>
         <file>MainMenu/Home/Logo.qml</file>
+        <file>Entities/Interact/Bench.qml</file>
+        <file>Entities/Interact/InteractPattern.qml</file>
+        <file>Entities/NPC/DudeFilm.qml</file>
+        <file>Levels/Generators/EntityGenerator.qml</file>
+        <file>Levels/Generators/ItemGenerator.qml</file>
+        <file>Levels/Generators/ObjectsGenerator.qml</file>
+        <file>Levels/LevelPattern.qml</file>
+        <file>Levels/Level1/Level1View.qml</file>
     </qresource>
 </RCC>

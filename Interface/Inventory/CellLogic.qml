@@ -1,6 +1,7 @@
 import QtQuick 2.15
 
 QtObject {
+    property var equipRow: parent.parent
     function optionChoose() {
         var text = cellView.cellText
         if (text !== "") {
@@ -62,7 +63,7 @@ QtObject {
     }
     function itemName() {
         var entityInv = usedByEntity.inventory
-        if (isEquipment) return entityInv.equipmentCells[currentIndex]
+        if (isEquipment) return modelData//entityInv.equipmentCells[currentIndex]
         else return entityInv.inventoryCells[currentIndex]
     }
 
@@ -140,8 +141,8 @@ QtObject {
             entityInv.metadataCells[i] = localMeta
             entityInv.inventoryCells[i] = cellView.cellText
             unMoveItem()
-            interfaceLoader.item.inventoryCells = entityInv.inventoryCells
-            interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+            interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
+            interfaceLoader.item.inventoryLoader.item.equipmentCells = entityInv.equipmentCells
             invInterface.update()
             entityInv.activeArmor()
         }
@@ -157,7 +158,7 @@ QtObject {
         if (!isEquipment) {
             entityInv.inventoryCells[currentIndex] = ''
             entityInv.metadataCells[currentIndex] = {}
-            interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+            interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
         }
         invInterface.update()
     }
@@ -207,7 +208,8 @@ QtObject {
             heroInv.metadataCells[i] = localMeta
             heroInv.inventoryCells[i] = cellView.cellText
             unMoveItem()
-            interfaceLoader.item.inventoryCells = entityInv.inventoryCells
+            interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
+//            interfaceLoader.item.inventoryLoader.item.usedByEntity = mainHero
             invInterface.update()
             entityInv.activeArmor()
         }
@@ -283,8 +285,8 @@ QtObject {
                 entityInv.inventoryCells[currentIndex] = invItem.itemName
                 entityInv.metadataCells[currentIndex] = localMeta
                 unMoveItem()
-                interfaceLoader.item.inventoryCells = entityInv.inventoryCells
-                interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+                interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
+                interfaceLoader.item.inventoryLoader.item.equipmentCells = entityInv.equipmentCells
                 entityInv.activeArmor()
             }
             else if (isEquipment) {
@@ -303,8 +305,8 @@ QtObject {
                         entityInv.equipmentCells[currentIndex] = invItem.itemName
                         entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex] = localMeta
                         unMoveItem()
-                        interfaceLoader.item.inventoryCells = entityInv.inventoryCells
-                        interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+                        interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
+                        interfaceLoader.item.inventoryLoader.item.equipmentCells = entityInv.equipmentCells
                         entityInv.activeArmor()
                     }
                 }
@@ -323,8 +325,8 @@ QtObject {
                         entityInv.equipmentCells[currentIndex] = invItem.itemName
                         entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex] = localMeta
                         unMoveItem()
-                        interfaceLoader.item.inventoryCells = entityInv.inventoryCells
-                        interfaceLoader.item.equipmentCells = entityInv.equipmentCells
+                        interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
+                        interfaceLoader.item.inventoryLoader.item.equipmentCells = entityInv.equipmentCells
                         entityInv.activeArmor()
                     }
                 }

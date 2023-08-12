@@ -1,60 +1,99 @@
 import QtQuick 2.15
 import "../../Controls"
 
-Rectangle {
-    id: invInterface
+Item {
     property var inventoryCells: []
     property var equipmentCells: []
-    property var usedByEntity
-    property var heroEntity
-    width: parent.width * 0.8
-    height: parent.height * 0.8
-    color: style.blackGlass
+    //    property var usedByEntity
+    //    property var heroEntity
     MouseArea {
         id: inventoryArea
         anchors.fill: parent
         hoverEnabled: true
         enabled: false
     }
-    Column {
-        id: col
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 5
-        Repeater {
-            model: usedByEntity !== undefined ? Math.ceil(usedByEntity.inventory.inventoryCells.length / 5) : 0
-            Row {
-                id: row
-                property int colIndex: index
+    Rectangle {
+        id: invInterface
+        color: style.blackGlass
+        width: parent.width * 0.225
+        height: parent.height * 0.45
+        anchors.bottom: equipPanel.bottom
+        x: heroEntity === usedByEntity ? 0 : equipPanel.width
+        Column {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 10
+            Rectangle {
+                width: parent.width
+                height: invInterface.height / 7
+                color: "transparent"
+                Text {
+                    text: usedByEntity.name
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+//                    verticalAlignment: Text.AlignVCenter
+                    fontSizeMode: Text.Fit
+                    font.pointSize: 100
+                    color: "white"
+                }
+            }
+            Column {
+                id: col
+                anchors.horizontalCenter: parent.horizontalCenter
+                //            y: (parent.height - (height + button.height)) / 2
                 spacing: 5
                 Repeater {
-                    id: repeater
-                    model: usedByEntity.inventory.inventoryCells.length - index * 5 > 5 ? 5 : usedByEntity.inventory.inventoryCells.length - index * 5
-                    InventoryCell {
-                        id: invCell
+                    model: usedByEntity !== undefined ? Math.ceil(usedByEntity.inventory.inventoryCells.length / 5) : 0
+                    Row {
+                        id: row
+                        property int colIndex: index
+                        spacing: 5
+                        Repeater {
+                            id: repeater
+                            model: usedByEntity.inventory.inventoryCells.length - index * 5 > 5 ? 5 : usedByEntity.inventory.inventoryCells.length - index * 5
+                            InventoryCell {
+                                id: invCell
+                            }
+                        }
                     }
                 }
             }
+            Button1 {
+                id: button
+                //            anchors.top: col.bottom
+                anchors.horizontalCenter: col.horizontalCenter
+                enabled: (usedByEntity !== heroEntity && usedByEntity.money > 0)
+                height: invInterface.height / 7
+                width: height
+                text: usedByEntity !== undefined ? "$" + usedByEntity.money : "$0"
+                buttonArea.onClicked: { heroEntity.money += usedByEntity.money; usedByEntity.money = 0 }
+            }
+        }
+        function update() {
+            ifaceLoader.item.interfaceLoader.item.usedByEntity = usedByEntity
         }
     }
-    Button1 {
-        anchors.top: col.bottom
-        anchors.right: col.right
-        enabled: (usedByEntity !== heroEntity && usedByEntity.money > 0)
-        height: equipRow.y - (col.y + col.height)
-        text: usedByEntity !== undefined ? "$" + usedByEntity.money : "$0"
-        buttonArea.onClicked: { heroEntity.money += usedByEntity.money; usedByEntity.money = 0 }
-    }
-    Row {
-        id: equipRow
-        property int colIndex: 0
-        anchors.horizontalCenter: parent.horizontalCenter
+    Rectangle {
+        id: equipPanel
         anchors.bottom: parent.bottom
-        spacing: 5
-        Repeater {
-            model: usedByEntity !== undefined ? usedByEntity.inventory.equipmentCells : 0
-            InventoryCell {
-                type: itemList.equipmnets[index]
+        x: heroEntity === usedByEntity ? invInterface.width : 0
+        //        anchors.horizontalCenter: parent.horizontalCenter
+        height: invInterface.height / 6
+        width: parent.width - invInterface.width
+        color: style.blackGlass
+        Row {
+            id: equipRow
+            property int colIndex: 0
+            //            anchors.horizontalCenter: parent.horizontalCenter
+            //            anchors.bottom: parent.bottom
+            x: -parent.x + (parent.parent.width - width) / 2
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 5
+            Repeater {
+                model: usedByEntity !== undefined ? usedByEntity.inventory.equipmentCells/*range(usedByEntity.inventory.equipmentCells, 0, 4)*/ : 0
+                InventoryCell {
+                    type: itemList.equipmnets[index]
+                }
             }
         }
     }
@@ -108,7 +147,13 @@ Rectangle {
     Styles {
         id: style
     }
-    function update() {
-        ifaceLoader.item.interfaceLoader.item.usedByEntity = usedByEntity
+    Connections {
+        target: entGen.repeater.itemAt(0)
+        function onXChanged() {
+            closeInventory()
+        }
+        function onYChanged() {
+            closeInventory()
+        }
     }
 }

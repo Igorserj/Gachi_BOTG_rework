@@ -2,58 +2,59 @@ import QtQuick 2.15
 
 Item {
     focus: true
-//    property alias connection: connection
     Keys.onPressed: {
-        if (ifaceLoader.item.state === "ui") {
-            walking(event.key)
-            if (event.key === Qt.Key_I) {
-                ifaceLoader.item.state = "inventory"
-                ifaceLoader.item.interfaceLoader.item.usedByEntity = mainHero
-                ifaceLoader.item.interfaceLoader.item.heroEntity = mainHero
+        if (!!ifaceLoader.item) {
+            if (ifaceLoader.item.state === "ui") {
+                walking(event.key)
+                if (event.key === Qt.Key_I) {
+                    if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
+                        ifaceLoader.item.interfaceLoader.item.closeInventory()
+                    }
+                    else {
+                        ifaceLoader.item.interfaceLoader.item.openInventory(mainHero, mainHero)
+//                        console.log(ifaceLoader.item.interfaceLoader.item.inventoryLoader.item, ifaceLoader.item.interfaceLoader.item.inventoryLoader)
+//                        ifaceLoader.item.interfaceLoader.item.inventoryLoader.item.usedByEntity = mainHero
+//                        ifaceLoader.item.interfaceLoader.item.inventoryLoader.item.heroEntity = mainHero
+                    }
+                }
+                if (event.key === Qt.Key_E) {
+                    interaction()
+                }
+                if (event.key === Qt.Key_F) {
+                    mainHero.inventory.twoHands = !mainHero.inventory.twoHands
+                    mainHero.inventory.activeWeapon()
+                }
+                if (event.key === Qt.Key_J && animations.attackReady && !movementBlocked) {
+                    nmyScan()
+                }
+                if (event.key === Qt.Key_Shift && !movementBlocked) {
+                    mainHero.runActive()
+                }
+                if (event.key === Qt.Key_Escape) {
+                    if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
+                        ifaceLoader.item.interfaceLoader.item.closeInventory()
+                    }
+                    else {
+                        ifaceLoader.item.state = "menu"
+                    }
+                }
+                if (event.key === Qt.Key_R) {//disable on release
+                    ifaceLoader.item.state = "dialogue"
+                    ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
+                }
             }
-            if (event.key === Qt.Key_E) {
-                interaction()
+            else if (ifaceLoader.item.state === "menu") {
+                if (event.key === Qt.Key_Escape) {
+                    ifaceLoader.item.state = "ui"
+                }
             }
-            if (event.key === Qt.Key_F) {
-                mainHero.inventory.twoHands = !mainHero.inventory.twoHands
-                mainHero.inventory.activeWeapon()
-            }
-            if (event.key === Qt.Key_J && animations.attackReady && !movementBlocked) {
-                nmyScan()
-            }
-            if (event.key === Qt.Key_Shift && !movementBlocked) {
-                mainHero.runActive()
-            }
-            if (event.key === Qt.Key_Escape) {
-                ifaceLoader.item.state = "menu"
-            }
-            if (event.key === Qt.Key_R) {
-                ifaceLoader.item.state = "dialogue"
-                ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
-                //                ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(1).item
-                //                connection.target = ifaceLoader.item.interfaceLoader.item
-            }
-        }
-        else if (ifaceLoader.item.state === "inventory") {
-            walking(event.key)
-            if (event.key === Qt.Key_I) {
-                ifaceLoader.item.state = "ui"
-            }
-            if (event.key === Qt.Key_Escape) {
-                ifaceLoader.item.state = "ui"
-            }
-        }
-        else if (ifaceLoader.item.state === "menu") {
-            if (event.key === Qt.Key_Escape) {
-                ifaceLoader.item.state = "ui"
-            }
-        }
-        else if (ifaceLoader.item.state === "dialogue") {
-            if (event.key === Qt.Key_Escape || event.key === Qt.Key_R) {//disable on release
-                ifaceLoader.item.state = "ui"
-            }
-            if (event.key === Qt.Key_Space) {
-                ifaceLoader.item.interfaceLoader.item.indexUp()
+            else if (ifaceLoader.item.state === "dialogue") {
+                if (event.key === Qt.Key_Escape || event.key === Qt.Key_R) {//disable on release
+                    ifaceLoader.item.state = "ui"
+                }
+                if (event.key === Qt.Key_Space) {
+                    ifaceLoader.item.interfaceLoader.item.indexUp()
+                }
             }
         }
     }
@@ -104,16 +105,4 @@ Item {
             toTheBot()
         }
     }
-
-    //    function killEnemy() {
-    //        entGen.repeater.itemAt(1).item.health = 0
-    //    }
-
-    //    Connections {
-    //        id: connection
-    //        ignoreUnknownSignals: true
-    //        function onActionAfterCloseChanged() {
-    //            return killEnemy()
-    //        }
-    //    }
 }

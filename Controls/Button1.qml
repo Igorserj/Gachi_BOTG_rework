@@ -84,7 +84,7 @@ Item {
 //        }
 //    }
 
-//    function clickFunction() {}
+    function clickFunction() {}
 
     Styles {
         id: style

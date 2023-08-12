@@ -12,9 +12,8 @@ ApplicationWindow {
     height: 720
     property double recalculatedWidth: width / height > 16 / 9 ? height / 9 * 16 : width
     property double recalculatedHeight: width / height > 16 / 9 ? height : width / 16 * 9
-    property alias comfortaaName: comfortaa.name
-    property alias monotonName: monoton.name
-//    property alias controlModule: controlModule
+    property string comfortaaName: "Arial"//comfortaa.name
+    property string monotonName: "Arial"//monoton.name
     visible: true
     title: "Gachimuchi: Boss of this gym"
     color: "black"
@@ -52,8 +51,6 @@ ApplicationWindow {
             lightPosX: 0.875
             lightPosY: 0.5
             hideControls: true
-//            animationDuration: 5500
-//            pulsationRunning: true
         }
     }
     Localization {
@@ -75,27 +72,12 @@ ApplicationWindow {
         }
     }
 
-    FontLoader {
-        id: comfortaa
-        name: "Comfortaa"
-        source: "Fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf"
-    }
-    FontLoader {
-        id: monoton
-        name: "Monoton"
-        source: "Fonts/Monoton/Monoton-Regular.ttf"
-    }
-
     Loader {
         id: frameTimerLoader
     }
     Loader {
         id: exitDialogLoader
         anchors.fill: parent
-//        onSourceChanged: {
-//            controlModule.createdComponents = 0
-//            controlModule.currentIndex = -1
-//        }
         onLoaded: item.show()
     }
 
@@ -104,9 +86,6 @@ ApplicationWindow {
         MyControls.FrameTimer {
         }
     }
-//    ControlModule {
-//        id: controlModule
-//    }
 
     Component {
         id: exitDialog
@@ -124,12 +103,10 @@ ApplicationWindow {
     }
 
     function loadMenu() {
-//        controlModule.focus = true
         loader.focus = false
         loader.sourceComponent = menuCompose
     }
     function loadLevel() {
-//        controlModule.focus = false
         loader.focus = true
         loader.sourceComponent = levelBuilder
     }

@@ -1,5 +1,4 @@
 import QtQuick 2.15
-import "Inventory"
 import "Dialogue"
 
 Item {
@@ -31,13 +30,6 @@ Item {
             }
         },
         State {
-            name: "inventory"
-            PropertyChanges {
-                target: openInventory
-                running: true
-            }
-        },
-        State {
             name: "dialogue"
             PropertyChanges {
                 target: openDialogue
@@ -65,13 +57,9 @@ Item {
         }
     }
 
-    SequentialAnimation {
-        id: openInventory
-        ScriptAction {
-            script: interfaceLoader.sourceComponent = inventory
-        }
-    }
-
+//    function openMenu() {interfaceLoader.sourceComponent = menu}
+//    function openUi() {interfaceLoader.sourceComponent = ui}
+//    function openDialogue() {interfaceLoader.sourceComponent = dialogue}
     SequentialAnimation {
         id: openMenu
         ScriptAction {
@@ -110,17 +98,9 @@ Item {
     Component {
         id: dialogue
         Dialogue {
-            function scriptRun() {
-                levelLoader.item.entGen.repeater.itemAt(1).item.health = 0
-            }
-        }
-    }
-
-    Component {
-        id: inventory
-        Inventory {
-            inventoryCells: levelLoader.item.entGen.repeater.itemAt(0).item.inventory.inventoryCells
-            equipmentCells: levelLoader.item.entGen.repeater.itemAt(0).item.inventory.equipmentCells
+//            function scriptRun() {
+//                levelLoader.item.entGen.repeater.itemAt(1).item.health = 0
+//            }
         }
     }
 }

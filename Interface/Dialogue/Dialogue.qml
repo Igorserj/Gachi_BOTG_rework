@@ -12,10 +12,10 @@ Item {
     property bool enabled2: false
     property int index: 0
     property alias dialogueRect: dialogueRect
-//    property bool actionAfterClose: false
+    property bool run: false
     property var text: [[name1, "Oh shit, i'm sorry"], [name2, "Sorry for what?"], ["script", name2 + " is dead"]]
-    onIndexChanged: if (text[index][0] === "script") { scriptRun() }
-//    function onActionAfterCloseChanged() {}
+    onIndexChanged: if (text[index][0] === "script") { run=!run/*scriptRun()*/ }
+    function onRunChanged() {}
 
     Rectangle {
         id: dialogueRect
@@ -267,5 +267,5 @@ Item {
         }
     }
 
-    function scriptRun() {}
+//    function scriptRun() {}
 }

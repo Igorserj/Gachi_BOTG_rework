@@ -47,14 +47,14 @@ Repeater {
                     if (index.length > 1) {
                         let names = []
                         for (let i = 0; i < index.length; i++) {
-                            if (type[i] === "hostile") {
+                            if (type[index[i]] === "hostile") {
                                 names.push("Loot " + entGen.metadata[index[i]].name)
                             }
-                            else if (type[i] === "npc") {
+                            else if (type[index[i]] === "npc") {
                                 names.push("Talk to " + entGen.metadata[index[i]].name)
                             }
-                            else if (type[i] === "interact") {
-
+                            else if (type[index[i]] === "interact") {
+                                names.push("Interact with " + entGen.metadata[index[i]].name)
                             }
                         }
                         ifaceLoader.item.interfaceLoader.item.contextMenu.obj = index
@@ -66,7 +66,12 @@ Repeater {
                         if (type[index[0]] === "hostile") {
                             ifaceLoader.item.interfaceLoader.item.inventoryOpen(index, 0)
                         }
-                        else ifaceLoader.item.interfaceLoader.item.dialogueOpen(index, 0)
+                        else if (type[index[0]] === "npc") {
+                            entGen.repeater.itemAt(index[0]).item.interaction(entGen.repeater.itemAt(messageObject.index))
+                        }
+                        else if (type[index[0]] === "interact") {
+                            entGen.repeater.itemAt(index[0]).item.interactLoader.item.interaction(entGen.repeater.itemAt(messageObject.index))
+                        }
                     }
                 }
             }
@@ -87,20 +92,16 @@ Repeater {
                     if (itmGen.metadata[index].name === "money" && messageObject.isPicked) {
                         entity.money += itmGen.metadata[index].pcs
                         removing()
-                        if (ifaceLoader.item.state === "inventory") {
-                            ifaceLoader.item.state = "ui"
-                            ifaceLoader.item.state = "inventory"
-                            ifaceLoader.item.interfaceLoader.item.usedByEntity = entity
+                        if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
+                            ifaceLoader.item.interfaceLoader.item.openInventory(entity)
                         }
                     }
                     else if (itmGen.metadata[index].name !== "money" && i !== -1 && messageObject.isPicked) {
                         entity.inventory.inventoryCells[i] = itmGen.metadata[index].name
                         entity.inventory.metadataCells[i] = itmGen.metadata[index]
                         removing()
-                        if (ifaceLoader.item.state === "inventory") {
-                            ifaceLoader.item.state = "ui"
-                            ifaceLoader.item.state = "inventory"
-                            ifaceLoader.item.interfaceLoader.item.usedByEntity = entity
+                        if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
+                            ifaceLoader.item.interfaceLoader.item.openInventory(entity)
                         }
                     }
                 }
@@ -131,12 +132,14 @@ Repeater {
                                         "width": entity1.item.width,
                                         "height": entity1.item.height,
                                         "damage": entity1.item.damage,
+                                        "type": entGen.objects[index1][0],
                                         "hX": entity2[0],
                                         "hY": entity2[1],
                                         "hW": entity2[2],
                                         "hH": entity2[3],
                                         "hHealth": entity2[4],
                                         "hDef": entity2[5],
+                                        "types": entity2[7],
                                         "ids": ids,
                                         "index1": index1
                                     })
@@ -149,6 +152,7 @@ Repeater {
                                        "width": entity1.item.width,
                                        "height": entity1.item.height,
                                        "damage": entity1.item.damage,
+                                       "index": entity1.entityIndex,
                                        "hX": entity2[0],
                                        "hY": entity2[1],
                                        "hW": entity2[2],
@@ -186,7 +190,7 @@ Repeater {
         var defense = []
         var state = []
         var type = []
-        for (var i = 0; i < ids.length; i++) {
+        for (let i = 0; i < ids.length; i++) {
             x.push(entGen.repeater.itemAt(ids[i]).x)
             y.push(entGen.repeater.itemAt(ids[i]).y)
             width.push(entGen.repeater.itemAt(ids[i]).item.width)

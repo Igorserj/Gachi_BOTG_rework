@@ -1,11 +1,37 @@
 import QtQuick 2.15
 import "Indicators"
 import "../Controls"
+import "Inventory"
 
 Item {
     id: ui
     property var entGen: levelLoader.item.entGen
     property alias contextMenu: contextMenu
+    property alias inventoryLoader: inventoryLoader
+    property var usedByEntity
+    property var heroEntity
+
+    function openInventory(entity1, entity2) {
+        usedByEntity = entity1
+        heroEntity = entity2
+        inventoryLoader.sourceComponent = inventory
+    }
+    function closeInventory() {
+        inventoryLoader.sourceComponent = undefined
+    }
+    Loader {
+        id: inventoryLoader
+        anchors.fill: parent
+        asynchronous: true
+    }
+    Component {
+        id: inventory
+        Inventory {
+            inventoryCells: levelLoader.item.entGen.repeater.itemAt(0).item.inventory.inventoryCells
+            equipmentCells: levelLoader.item.entGen.repeater.itemAt(0).item.inventory.equipmentCells
+        }
+    }
+
     Column {
         spacing: ui.height * 0.03
         Repeater {
@@ -66,20 +92,22 @@ Item {
             else if (entGen.objects[obj[index]][0] === "npc") {
                 dialogueOpen(obj, index)
             }
+            else if (entGen.objects[obj[index]][0] === "interact") {
+                entGen.repeater.itemAt([obj[index]][0]).item.interactLoader.item.interaction(entGen.repeater.itemAt(0))
+            }
         }
     }
 
     function inventoryOpen(obj, index) {
-        iface.state = "inventory"
-        interfaceLoader.item.usedByEntity = entGen.repeater.itemAt(obj[index]).item
-        interfaceLoader.item.heroEntity = entGen.repeater.itemAt(0).item
+        interfaceLoader.item.openInventory(entGen.repeater.itemAt(obj[index]).item, entGen.repeater.itemAt(0).item)
+//        interfaceLoader.item.inventoryLoader.item.usedByEntity = entGen.repeater.itemAt(obj[index]).item
+//        interfaceLoader.item.inventoryLoader.item.heroEntity = entGen.repeater.itemAt(0).item
     }
 
-    function dialogueOpen(obj, index) {
+    function dialogueOpen(index = 0, index2) {
         iface.state = "dialogue"
-        ifaceLoader.item.interfaceLoader.item.entity1 = entGen.repeater.itemAt(0).item
-        ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(obj[index]).item
-//        entGen.repeater.itemAt(0).item.connection.target = ifaceLoader.item.interfaceLoader.item
+        ifaceLoader.item.interfaceLoader.item.entity1 = entGen.repeater.itemAt(index).item
+        if (!!index2) ifaceLoader.item.interfaceLoader.item.entity2 = entGen.repeater.itemAt(index2).item
     }
 
     function heroes() {
