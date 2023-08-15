@@ -11,15 +11,15 @@ Item {
         height: parent.height
         width: parent.width
         fillMode: Image.PreserveAspectFit
-    }
-    ObjectsGenerator {
-        id: objGen
-    }
-    EntityGenerator {
-        id: entGen
-    }
-    ItemGenerator {
-        id: itmGen
+        ObjectsGenerator {
+            id: objGen
+        }
+        EntityGenerator {
+            id: entGen
+        }
+        ItemGenerator {
+            id: itmGen
+        }
     }
 
     EventHandler {

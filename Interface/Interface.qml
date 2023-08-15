@@ -57,9 +57,6 @@ Item {
         }
     }
 
-//    function openMenu() {interfaceLoader.sourceComponent = menu}
-//    function openUi() {interfaceLoader.sourceComponent = ui}
-//    function openDialogue() {interfaceLoader.sourceComponent = dialogue}
     SequentialAnimation {
         id: openMenu
         ScriptAction {
@@ -97,10 +94,6 @@ Item {
 
     Component {
         id: dialogue
-        Dialogue {
-//            function scriptRun() {
-//                levelLoader.item.entGen.repeater.itemAt(1).item.health = 0
-//            }
-        }
+        Dialogue {}
     }
 }

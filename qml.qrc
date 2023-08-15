@@ -69,7 +69,8 @@
         <file>Levels/Generators/EntityGenerator.qml</file>
         <file>Levels/Generators/ItemGenerator.qml</file>
         <file>Levels/Generators/ObjectsGenerator.qml</file>
-        <file>Levels/LevelPattern.qml</file>
+        <file>Levels/RoomPattern.qml</file>
         <file>Levels/Level1/Level1View.qml</file>
+        <file>Levels/Level1/Central/StaircasePattern.qml</file>
     </qresource>
 </RCC>

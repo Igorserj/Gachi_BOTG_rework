@@ -23,6 +23,7 @@ Item {
         id: inventoryLoader
         anchors.fill: parent
         asynchronous: true
+        onStatusChanged: status===Loader.Null ? toolTip.hide() : {}
     }
     Component {
         id: inventory

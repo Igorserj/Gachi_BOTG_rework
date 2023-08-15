@@ -15,6 +15,7 @@ Item {
     property alias animationDuration: pulsation.dur
     property alias pulsationRunning: pulsation.running
     property bool hideControls: false
+    property alias lightBoost: spotlight.lightBoost
     width: image.width
     height: image.height
     ShaderEffect {
@@ -31,6 +32,7 @@ Item {
         property real colorR: sliderR.value
         property real colorG: sliderG.value
         property real colorB: sliderB.value
+        property bool lightBoost: false
 
         fragmentShader: "
             #ifdef GL_ES
@@ -43,6 +45,7 @@ Item {
             uniform lowp float upperLimit;
             uniform lowp float lowerLimit;
             uniform lowp float l;
+            uniform bool lightBoost;
             uniform lowp float angle;
             uniform lowp float colorR;
             uniform lowp float colorG;
@@ -58,6 +61,7 @@ Item {
                 float length = smoothstep(lowerLimit, upperLimit, max(distance(st, vec2(lightPos.x-l, lightPos.y-angle)),distance(st, vec2(lightPos.x+l, lightPos.y+angle))));
                 vec3 map = vec3(length);
                 src.rgb *= map * lightColor;
+                if (lightBoost==true) src.rgb += min(min(src.r, src.g),src.b);
                 gl_FragColor = vec4(src.rgb, 1.0);
             }"
 

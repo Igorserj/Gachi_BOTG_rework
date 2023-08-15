@@ -9,15 +9,15 @@ Item {
     Logo {
         height: (parent.height - homeColumn.height) / 2
         x: parent.width - width - composer.width / 30
-        Glow {
-            anchors.fill: parent
-            radius: 6.0
-            samples: 17
-            spread: 0.3
-            color: "#80000000"
-            source: parent
-            z: parent.z - 1
-        }
+//        Glow {
+//            anchors.fill: parent
+//            radius: 6.0
+//            samples: 17
+//            spread: 0.3
+//            color: "#80000000"
+//            source: parent
+//            z: parent.z - 1
+//        }
     }
     Column {
         id: homeColumn

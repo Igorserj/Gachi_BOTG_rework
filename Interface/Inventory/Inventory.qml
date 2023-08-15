@@ -4,13 +4,12 @@ import "../../Controls"
 Item {
     property var inventoryCells: []
     property var equipmentCells: []
-    //    property var usedByEntity
-    //    property var heroEntity
     MouseArea {
         id: inventoryArea
         anchors.fill: parent
         hoverEnabled: true
-        enabled: false
+        enabled: true
+        onClicked: contextMenu.hide()
     }
     Rectangle {
         id: invInterface
@@ -31,7 +30,6 @@ Item {
                     text: usedByEntity.name
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
-//                    verticalAlignment: Text.AlignVCenter
                     fontSizeMode: Text.Fit
                     font.pointSize: 100
                     color: "white"
@@ -40,7 +38,6 @@ Item {
             Column {
                 id: col
                 anchors.horizontalCenter: parent.horizontalCenter
-                //            y: (parent.height - (height + button.height)) / 2
                 spacing: 5
                 Repeater {
                     model: usedByEntity !== undefined ? Math.ceil(usedByEntity.inventory.inventoryCells.length / 5) : 0
@@ -60,7 +57,6 @@ Item {
             }
             Button1 {
                 id: button
-                //            anchors.top: col.bottom
                 anchors.horizontalCenter: col.horizontalCenter
                 enabled: (usedByEntity !== heroEntity && usedByEntity.money > 0)
                 height: invInterface.height / 7
@@ -77,20 +73,17 @@ Item {
         id: equipPanel
         anchors.bottom: parent.bottom
         x: heroEntity === usedByEntity ? invInterface.width : 0
-        //        anchors.horizontalCenter: parent.horizontalCenter
         height: invInterface.height / 6
         width: parent.width - invInterface.width
         color: style.blackGlass
         Row {
             id: equipRow
             property int colIndex: 0
-            //            anchors.horizontalCenter: parent.horizontalCenter
-            //            anchors.bottom: parent.bottom
             x: -parent.x + (parent.parent.width - width) / 2
             anchors.verticalCenter: parent.verticalCenter
             spacing: 5
             Repeater {
-                model: usedByEntity !== undefined ? usedByEntity.inventory.equipmentCells/*range(usedByEntity.inventory.equipmentCells, 0, 4)*/ : 0
+                model: usedByEntity !== undefined ? usedByEntity.inventory.equipmentCells : 0
                 InventoryCell {
                     type: itemList.equipmnets[index]
                 }
@@ -150,10 +143,12 @@ Item {
     Connections {
         target: entGen.repeater.itemAt(0)
         function onXChanged() {
-            closeInventory()
+            if (usedByEntity !== heroEntity)
+                closeInventory()
         }
         function onYChanged() {
-            closeInventory()
+            if (usedByEntity !== heroEntity)
+                closeInventory()
         }
     }
 }

@@ -7,6 +7,8 @@ import "../Shaders"
 
 Item {
     property int blurDuration: 500
+    property alias lightingLoader: lightingLoader
+    property alias lightingLoader2: lightingLoader2
     Loader {
         id: levelLoader
         anchors.fill: parent

@@ -10,6 +10,7 @@ Rectangle {
         height: parent.height / 2.4
         anchors.left: parent.left
         anchors.right: parent.right
+        style: Text.Raised
         fontSizeMode: Text.Fit
         text: "Gachimuchi"
         font.pointSize: 100
@@ -20,6 +21,7 @@ Rectangle {
     Text {
         id: boss
         anchors.top: gachi.bottom
+        style: Text.Raised
         anchors.leftMargin: gachi.width*0.237//228
         anchors.topMargin: -gachi.height*0.35//-77
         font.family: monotonName
@@ -39,6 +41,7 @@ Rectangle {
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignTop
         lineHeight: 0.65
+        style: Text.Raised
         font.family: monotonName
         height: parent.height / 3.3
         width: parent.width / 7
@@ -50,6 +53,7 @@ Rectangle {
 
     Text {
         anchors.top: boss.top
+        style: Text.Raised
         font.family: monotonName
         height: parent.height / 3.1
         width: parent.width / 3.1

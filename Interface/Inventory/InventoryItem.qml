@@ -8,7 +8,7 @@ Rectangle {
     property bool isEquipment: false
     property var metadata
     property string itemName2: ""
-    visible: inventoryArea.enabled
+    visible: inventoryArea.enabled && itemName !== ""
     height: invInterface.height / 7
     width: height
     radius: width / 8

@@ -16,7 +16,7 @@ Item {
         cellText: cl.itemName()
         cellArea.onEntered: cl.showToolTip()
         cellArea.onExited: toolTip.hide()
-        cellArea.onClicked: cl.showContextMenu(cellArea.mouseX, cellArea.mouseY, mouse.button)
+        cellArea.onClicked: cl.showContextMenu(inventoryArea.mouseX, inventoryArea.mouseY, mouse.button)
         cellArea.onHoverEnabledChanged: if (!cellArea.hoverEnabled) toolTip.hide()
     }
 

@@ -72,14 +72,14 @@ QtObject {
         invItem.index = -1
         invItem.isEquipment = false
         invItem.metadata = {}
-        inventoryArea.enabled = false
+//        inventoryArea.enabled = false
     }
     function moveItem() {
         invItem.itemName = cellView.cellText
         invItem.index = currentIndex
         invItem.isEquipment = isEquipment
         invItem.metadata = usedByEntity.inventory.metadataCells[currentIndex]
-        inventoryArea.enabled = true
+//        inventoryArea.enabled = true
     }
     function useItem() {
         var cells = cellView.cellText
@@ -126,7 +126,7 @@ QtObject {
         else {
             toolTip.mainText = "Unequip item!"
             toolTip.addText = "There is no vacant cell of type " + type + ". Unequip " + name
-            toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
+            toolTip.show(inventoryArea.mouseX, inventoryArea.mouseY)
         }
     }
 
@@ -149,7 +149,8 @@ QtObject {
         else {
             toolTip.mainText = "Not enough space!"
             toolTip.addText = "There is no vacant cell in your inventory"
-            toolTip.show(equipRow.x + col.x + cell.width, equipRow.y + col.y)
+//            toolTip.show(equipRow.x + col.x + cell.width, equipRow.y + col.y)
+            toolTip.show(inventoryArea.mouseX, inventoryArea.mouseY)
         }
     }
 
@@ -209,48 +210,51 @@ QtObject {
             heroInv.inventoryCells[i] = cellView.cellText
             unMoveItem()
             interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
-//            interfaceLoader.item.inventoryLoader.item.usedByEntity = mainHero
+            //            interfaceLoader.item.inventoryLoader.item.usedByEntity = mainHero
             invInterface.update()
             entityInv.activeArmor()
         }
         else {
             toolTip.mainText = "Not enough space!"
             toolTip.addText = "There is no vacant cells in your inventory"
-            toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
+            //            toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
+            toolTip.show(inventoryArea.mouseX, inventoryArea.mouseY)
         }
     }
 
     function showToolTip() {
         var cells = cellView.cellText
-        if (isEquipment) {
-            if (cells !== "") {
-                if (itemList.itemNames.includes(cells)) {
-                    const i = itemList.itemNames.indexOf(cells)
-                    toolTip.mainText = itemList.items[i].name
-                    toolTip.addText = itemList.items[i].additionalInfo
-                    toolTip.show(cell.x + cell.width + equipRow.x, equipRow.y)
-                }
-                else {
-                    let entityInv = usedByEntity.inventory
-                    toolTip.mainText = cells
-                    toolTip.addText = entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex].additionalInfo
-                    toolTip.show(cell.x + cell.width + equipRow.x, equipRow.y)
+        if (contextMenu.opacity === 0) {
+            if (isEquipment) {
+                if (cells !== "") {
+                    if (itemList.itemNames.includes(cells)) {
+                        const i = itemList.itemNames.indexOf(cells)
+                        toolTip.mainText = itemList.items[i].name
+                        toolTip.addText = itemList.items[i].additionalInfo
+                        toolTip.show(cell.x + cell.width + equipRow.x, equipRow.y)
+                    }
+                    else {
+                        let entityInv = usedByEntity.inventory
+                        toolTip.mainText = cells
+                        toolTip.addText = entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex].additionalInfo
+                        toolTip.show(cell.x + cell.width + equipRow.x, equipRow.y)
+                    }
                 }
             }
-        }
-        else {
-            if (cells !== "") {
-                if (itemList.itemNames.includes(cells)) {
-                    const i = itemList.itemNames.indexOf(cells)
-                    toolTip.mainText = itemList.items[i].name
-                    toolTip.addText = itemList.items[i].additionalInfo
-                    toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
-                }
-                else {
-                    let entityInv = usedByEntity.inventory
-                    toolTip.mainText = cells
-                    toolTip.addText = entityInv.metadataCells[currentIndex].additionalInfo
-                    toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
+            else {
+                if (cells !== "") {
+                    if (itemList.itemNames.includes(cells)) {
+                        const i = itemList.itemNames.indexOf(cells)
+                        toolTip.mainText = itemList.items[i].name
+                        toolTip.addText = itemList.items[i].additionalInfo
+                        toolTip.show(cell.x + cell.width + equipRow.x + invInterface.x, row.y + equipRow.y + invInterface.y)
+                    }
+                    else {
+                        let entityInv = usedByEntity.inventory
+                        toolTip.mainText = cells
+                        toolTip.addText = entityInv.metadataCells[currentIndex].additionalInfo
+                        toolTip.show(cell.x + cell.width + equipRow.x + invInterface.x, row.y + equipRow.y + invInterface.y)
+                    }
                 }
             }
         }
@@ -259,8 +263,8 @@ QtObject {
         if (button === Qt.RightButton && contextMenu.opacity === 0 && cellView.cellText !== "") {
             contextMenu.obj = cell
             contextMenu.objects = optionChoose()
-            if (isEquipment) contextMenu.show(cell.x + equipRow.x + mouseX, equipRow.y + mouseY)
-            else contextMenu.show(cell.x + parent.x + col.x + mouseX, parent.y + col.y + mouseY)
+            if (isEquipment) contextMenu.show(cell.x + cell.width + equipRow.x, equipRow.y)
+            else contextMenu.show(cell.x + cell.width + equipRow.x + invInterface.x, row.y + equipRow.y + invInterface.y)
         }
         else contextMenu.hide()
         swapCells()
