@@ -3,6 +3,8 @@ import QtQuick 2.15
 InteractPattern {
     width: 120
     height: 20
+    scenario: [[ifaceLoader.item.interfaceLoader.item.name1, "I can't sit"],
+        [ifaceLoader.item.interfaceLoader.item.name1, 'The bench is broken']]
     function interaction(entity) {
         if (interact.health > 0) {
             entity.x = entGen.objects[currentIndex][1] + (width - entity.item.width) / 2
@@ -10,8 +12,10 @@ InteractPattern {
         }
         else {
             ifaceLoader.item.interfaceLoader.item.dialogueOpen()
-            let name1 = ifaceLoader.item.interfaceLoader.item.name1
-            ifaceLoader.item.interfaceLoader.item.text = [[name1, "I can't sit"], [name1, 'The bench is broken']]
+//            let name1 = ifaceLoader.item.interfaceLoader.item.name1
+//            let scenario = [[name1, "I can't sit"],
+//                [name1, 'The bench is broken']]
+            ifaceLoader.item.interfaceLoader.item.text = scenario
         }
     }
 }

@@ -1,0 +1,1 @@
+Fix equip item bug (When equiping mask instead hat)

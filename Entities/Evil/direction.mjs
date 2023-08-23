@@ -37,9 +37,9 @@ WorkerScript.onMessage = function (message) {
         else
             verticalDirection = -1
     }
-
+    let value
     for (var i = 0; i < objects.length; i++) {
-        var value = (Math.min(Math.abs(objects[i][0] - (x + width)),
+        value = (Math.min(Math.abs(objects[i][0] - (x + width)),
                               Math.abs(objects[i][0] + objects[i][2] - x)))
         if (value < indexHValue) {
             indexHValue = value
@@ -47,7 +47,7 @@ WorkerScript.onMessage = function (message) {
         }
     }
     for (i = 3; i < objects.length; i++) {
-        var value = Math.min(Math.abs(objects[i][1] - (y + height)),
+        value = Math.min(Math.abs(objects[i][1] - (y + height)),
                              Math.abs(objects[i][1] + objects[i][3] - y))
         if (value < indexVValue) {
             indexVValue = value

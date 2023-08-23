@@ -18,6 +18,9 @@ Item {
             else if (name === "bench") {
                 return bench
             }
+            else if (name === "upstairs" || name === "downstairs") {
+                return stairs
+            }
         }
     }
     Component {
@@ -27,5 +30,9 @@ Item {
     Component {
         id: bench
         Bench {}
+    }
+    Component {
+        id: stairs
+        StairsInteract {}
     }
 }

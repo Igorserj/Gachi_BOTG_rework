@@ -5,6 +5,7 @@ import "MainMenu"
 import "Levels"
 import "Shaders"
 import "Controls" as MyControls
+import "Loading"
 
 ApplicationWindow {
     id: window
@@ -14,6 +15,8 @@ ApplicationWindow {
     property double recalculatedHeight: width / height > 16 / 9 ? height : width / 16 * 9
     property string comfortaaName: "Arial"//comfortaa.name
     property string monotonName: "Arial"//monoton.name
+    property alias loader: loader
+    property alias loadingScreen: loadingScreen
     visible: true
     title: "Gachimuchi: Boss of this gym"
     color: "black"
@@ -39,6 +42,22 @@ ApplicationWindow {
         sourceComponent: vignette
     }
 
+    Loading {
+        id: loadingScreen
+    }
+
+    Loader {
+        id: frameTimerLoader
+    }
+    Loader {
+        id: exitDialogLoader
+        anchors.fill: parent
+        onLoaded: item.show()
+    }
+
+    Localization {
+        id: locale
+    }
     Component {
         id: vignette
         SpotLight {
@@ -53,10 +72,6 @@ ApplicationWindow {
             hideControls: true
         }
     }
-    Localization {
-        id: locale
-    }
-
     Component {
         id: menuCompose
         MenuCompose {
@@ -64,21 +79,13 @@ ApplicationWindow {
             height: recalculatedHeight
         }
     }
+
     Component {
         id: levelBuilder
         LevelBuilder {
             width: recalculatedWidth
             height: recalculatedHeight
         }
-    }
-
-    Loader {
-        id: frameTimerLoader
-    }
-    Loader {
-        id: exitDialogLoader
-        anchors.fill: parent
-        onLoaded: item.show()
     }
 
     Component {
@@ -109,5 +116,9 @@ ApplicationWindow {
     function loadLevel() {
         loader.focus = true
         loader.sourceComponent = levelBuilder
+
+        let rand = Math.floor(Math.random() * 1000000).toString().split('')
+        loader.item.seed = rand.fill(0, rand.length - 1, 6).join('')
+        console.log(loader.item.seed)
     }
 }

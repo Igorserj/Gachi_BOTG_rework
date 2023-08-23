@@ -7,6 +7,7 @@ Entity {
     maxHealth: interact.maxHealth
     readonly property double baseHealth: 10
     readonly property double baseMaxHealth: 10
+    property var scenario: []
 
     function interaction(entity) {
 

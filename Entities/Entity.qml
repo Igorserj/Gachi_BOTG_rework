@@ -8,6 +8,7 @@ Rectangle {
     property int walkRight: 0
     property int walkUp: 0
     property int walkDown: 0
+
     property double health: 100
     property double maxHealth: 100
 
@@ -32,6 +33,7 @@ Rectangle {
     property string name: ""
 
     property bool recovery: false
+    property bool anotherRoom: false
 
     state: "alive"
     width: 50

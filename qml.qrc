@@ -72,5 +72,21 @@
         <file>Levels/RoomPattern.qml</file>
         <file>Levels/Level1/Level1View.qml</file>
         <file>Levels/Level1/Central/StaircasePattern.qml</file>
+        <file>PhysicalObjects/Stairs.qml</file>
+        <file>Levels/Generators/PhysicalObjectsGenerator.qml</file>
+        <file>Entities/Interact/StairsInteract.qml</file>
+        <file>Loading/Stairs/Downstairs.qml</file>
+        <file>Loading/Stairs/Upstairs.qml</file>
+        <file>PhysicalObjects/Stairs/Stair1.png</file>
+        <file>PhysicalObjects/Stairs/Stair2.png</file>
+        <file>PhysicalObjects/Stairs/Stair3.png</file>
+        <file>PhysicalObjects/Stairs/Stair4.png</file>
+        <file>PhysicalObjects/Stairs/Stair5.png</file>
+        <file>PhysicalObjects/Stairs/Stair6.png</file>
+        <file>PhysicalObjects/Stairs/Stair7.png</file>
+        <file>PhysicalObjects/Stairs/Stair8.png</file>
+        <file>PhysicalObjects/Stairs/Stair9.png</file>
+        <file>PhysicalObjects/Stairs/Stair10.png</file>
+        <file>Loading/Loading.qml</file>
     </qresource>
 </RCC>

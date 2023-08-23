@@ -9,19 +9,17 @@ Item {
     property int blurDuration: 500
     property alias lightingLoader: lightingLoader
     property alias lightingLoader2: lightingLoader2
+    property string seed: "000000"
     Loader {
         id: levelLoader
         anchors.fill: parent
         focus: true
         activeFocusOnTab: true
         Component.onCompleted: levelChooser()
-        onLoaded: { lightingLoader.sourceComponent = spot
+        onLoaded: {
+            lightingLoader.sourceComponent = spot
             lightingLoader2.sourceComponent = spot
         }
-    }
-    Component {
-        id: level1View
-        Level1View {}
     }
 
     Loader {
@@ -70,6 +68,15 @@ Item {
         sourceComponent: levelLoader.item.entGen.ready? iface : undefined
     }
 
+    ItemList {
+        id: itemList
+    }
+
+    Component {
+        id: level1View
+        Level1View {}
+    }
+
     Component {
         id: iface
         Interface {}
@@ -84,10 +91,6 @@ Item {
             hideControls: true
             image: levelLoader.item
         }
-    }
-
-    ItemList {
-        id: itemList
     }
 
     function levelChooser() {

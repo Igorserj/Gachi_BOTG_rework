@@ -55,11 +55,23 @@ Item {
             }
         }
         ParallelAnimation {
-            PropertyAnimation {
-                target: entity.parent
-                property: "x"
-                to: entity.parent.x - speed
-                duration: moveDuration
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: entity.parent
+                    property: anotherRoom ? "" : "x"
+                    to: entity.parent.x - speed
+                    duration: moveDuration
+                }
+                SequentialAnimation {
+                    PropertyAction {
+                        target: entity.parent
+                        property: anotherRoom ? "x" : ""
+                        value: entity.parent.x - speed
+                    }
+                    PauseAnimation {
+                        duration: moveDuration
+                    }
+                }
             }
             ScriptAction {
                 script: staminaDecrease.running = true
@@ -83,11 +95,23 @@ Item {
             }
         }
         ParallelAnimation {
-            PropertyAnimation {
-                target: entity.parent
-                property: "x"
-                to:  entity.parent.x + speed
-                duration: moveDuration
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: entity.parent
+                    property: anotherRoom ? "" : "x"
+                    to: entity.parent.x + speed
+                    duration: moveDuration
+                }
+                SequentialAnimation {
+                    PropertyAction {
+                        target: entity.parent
+                        property: anotherRoom ? "x" : ""
+                        value: entity.parent.x + speed
+                    }
+                    PauseAnimation {
+                        duration: moveDuration
+                    }
+                }
             }
             ScriptAction {
                 script: staminaDecrease.running = true
@@ -111,11 +135,23 @@ Item {
             }
         }
         ParallelAnimation {
-            PropertyAnimation {
-                target: entity.parent
-                property: "y"
-                to: entity.parent.y - speed
-                duration: moveDuration
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: entity.parent
+                    property: anotherRoom ? "" : "y"
+                    to: entity.parent.y - speed
+                    duration: moveDuration
+                }
+                SequentialAnimation {
+                    PropertyAction {
+                        target: entity.parent
+                        property: anotherRoom ? "y" : ""
+                        value: entity.parent.y - speed
+                    }
+                    PauseAnimation {
+                        duration: moveDuration
+                    }
+                }
             }
             ScriptAction {
                 script: staminaDecrease.running = true
@@ -139,11 +175,23 @@ Item {
             }
         }
         ParallelAnimation {
-            PropertyAnimation {
-                target: entity.parent
-                property: "y"
-                to: entity.parent.y + speed
-                duration: moveDuration
+            ParallelAnimation {
+                PropertyAnimation {
+                    target: entity.parent
+                    property: anotherRoom ? "" : "y"
+                    to: entity.parent.y + speed
+                    duration: moveDuration
+                }
+                SequentialAnimation {
+                    PropertyAction {
+                        target: entity.parent
+                        property: anotherRoom ? "y" : ""
+                        value: entity.parent.y + speed
+                    }
+                    PauseAnimation {
+                        duration: moveDuration
+                    }
+                }
             }
             ScriptAction {
                 script: staminaDecrease.running = true

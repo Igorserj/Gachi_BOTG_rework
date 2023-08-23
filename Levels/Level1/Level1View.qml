@@ -8,8 +8,13 @@ RoomPattern {
         [380, 320, 50, 50], [430, 370, 50, 50], [480, 420, 50, 50]
     ]
     entGen {
-        objects: [["hero", 1000, 600], ["hostile", 300, 500], ["npc", 490, 470], ["interact", 1000, 350]]
-        metadata: [{name: "Semen", hp: 110, equipment: ['Hat', 'Jacket', 'Jeans', 'Sneakers', '', 'Bat', '']/*, inventory: []*/}, {name: "Xyi", hp: 10, money: 5}, {name: "Dude", hp: 10, money: 3}, {name: "bench"}]
+        objects: [["hero", 1000, 600], ["hostile", -300, -500], ["npc", 490, 470], ["interact", 1000, 350]]
+        metadata: [
+            { name: "Semen", hp: 110, equipment: ['Hat', 'Jacket', 'Jeans', 'Sneakers', '', 'Bat', '']/*, inventory: []*/},
+            { name: "Xyi", hp: 10, money: 5, anotherRoom: true },
+            { name: "Dude", hp: 10, money: 3 },
+            { name: "bench", scenario: [["Semen", "I won't sit"],
+                    ["Semen", 'The bench is broken'], ["script", "Semen dies", "test1"]]}]
     }
     itmGen {
         objects: [[350, 310, 10, 10], [350, 550, 10, 10], [530, 400, 10, 10]]
@@ -17,10 +22,18 @@ RoomPattern {
                    {name: "Mask", additionalInfo: "Maska tupa", buffName: "HealthUp", points: 10, type: "Head", isEquipment: true},
                    {name: "money", pcs: 10}]
     }
-//    Component.onCompleted: {
-//        lightingLoader.item.upperLimit = 0.3
-//        lightingLoader.item.lowerLimit = 0.8
-//        lightingLoader.item.lightPosX = 0.5*loader.width/loader.height
-//        lightingLoader.item.lightPosY = 0.5
-//    }
+    pobjGen {
+        objects: [["stair", loader.width / 2, loader.height / 2, 0.15 * loader.width, 0.1 * loader.height]]
+        metadata: [{model: [
+                "../../PhysicalObjects/Stairs/Stair1.png",
+                "../../PhysicalObjects/Stairs/Stair2.png",
+                "../../PhysicalObjects/Stairs/Stair3.png",
+                "../../PhysicalObjects/Stairs/Stair4.png",
+                "../../PhysicalObjects/Stairs/Stair5.png"], type: "upstairs"}]
+    }
+    function scripts(scriptName) {
+        if (scriptName === "test1") {
+            entGen.repeater.itemAt(1).item.health = 0
+        }
+    }
 }

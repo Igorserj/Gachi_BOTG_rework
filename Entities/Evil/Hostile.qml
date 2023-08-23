@@ -7,5 +7,6 @@ Entity {
     stamina: maxStamina
     maxStamina: 15
     speedCoeff: 15
+//    anotherRoom: true
     Logic {}
 }
