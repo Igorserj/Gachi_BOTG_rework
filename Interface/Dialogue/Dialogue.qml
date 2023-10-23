@@ -16,7 +16,7 @@ Item {
     property var text: [[name1, "Oh shit, i'm sorry"], [name2, "Sorry for what?"], ["script", name2 + " is dead"]]
     onIndexChanged: if (text[index][0] === "script") {
                         if (text[index][2] === undefined) { run=!run }
-                        else { levelLoader.item.scripts(text[index][2]) }
+                        else { levelLoader.item.roomLoader.item.scripts(text[index][2]) }
                     }
     function onRunChanged() {}
 

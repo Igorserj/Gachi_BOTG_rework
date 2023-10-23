@@ -17,7 +17,7 @@ Item {
     property bool attackReady: true
     property var targets: []
     property var healths: []
-    property bool pauseCondition: ifaceLoader.item.state === "menu" || ifaceLoader.item.state === "dialogue"
+    property bool pauseCondition: ifaceLoader.status === Loader.Ready ? ifaceLoader.item.pauseStates.includes(ifaceLoader.item.state) : true
     /*--------------------------------------------*/
 
     function comeCloser(hor, edge) {

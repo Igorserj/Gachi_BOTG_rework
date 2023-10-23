@@ -4,6 +4,7 @@ import ".."
 Entity {
     id: npc
     color: "yellow"
+    canPickUp: false
     property var currentIndex: parent.entityIndex
     function interaction(entity) {
         if (!!loader.item) {

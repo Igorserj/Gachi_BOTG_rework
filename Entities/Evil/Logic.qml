@@ -4,7 +4,7 @@ Item {
 
     SequentialAnimation {
         running: entGen.repeater.numberOfCreatedObjects / entGen.objects.length === 1
-        paused: ifaceLoader.item.state === "menu" || ifaceLoader.item.state === "dialogue"
+        paused: ifaceLoader.item.pauseStates.includes(ifaceLoader.item.state)
         loops: Animation.Infinite
         ScriptAction {
             script: {
@@ -81,7 +81,7 @@ Item {
             if (hostile.parent.y + hostile.height < -5) { verticalDirection = 1 }
             else if (hostile.parent.y > window.height + 5) { verticalDirection = 0 }
             else {
-                let minDistance = window.width * Math.sqrt(2)
+                let minDistance = Math.sqrt(Math.pow(window.width, 2) + Math.pow(window.height, 2))
                 let distance = 0
                 let point = []
                 for (let i = 0; i < spawnPoints.length; i++) {

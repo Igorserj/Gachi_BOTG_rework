@@ -4,14 +4,20 @@ import "../../PhysicalObjects"
 Item {
     property var objects: []
     property var metadata: []
+    property var objCache: []
+    property var metaCache: []
     property alias repeater: repeater
-    property bool ready: repeater.numberOfCreatedObjects / objects.length === 1
+    property bool ready: objects.length > 0 ? repeater.numberOfCreatedObjects / objects.length === 1 : true
+    onReadyChanged: if (ready) { entGen.metadata = entGen.metadata.concat(metaCache); entGen.objects = entGen.objects.concat(objCache); console.log(objCache) } else entGenClear()
+
     Repeater {
         id: repeater
         model: objects
+//        onModelChanged: entGenClear()
         property int numberOfCreatedObjects: 0
         Loader {
             property string type: metadata[index].type !== undefined ? metadata[index].type : ""
+            property int curIndex: index
             x: !!modelData[1] ? modelData[1] : 0
             y: !!modelData[2] ? modelData[2] : 0
             width: !!modelData[3] ? modelData[3] : implicitWidth
@@ -21,9 +27,22 @@ Item {
             }
             onLoaded: {
                 if (metadata[index].model !== undefined) item.objects = metadata[index].model
-//                if (metadata[index].type !== undefined) item.type = metadata[index].type
+                if (index === 0) {
+                    repeater.numberOfCreatedObjects = 1
+                }
+                else { repeater.numberOfCreatedObjects++ }
+                if (index === objects.length - 1) {
+                    entGen.repeater.model = entGen.objects
+                }
             }
         }
+    }
+
+    function entGenClear() {
+        metaCache = []
+        objCache = []
+//        entGen.objects.splice(entGen.objects.length - repeater.numberOfCreatedObjects - 1, repeater.numberOfCreatedObjects)
+//        entGen.metadata.splice(entGen.metadata.length - repeater.numberOfCreatedObjects - 1, repeater.numberOfCreatedObjects)
     }
 
     Component {

@@ -1,48 +1,26 @@
 import QtQuick 2.15
 import QtGraphicalEffects 1.15
-import "Level1"
 import "../Interface"
 import "../Items"
 import "../Shaders"
 
 Item {
     property int blurDuration: 500
-    property alias lightingLoader: lightingLoader
-    property alias lightingLoader2: lightingLoader2
-    property string seed: "000000"
+    property var seed: [0, 0, 0, 0, 0, 0] // "000000"
+    property int floor: 1
+    property int position: 0
+    property alias levelLoader: levelLoader
     Loader {
         id: levelLoader
         anchors.fill: parent
         focus: true
         activeFocusOnTab: true
-        Component.onCompleted: levelChooser()
-        onLoaded: {
-            lightingLoader.sourceComponent = spot
-            lightingLoader2.sourceComponent = spot
-        }
-    }
-
-    Loader {
-        id: lightingLoader
-        visible: false
-        anchors.fill: parent
-    }
-    Loader {
-        id: lightingLoader2
-        visible: false
-        anchors.fill: parent
-    }
-    LightBlend {
-        id: blend
-        anchors.fill: parent
-        image: lightingLoader.item
-        image2: lightingLoader2.item
     }
     FastBlur {
         id: blur
         width: levelLoader.width
         height: levelLoader.height
-        source: blend
+        source: levelLoader//blend
         opacity: 0
         radius: 0
         Behavior on radius {
@@ -65,7 +43,7 @@ Item {
         id: ifaceLoader
         anchors.fill: parent
         asynchronous: true
-        sourceComponent: levelLoader.item.entGen.ready? iface : undefined
+        sourceComponent: !!levelLoader.item ?  levelLoader.item.roomLoader.status === Loader.Ready ? levelLoader.item.roomLoader.item.entGen.ready ? iface : undefined : undefined : undefined
     }
 
     ItemList {
@@ -73,8 +51,8 @@ Item {
     }
 
     Component {
-        id: level1View
-        Level1View {}
+        id: levelPattern
+        LevelPattern {}
     }
 
     Component {
@@ -94,6 +72,6 @@ Item {
     }
 
     function levelChooser() {
-        levelLoader.sourceComponent = level1View
+        levelLoader.sourceComponent = levelPattern
     }
 }

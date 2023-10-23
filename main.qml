@@ -116,9 +116,12 @@ ApplicationWindow {
     function loadLevel() {
         loader.focus = true
         loader.sourceComponent = levelBuilder
-
-        let rand = Math.floor(Math.random() * 1000000).toString().split('')
-        loader.item.seed = rand.fill(0, rand.length - 1, 6).join('')
-        console.log(loader.item.seed)
+        let seed = []
+        for (let i = 0; i < 6; i++) {
+            seed.push(Math.floor(Math.random() * 10))
+        }
+        loader.item.seed = seed
+        loader.item.levelChooser()
+        console.log(seed)
     }
 }

@@ -3,7 +3,8 @@ import "Dialogue"
 
 Item {
     id:  iface
-    state: "ui"
+    state: levelLoader.item.roomLoader.status === Loader.Ready ? levelLoader.item.roomLoader.visible ? "ui" : "pause" : "pause"
+    property var pauseStates: ["menu", "dialogue", "pause"]
     property alias interfaceLoader: interfaceLoader
     onStateChanged: toolTip.hide()
     states: [
@@ -26,6 +27,13 @@ Item {
             }
             PropertyChanges {
                 target: blurred
+                running: true
+            }
+        },
+        State {
+            name: "pause"
+            PropertyChanges {
+                target: hideAll
                 running: true
             }
         },
@@ -78,6 +86,13 @@ Item {
         }
     }
 
+    SequentialAnimation {
+        id: hideAll
+        ScriptAction {
+            script: interfaceLoader.sourceComponent = nothing
+        }
+    }
+
     Loader {
         id: interfaceLoader
         anchors.fill: parent
@@ -95,5 +110,9 @@ Item {
     Component {
         id: dialogue
         Dialogue {}
+    }
+    Component {
+        id: nothing
+        Nothing {}
     }
 }

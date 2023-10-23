@@ -2,6 +2,7 @@ import QtQuick 2.15
 
 QtObject {
     property var equipRow: parent.parent
+     property var itmGen: levelLoader.item.roomLoader.item.itmGen
     function optionChoose() {
         var text = cellView.cellText
         if (text !== "") {
@@ -168,7 +169,7 @@ QtObject {
 
         function itemDrop() {
             ws.sendMessage({
-                               "objects": levelLoader.item.objGen.objects,
+                               "objects": levelLoader.item.roomLoader.item.objGen.objects,
                                'facingRight': entity.item.facingRight,
                                "entityX": entity.x,
                                "entityY": entity.y,
@@ -183,17 +184,17 @@ QtObject {
         }
     }
     function pushing(item) {
-        levelLoader.item.itmGen.objects.push(item)
+        itmGen.objects.push(item)
         if (usedByEntity.parent.item.inventory.metadataCells[currentIndex].name === undefined) {
-            levelLoader.item.itmGen.metadata.push({name: usedByEntity.parent.item.inventory.inventoryCells[currentIndex]})
+            itmGen.metadata.push({name: usedByEntity.parent.item.inventory.inventoryCells[currentIndex]})
         }
         else {
-            levelLoader.item.itmGen.metadata.push(usedByEntity.parent.item.inventory.metadataCells[currentIndex])
+            itmGen.metadata.push(usedByEntity.parent.item.inventory.metadataCells[currentIndex])
         }
     }
     function dropping(item) {
         pushing(item)
-        levelLoader.item.itmGen.repeater.model = levelLoader.item.itmGen.objects
+        itmGen.repeater.model = itmGen.objects
         destroyItem()
     }
 

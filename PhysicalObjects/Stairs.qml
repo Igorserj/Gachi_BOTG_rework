@@ -5,8 +5,10 @@ Item {
     property real progress: 0
     property string type: parent.type
     property var objects: []
+    property int index: parent.curIndex
     onProgressChanged: {
         if (progress === 1) {
+            stairs.x = -stairBuilder.width / 2
             if (type === "upstairs") {
                 ups()
             }
@@ -15,25 +17,27 @@ Item {
             }
             else {
                 ups()
-                downs()
             }
-            repeater.numberOfCreatedObjects++
         }
     }
     function ups() {
-        entGen.metadata.push( {name: "upstairs", objects: objects} )
-        entGen.objects.push( ["interact", parent.x, parent.y + stairBuilder.height] )
-        spawnPoints.push([parent.x, parent.y + stairBuilder.height])
+        stairs.y = -stairBuilder.height
+        metaCache.push( {name: "upstairs", objects: objects} )
+        const point = [parent.x, parent.y]
+        objCache.push( ["interact", point[0], point[1]] )
+//        spawnPoints.push(point)
+//        console.log(entGen.objects)
     }
     function downs() {
-        entGen.metadata.push( {name: "downstairs", objects: objects} )
-        entGen.objects.push( ["interact", parent.x, parent.y] )
-        spawnPoints.push([parent.x, parent.y])
+        metaCache.push( {name: "downstairs", objects: objects} )
+        const point = [parent.x, parent.y]
+        objCache.push( ["interact", point[0], point[1]] )
+//        spawnPoints.push(point)
+//        console.log(entGen.objects)
     }
+
     Repeater {
         id: stairBuilder
-        width: 0
-        height: 0
         model: objects
         Image {
             source: modelData
@@ -43,7 +47,10 @@ Item {
             height: index > 0 ? stairBuilder.itemAt(index - 1).height / scaling : stairs.height
             fillMode: Image.PreserveAspectFit
             anchors.horizontalCenter: parent.horizontalCenter
-            Component.onCompleted: { if (width > stairBuilder.width) stairBuilder.width = width; if (index === stairBuilder.model.length - 1) {stairBuilder.height = y + height} }
+            Component.onCompleted: {
+                if (width > stairBuilder.width) stairBuilder.width = width
+                if (index === stairBuilder.model.length - 1) stairBuilder.height = y + height
+            }
         }
         onItemAdded: { progress += 1 / model.length }
     }

@@ -12,7 +12,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             property real scaling: 1 / 1.14636//1.14159
             source: modelData
-            y: index > 0 ? repeater.itemAt(index - 1).y + repeater.itemAt(index - 1).height * 0.19 : heightCalc()
+            y: index > 0 ? repeater.itemAt(index - 1).y + repeater.itemAt(index - 1).height * 0.19 : funcs.heightCalc()
             width: index > 0 ? repeater.itemAt(index - 1).width / scaling : window.width / 6
             height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : window.height / 6
             fillMode: Image.PreserveAspectFit
@@ -40,28 +40,11 @@ Item {
                 duration: 250
             }
         onFinished: {
-            finish()
+            funcs.finish()
         }
     }
 
-    function heightCalc() {
-        let fullHeight = 0
-        let height = 0
-        let y = 0
-        let width = window.width / 6
-        for (let i = 1; i < objects.length; i++) {
-            width *= 1.14636
-            height = width / (358 / 220)
-            y += height * 0.19
-            if (fullHeight < y + height) {fullHeight = y + height}
-        }
-        stairs.scale = 358 / width
-        repeater.height = fullHeight
-        repeater.width = width
-        return (window.height - fullHeight) / 2
-    }
-    function finish() {
-        ++repeat
-        if (repeat < objects.length) anim.running = true
+    StairsFunc {
+        id: funcs
     }
 }

@@ -71,7 +71,6 @@
         <file>Levels/Generators/ObjectsGenerator.qml</file>
         <file>Levels/RoomPattern.qml</file>
         <file>Levels/Level1/Level1View.qml</file>
-        <file>Levels/Level1/Central/StaircasePattern.qml</file>
         <file>PhysicalObjects/Stairs.qml</file>
         <file>Levels/Generators/PhysicalObjectsGenerator.qml</file>
         <file>Entities/Interact/StairsInteract.qml</file>
@@ -88,5 +87,81 @@
         <file>PhysicalObjects/Stairs/Stair9.png</file>
         <file>PhysicalObjects/Stairs/Stair10.png</file>
         <file>Loading/Loading.qml</file>
+        <file>Levels/LevelPattern.qml</file>
+        <file>Levels/allocation.mjs</file>
+        <file>Levels/Level1/CanteenView.qml</file>
+        <file>Levels/Level1/CorridorView.qml</file>
+        <file>Levels/Level1/LibraryView.qml</file>
+        <file>Levels/Level1/Mirror.qml</file>
+        <file>Levels/Level1/Room.qml</file>
+        <file>Levels/Level1/Tiles.qml</file>
+        <file>Levels/Level1/WC.qml</file>
+        <file>Levels/Level1/Assets/Bookshelves/Bookshelf.png</file>
+        <file>Levels/Level1/Assets/Bookshelves/Bookshelf2.png</file>
+        <file>Levels/Level1/Assets/Bookshelves/Bookshelf3.png</file>
+        <file>Levels/Level1/Assets/Bookshelves/Bookshelf4.png</file>
+        <file>Levels/Level1/Assets/Bookshelves/Bookshelf5.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence10.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence2.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence3.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence4.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence5.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence6.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence7.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence8.png</file>
+        <file>Levels/Level1/Assets/Fence/Fence9.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank10.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank2.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank3.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank4.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank5.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank6.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank7.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank8.png</file>
+        <file>Levels/Level1/Assets/Floor_planks/Plank9.png</file>
+        <file>Levels/Level1/Assets/Mirrors/Mirror.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile10.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile2.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile3.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile4.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile5.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile6.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile7.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile8.png</file>
+        <file>Levels/Level1/Assets/Tile/Tile9.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall10.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall2.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall3.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall4.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall5.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall6.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall7.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall8.png</file>
+        <file>Levels/Level1/Assets/Wall/Wall9.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile10.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile2.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile3.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile4.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile5.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile6.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile7.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile8.png</file>
+        <file>Levels/Level1/Assets/Wall_tile/Tile9.png</file>
+        <file>Levels/Level1/Assets/Door.png</file>
+        <file>Levels/Level1/Assets/Sink.png</file>
+        <file>Levels/Level1/Assets/Urinal.png</file>
+        <file>Levels/Level1/RoomView.qml</file>
+        <file>Levels/Level1/WCView.qml</file>
+        <file>Levels/Level1/Canteen.qml</file>
+        <file>Levels/Level1/Corridor.qml</file>
+        <file>Levels/Level1/Library.qml</file>
+        <file>Levels/Level1/Staircase.qml</file>
+        <file>Interface/Nothing.qml</file>
+        <file>Loading/Stairs/StairsFunc.qml</file>
     </qresource>
 </RCC>

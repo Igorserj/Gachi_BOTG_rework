@@ -5,7 +5,7 @@ import "Inventory"
 
 Item {
     id: ui
-    property var entGen: levelLoader.item.entGen
+    property var entGen: levelLoader.item.roomLoader.item.entGen
     property alias contextMenu: contextMenu
     property alias inventoryLoader: inventoryLoader
     property var usedByEntity
@@ -28,8 +28,8 @@ Item {
     Component {
         id: inventory
         Inventory {
-            inventoryCells: levelLoader.item.entGen.repeater.itemAt(0).item.inventory.inventoryCells
-            equipmentCells: levelLoader.item.entGen.repeater.itemAt(0).item.inventory.equipmentCells
+            inventoryCells: entGen.repeater.itemAt(0).item.inventory.inventoryCells
+            equipmentCells: entGen.repeater.itemAt(0).item.inventory.equipmentCells
         }
     }
 
@@ -75,7 +75,7 @@ Item {
         opacity: 0
 
         Connections {
-            target: levelLoader.item.entGen.repeater.itemAt(0)
+            target: entGen.repeater.itemAt(0)
             function onXChanged() {contextMenu.hide()}
             function onYChanged() {contextMenu.hide()}
         }
@@ -101,8 +101,6 @@ Item {
 
     function inventoryOpen(obj, index) {
         interfaceLoader.item.openInventory(entGen.repeater.itemAt(obj[index]).item, entGen.repeater.itemAt(0).item)
-//        interfaceLoader.item.inventoryLoader.item.usedByEntity = entGen.repeater.itemAt(obj[index]).item
-//        interfaceLoader.item.inventoryLoader.item.heroEntity = entGen.repeater.itemAt(0).item
     }
 
     function dialogueOpen(index = 0, index2) {
