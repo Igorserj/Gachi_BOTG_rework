@@ -7,8 +7,8 @@ Item {
     property double maxHealth: !!interactLoader.item ? interactLoader.item.baseMaxHealth : 0
     property alias interactLoader: interactLoader
     property var currentIndex: parent.entityIndex
-    width: childrenRect.width
-    height: childrenRect.height
+//    width: childrenRect.width
+//    height: childrenRect.height
     Loader {
         id: interactLoader
         sourceComponent: {

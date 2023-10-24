@@ -6,14 +6,19 @@ Item {
     property var metadata: []
     property var objCache: []
     property var metaCache: []
+    property var spawnCache: []
     property alias repeater: repeater
     property bool ready: objects.length > 0 ? repeater.numberOfCreatedObjects / objects.length === 1 : true
-    onReadyChanged: if (ready) { entGen.metadata = entGen.metadata.concat(metaCache); entGen.objects = entGen.objects.concat(objCache); console.log(objCache) } else entGenClear()
+    onReadyChanged: if (ready) {
+                        spawnPoints = spawnPoints.concat(spawnCache)
+                        entGen.metadata = entGen.metadata.concat(metaCache)
+                        entGen.objects = entGen.objects.concat(objCache)
+                        console.log("spawn", spawnPoints)
+                    } else entGenClear()
 
     Repeater {
         id: repeater
         model: objects
-//        onModelChanged: entGenClear()
         property int numberOfCreatedObjects: 0
         Loader {
             property string type: metadata[index].type !== undefined ? metadata[index].type : ""
@@ -41,8 +46,7 @@ Item {
     function entGenClear() {
         metaCache = []
         objCache = []
-//        entGen.objects.splice(entGen.objects.length - repeater.numberOfCreatedObjects - 1, repeater.numberOfCreatedObjects)
-//        entGen.metadata.splice(entGen.metadata.length - repeater.numberOfCreatedObjects - 1, repeater.numberOfCreatedObjects)
+        spawnCache = []
     }
 
     Component {

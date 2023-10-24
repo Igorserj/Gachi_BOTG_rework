@@ -21,6 +21,7 @@ Item {
     PhysicalObjectsGenerator {
         id: pobjGen
         z: room.z + 1
+        Component.onCompleted: console.log("objs", objects)
     }
     ObjectsGenerator {
         id: objGen

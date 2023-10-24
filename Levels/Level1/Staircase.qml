@@ -12,7 +12,8 @@ CorridorView {
     pobjGen {
         objects: currentRoom === "stairs" ? [["stair", loader.width / 2, floor.y, 0.25 * 1.627 * loader.width, 0.25 * loader.height], ["stair", loader.width / 2, room.height - 0.25 * loader.height, 0.25 * 1.627 * loader.width, 0.25 * loader.height]] :
                                             currentRoom === "entrance" ? [["stair", loader.width / 2, floor.y, 0.25 * 1.627 * loader.width, 0.25 * loader.height]] :
-                                                                         [["stair", loader.width / 2, room.height - 0.25 * loader.height, 0.25 * 1.627 * loader.width, 0.25 * loader.height]]
+                                                                         [["stair", loader.width / 2, floor.y, 0.25 * 1.627 * loader.width, 0.25 * loader.height]]
+        //                                                                         [["stair", loader.width / 2, room.height - 0.25 * loader.height, 0.25 * 1.627 * loader.width, 0.25 * loader.height]]
         metadata: currentRoom === "stairs" ?
                       [{model: [
                                "../../PhysicalObjects/Stairs/Stair1.png",
