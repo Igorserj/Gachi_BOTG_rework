@@ -1,5 +1,12 @@
 WorkerScript.onMessage = function(message) {
 
+    const staircaseLayout = ["entrance", "stairs", "stairs", "roof"]
+    var corridorsLayout = [
+            ["corridor", "corridor", "corridor", "corridor", "corridor"],
+            ["corridor", "corridor", "corridor", "corridor", "corridor"],
+            ["corridor", "corridor", "corridor", "corridor", "corridor"],
+            ["corridor", "corridor", "corridor", "corridor", "corridor"]]
+
     function twoCombs(value, action = "+") {
         let values = []
         for (let i = 0; i < value.length - 1; i++) {
@@ -117,11 +124,13 @@ WorkerScript.onMessage = function(message) {
     }
 
     function corridorsShift() {
-        let values = twoCombs(seed)
+        const values = twoCombs(seed)
         let values2 = []
         for (let i = 0; i < 4; i++) {
             values2.push(Math.round(values[i] / 6))
         }
+        return values2
+//        console.log(values, values2)
     }
 
     function decorsShift() {
@@ -216,13 +225,13 @@ WorkerScript.onMessage = function(message) {
         }
         return value
     }
-    let csh = corridorsShift()
-    let rs = roomsShift()
-    let rsh = roomsShuffle()
-    let ra = roomsAlloc()
-    let dsh = decorsShift()
-    let da = decorsAlloc()
-    let allocation = [
+    const csh = corridorsShift()
+    const rs = roomsShift()
+    const rsh = roomsShuffle()
+    const ra = roomsAlloc()
+    const dsh = decorsShift()
+    const da = decorsAlloc()
+    const allocation = [
                 ["","","","",""],
                 ["","","","",""],
                 ["","","","",""],
@@ -243,8 +252,14 @@ WorkerScript.onMessage = function(message) {
         }
     }
 
+    for (i = 0; i < corridorsLayout.length; i++) {
+        corridorsLayout[i].splice(csh[i] + 1, 0, staircaseLayout[i])
+    }
+    console.log(corridorsLayout)
+
     WorkerScript.sendMessage({
                                  'allocation' : allocation,
-                                 'corShift' : csh
+                                 'corShift' : csh,
+                                 'corridorsLayout' : corridorsLayout
                              })
 }

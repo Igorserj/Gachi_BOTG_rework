@@ -22,6 +22,11 @@ Item {
     SequentialAnimation {
         id: anim
         SequentialAnimation {
+            PropertyAction {
+                target: loading
+                property: "visible"
+                value: true
+            }
             PropertyAnimation {
                 target: stairs
                 property: "y"
@@ -41,6 +46,15 @@ Item {
             }
         onFinished: {
             funcs.finish()
+        }
+    }
+
+    SequentialAnimation {
+        running: !anim.running && loader.item.levelLoader.item.roomLoader.status === Loader.Ready
+        PropertyAction {
+            target: loading
+            property: "visible"
+            value: false
         }
     }
 

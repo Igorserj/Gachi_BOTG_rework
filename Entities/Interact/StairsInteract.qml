@@ -8,6 +8,7 @@ InteractPattern {
         levelLoader.item.roomLoader.visible = false
         if (interact.name === "upstairs") loader.item.floor++
         else if (interact.name === "downstairs") loader.item.floor--
+        loader.item.position = corridorShift[loader.item.floor] + 1
         roomLoad()
     }
     function roomLoad() {

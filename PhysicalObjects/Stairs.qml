@@ -9,10 +9,10 @@ Item {
     onProgressChanged: {
         if (progress === 1) {
             stairs.x = -parent.width / 2
-            if (type === "upstairs") {
+            if (type === "up") {
                 ups()
             }
-            else if (type === "downstairs") {
+            else if (type === "down") {
                 downs()
             }
             else {
@@ -26,14 +26,12 @@ Item {
         const point = [parent.x - parent.width / 2, parent.y]
         objCache.push( ["interact", point[0], point[1], parent.width, 10] )
         spawnCache.push(point)
-//        console.log(entGen.objects)
     }
     function downs() {
         metaCache.push( {name: "downstairs", objects: objects} )
         const point = [parent.x - parent.width / 2, parent.y]
         objCache.push( ["interact", point[0], point[1], parent.width, 10] )
         spawnCache.push(point)
-//        console.log(entGen.objects)
     }
 
     Repeater {

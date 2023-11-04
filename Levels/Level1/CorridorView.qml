@@ -1,6 +1,8 @@
 import QtQuick 2.15
 
 RoomView {
+    id: roomView
+    property bool roomIsReady: wall.ready && floor.ready
     readonly property var tiles: ["Assets/Tile/Tile.png"/*, "Assets/Tile/Tile2.png", "Assets/Tile/Tile3.png", "Assets/Tile/Tile4.png",
         "Assets/Tile/Tile5.png", "Assets/Tile/Tile6.png", "Assets/Tile/Tile7.png", "Assets/Tile/Tile8.png", "Assets/Tile/Tile9.png",
         "Assets/Tile/Tile10.png"*/
@@ -18,8 +20,12 @@ RoomView {
     room.source: walls[seed[0] % walls.length]
 
     Row {
+        id: wall
         y: floor.y - childrenRect.height
+        property bool ready: fenceRepeater.numberOfCreatedObjects / fenceRepeater.count === 1
         Repeater {
+            id: fenceRepeater
+            property int numberOfCreatedObjects: 0
             model: 11
             Image {
                 source: fences[(seed[(index + 1) % seed.length] * index) % fences.length]
@@ -27,14 +33,21 @@ RoomView {
                 height: width
                 fillMode: Image.PreserveAspectFit
             }
+            onItemAdded: numberOfCreatedObjects++
         }
     }
 
     Column {
         id: floor
+        x: 0
         y: loader.height - childrenRect.height
+        height: childrenRect.height
+        width: childrenRect.width
+        property bool ready: tileRepeater.numberOfCreatedObjects / (5 * 19) === 1
         Repeater {
+            id: tileRepeater
             model: 5
+            property int numberOfCreatedObjects: 0
             Row {
                 id: row
                 property int rowIndex: index
@@ -47,6 +60,7 @@ RoomView {
                         height: width
                         fillMode: Image.PreserveAspectFit
                     }
+                    onItemAdded: tileRepeater.numberOfCreatedObjects++
                 }
             }
         }

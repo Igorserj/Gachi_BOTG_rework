@@ -7,7 +7,7 @@ Entity {
     maxHealth: interact.maxHealth
     canPickUp: false
     width: interact.width > 0 ? interact.width : 50
-    height: interact.health > 0 ? interact.height : 50
+    height: interact.height > 0 ? interact.height : 50
     readonly property double baseHealth: 10
     readonly property double baseMaxHealth: 10
     property var scenario: []

@@ -4,7 +4,7 @@ import "Level1"
 Item {
     property alias roomLoader: roomLoader
     readonly property var staircaseLayout: ["entrance", "stairs", "stairs", "roof"]
-    readonly property var corridorsLayout: [
+    property var corridorsLayout: [
         ["corridor", "corridor", "corridor", "corridor", "corridor"],
         ["corridor", "corridor", "corridor", "corridor", "corridor"],
         ["corridor", "corridor", "corridor", "corridor", "corridor"],
@@ -12,7 +12,7 @@ Item {
 
     property var allocation: []
     property var corridorShift: []
-    property string currentRoom: "stairs"
+    property string currentRoom: ""//"stairs"
     Component.onCompleted: alloc()
 
     function alloc() {
@@ -22,7 +22,12 @@ Item {
     WorkerScript {
         id: script
         source: "allocation.mjs"
-        onMessage: { corridorShift = messageObject.corShift; allocation = messageObject.allocation; console.log(allocation) }
+        onMessage: {
+            corridorsLayout = messageObject.corridorsLayout
+            corridorShift = messageObject.corShift; position = messageObject.corShift[floor] + 1; allocation = messageObject.allocation; console.log(allocation);
+            currentRoom = messageObject.corridorsLayout[floor][position]
+//            if (position === -1) position = corridorShift[floor]
+        }
     }
 
     Loader {
@@ -73,10 +78,4 @@ Item {
             type: currentRoom
         }
     }
-//    Component {
-//        id: wc2
-//        WC {
-//            type: "WC2"
-//        }
-//    }
 }

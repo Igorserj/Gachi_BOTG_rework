@@ -13,6 +13,10 @@ ApplicationWindow {
     height: 720
     property double recalculatedWidth: width / height > 16 / 9 ? height / 9 * 16 : width
     property double recalculatedHeight: width / height > 16 / 9 ? height : width / 16 * 9
+    maximumHeight: recalculatedHeight
+    maximumWidth: recalculatedWidth
+    minimumHeight: recalculatedHeight
+    minimumWidth: recalculatedWidth
     property string comfortaaName: "Arial"//comfortaa.name
     property string monotonName: "Arial"//monoton.name
     property alias loader: loader

@@ -163,5 +163,11 @@
         <file>Levels/Level1/Staircase.qml</file>
         <file>Interface/Nothing.qml</file>
         <file>Loading/Stairs/StairsFunc.qml</file>
+        <file>PhysicalObjects/Passthrough.qml</file>
+        <file>Entities/Interact/PassInteract.qml</file>
+        <file>Loading/Passes/Leftpass.qml</file>
+        <file>Loading/Passes/PassesFunc.qml</file>
+        <file>Loading/Passes/Rightpass.qml</file>
+        <file>Loading/Gachi_Vignette.png</file>
     </qresource>
 </RCC>
