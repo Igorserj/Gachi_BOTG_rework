@@ -32,9 +32,9 @@ Item {
         id: ws2
         source: "equipItem.mjs"
         onMessage: {
+            invItem.itemName = messageObject.itemName
             invItem.index = messageObject.index
             invItem.isEquipment = messageObject.isEquipment
-            invItem.itemName = messageObject.itemName
             invItem.metadata = messageObject.metadata
             cl.equiped(messageObject.isSwappable, messageObject.type, messageObject.name)
         }

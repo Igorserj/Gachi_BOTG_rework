@@ -14,7 +14,7 @@ QtObject {
     property var previousMetadata: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
         {}, {}, {}, {}, {}, {}, {}]
 
-    onInventoryCellsChanged: {
+    function invCellsChanged() {
         if (inventoryCells.length !== previousInventory.length) {
             for (let i = inventoryCells.length; i < previousInventory.length; i++) {
                 inventoryCells.push(previousInventory[i])
@@ -24,7 +24,8 @@ QtObject {
         previousInventory = inventoryCells.slice()
         previousMetadata = metadataCells.slice()
     }
-    onEquipmentCellsChanged: {
+
+    function equipCellsChanged() {
         if (equipmentCells.length !== previousEquipment.length) {
             for (let i = equipmentCells.length; i < previousEquipment.length; i++) {
                 equipmentCells.push(previousEquipment[i])
@@ -35,7 +36,9 @@ QtObject {
         activeArmor()
     }
 
-    Component.onCompleted: { activeArmor() }
+    onInventoryCellsChanged: invCellsChanged()
+    onEquipmentCellsChanged: equipCellsChanged()
+    Component.onCompleted: activeArmor()
 
     function activeArmor() {
         if (equipmentCells.length === 7) {

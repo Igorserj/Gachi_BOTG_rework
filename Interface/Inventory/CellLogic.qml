@@ -73,14 +73,14 @@ QtObject {
         invItem.index = -1
         invItem.isEquipment = false
         invItem.metadata = {}
-//        inventoryArea.enabled = false
+        invItem.visible = false
     }
     function moveItem() {
         invItem.itemName = cellView.cellText
         invItem.index = currentIndex
         invItem.isEquipment = isEquipment
         invItem.metadata = usedByEntity.inventory.metadataCells[currentIndex]
-//        inventoryArea.enabled = true
+        invItem.visible = true
     }
     function useItem() {
         var cells = cellView.cellText
@@ -100,6 +100,7 @@ QtObject {
         function equiping(type) {
             ws2.sendMessage({
                                 "type" : type,
+                                "itemName": cellText,
                                 "metadata" : entityInv.metadataCells,
                                 "equipment" : entityInv.equipmentCells,
                                 "inventory" : entityInv.inventoryCells,
@@ -108,7 +109,7 @@ QtObject {
                             })
         }
 
-        var entityInv = usedByEntity.inventory
+        let entityInv = usedByEntity.inventory
         const itemNames = itemList.itemNames
         const cellText = cellView.cellText
         const items = itemList.items
@@ -122,6 +123,7 @@ QtObject {
         if (isSwappable) {
             invItem.itemName2 = cellView.cellText
             inventoryArea.enabled = true
+            invItem.visible = true
             swapCells()
         }
         else {
@@ -150,7 +152,6 @@ QtObject {
         else {
             toolTip.mainText = "Not enough space!"
             toolTip.addText = "There is no vacant cell in your inventory"
-//            toolTip.show(equipRow.x + col.x + cell.width, equipRow.y + col.y)
             toolTip.show(inventoryArea.mouseX, inventoryArea.mouseY)
         }
     }

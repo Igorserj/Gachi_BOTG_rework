@@ -4,6 +4,7 @@ import "../../Controls"
 Item {
     property var inventoryCells: []
     property var equipmentCells: []
+    property alias invInterface: invInterface
     MouseArea {
         id: inventoryArea
         anchors.fill: parent
@@ -112,26 +113,26 @@ Item {
             else if (index === 1) {obj.cl.useItem()}
             else if (index === 2) {obj.cl.dropItem()}
             else if (index === 3) {obj.cl.destroyItem()}
-            update()
+            invInterface.update()
         }
         function actionSet2(index) {
             if (index === 0) {obj.cl.moveItem()}
             else if (index === 1) {obj.cl.equipItem()}
             else if (index === 2) {obj.cl.dropItem()}
             else if (index === 3) {obj.cl.destroyItem()}
-            update()
+            invInterface.update()
         }
         function actionSet3(index) {
             if (index === 0) {obj.cl.moveItem()}
             else if (index === 1) {obj.cl.unEquipItem()}
-            update()
+            invInterface.update()
         }
 
         function actionSet4(index) {
             if (index === 0) {obj.cl.lootItem()}
             else if (index === 1) {obj.cl.moveItem()}
             else if (index === 2) {obj.cl.destroyItem()}
-            update()
+            invInterface.update()
         }
     }
     InventoryItem {

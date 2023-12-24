@@ -92,16 +92,14 @@ Repeater {
                     if (itmGen.metadata[index].name === "money" && messageObject.isPicked) {
                         entity.money += itmGen.metadata[index].pcs
                         removing()
-                        if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
-                            ifaceLoader.item.interfaceLoader.item.openInventory(entity)
-                        }
                     }
                     else if (itmGen.metadata[index].name !== "money" && i !== -1 && messageObject.isPicked) {
                         entity.inventory.inventoryCells[i] = itmGen.metadata[index].name
                         entity.inventory.metadataCells[i] = itmGen.metadata[index]
                         removing()
+                        entity.inventory.invCellsChanged()
                         if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
-                            ifaceLoader.item.interfaceLoader.item.openInventory(entity)
+                            ifaceLoader.item.interfaceLoader.item.inventoryLoader.item.invInterface.update()
                         }
                     }
                 }

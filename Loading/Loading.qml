@@ -2,7 +2,6 @@ import QtQuick 2.15
 import "Stairs"
 import "Passes"
 
-
 Item {
     id: loading
     property string source: ""

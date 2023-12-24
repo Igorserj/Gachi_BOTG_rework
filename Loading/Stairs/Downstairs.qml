@@ -14,7 +14,7 @@ Item {
             property real scaling: 1 / 1.14636
             source: modelData
             y: index > 0 ? repeater.itemAt(index - 1).y - repeater.itemAt(index - 1).height * 0.05 : funcs.heightCalc()
-            width: index > 0 ? repeater.itemAt(index - 1).width / scaling : window.width / 6
+            width: window.width / 6 / Math.pow(scaling, index)
             height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : window.height / 6
             fillMode: Image.PreserveAspectFit
         }

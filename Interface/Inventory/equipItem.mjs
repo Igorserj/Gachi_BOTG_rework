@@ -10,7 +10,7 @@ WorkerScript.onMessage = function(message) {
 
     let index = 0
     let isEquipment = false
-    let itemName = ""
+    let itemName = ""//message.itemName
     let meta = []
 
 

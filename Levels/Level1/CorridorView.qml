@@ -65,4 +65,23 @@ RoomView {
             }
         }
     }
+
+    Row {
+        id: wall2
+        y: floor.y + floor.height - childrenRect.height
+        property bool ready: fenceRepeater2.numberOfCreatedObjects / fenceRepeater2.count === 1
+        Repeater {
+            id: fenceRepeater2
+            property int numberOfCreatedObjects: 0
+            model: 11
+            Image {
+                source: fences[(seed[(index + 1) % seed.length] * index) % fences.length]
+                width: loader.width / 11
+                height: width
+                fillMode: Image.PreserveAspectFit
+                opacity: (index > 2 && index < 8) && pobjGen.objects.length === 4 ? 0 : 0.35
+            }
+            onItemAdded: numberOfCreatedObjects++
+        }
+    }
 }
