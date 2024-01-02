@@ -3,7 +3,7 @@ import "../../Controls"
 
 Item {
     id: settings
-    property var resolutions: [[640, 360], [1280, 720], [1366, 768], [1600, 900], [1920, 1080], [2560, 1440]]
+    readonly property var resolutions: [[640, 360], [1280, 720], [1366, 768], [1600, 900], [1920, 1080], [2560, 1440]]
     Column {
         spacing: height / 20
         height: settings.height * 0.9
@@ -16,25 +16,26 @@ Item {
             Repeater {
                 id: resRep
                 model: resolutions
-                state: "active"
+                // state: opSave.settings.screenProps.visibility === 5 ? "active" : "disabled"
                 Button1 {
                     text: modelData[0] + "x" + modelData[1]
                     enabled: resRep.state === "active" && (screen.width >= modelData[0] && screen.height >= modelData[1])
                     function clickFunction() {
-                        var w = modelData[0]
-                        var h = modelData[1]
+                        const w = modelData[0]
+                        const h = modelData[1]
                         window.width = w
                         window.height = h
-                        window.x = (screen.width - w) / 2
-                        window.y = (screen.height - h) / 2
+                        opSave.settings.screenProps.width = w
+                        opSave.settings.screenProps.height = h
                     }
                 }
+                Component.onCompleted: visibilittyCheck()
             }
         }
         Button1 {
             text: resRep.state === "active" ? locale.settingsFullScreenTrue : locale.settingsFullScreenFalse
             anchors.horizontalCenter: parent.horizontalCenter
-            function clickFunction() { changeVisibility() }
+            function clickFunction() { heading.changeVisibility(); visibilittyCheck() }
         }
 //        DropDown {
 //            objects: ["Windowed", "Fullscreen", ""]
@@ -51,11 +52,10 @@ Item {
             function clickFunction() { home() }
         }
         DropDown {
-            index: locale.languages.indexOf(locale.currentLanguage)
+            index: locale.languages.indexOf(opSave.settings.currentLanguage)
             objects: locale.languages
-//            activeCells: [true, false, true]
             function actionSet(index) {
-                locale.currentLanguage = locale.languages[index]
+                opSave.settings.currentLanguage = locale.languages[index]
             }
         }
     }
@@ -63,18 +63,13 @@ Item {
     function home() {
         composer.state = "home"
     }
-    function changeVisibility() {
-        if (parseInt(window.visibility) === 2) {
-            window.visibility = 5
-//            window.flags = (Qt.FramelessWindowHint | Qt.Window /*| Qt.WindowStaysOnTopHint*/)
-//            window.setGeometry(0, 0, screen.width, screen.height)
-            resRep.state = "disabled"
 
-        }
-        else if (parseInt(window.visibility) !== 2) {
-            window.showNormal()
-            window.visibility = 2
+    function visibilittyCheck() {
+        if (opSave.settings.screenProps.visibility === 2) {
             resRep.state = "active"
+        }
+        else {
+            resRep.state = "disabled"
         }
     }
 }

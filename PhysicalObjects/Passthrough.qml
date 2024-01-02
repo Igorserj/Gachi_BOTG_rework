@@ -21,13 +21,13 @@ Item {
     function goLeft() {
         metaCache.push( {name: "leftpass", objects: objects} )
         const point = [parent.x, parent.y]
-        objCache.push( ["interact", point[0], point[1], 10/*parent.width*/, parent.height] )
-        spawnCache.push(point)
+        objCache.push( ["interact", point[0], point[1], 10 * scaleCoeff, parent.height] )
+        spawnCache.push([point[0] + 5 * scaleCoeff, point[1] + parent.height / 2])
     }
     function goRight() {
         metaCache.push( {name: "rightpass", objects: objects} )
         const point = [parent.x, parent.y]
-        objCache.push( ["interact", point[0], point[1], 10/*parent.width*/, parent.height] )
-        spawnCache.push(point)
+        objCache.push( ["interact", point[0], point[1], 10 * scaleCoeff, parent.height] )
+        spawnCache.push([point[0] + 5 * scaleCoeff, point[1] + parent.height / 2])
     }
 }

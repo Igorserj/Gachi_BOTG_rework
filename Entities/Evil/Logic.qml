@@ -75,13 +75,13 @@ Item {
         let horizontalDirection
         let verticalDirection
         if (hostile.parent.x + hostile.width < -5) { horizontalDirection = 1; verticalDirection = -1 }
-        else if (hostile.parent.x > window.width + 5) { horizontalDirection = 0; verticalDirection = -1 }
+        else if (hostile.parent.x > loader.width + 5) { horizontalDirection = 0; verticalDirection = -1 }
         else {
             horizontalDirection = -1
             if (hostile.parent.y + hostile.height < -5) { verticalDirection = 1 }
-            else if (hostile.parent.y > window.height + 5) { verticalDirection = 0 }
+            else if (hostile.parent.y > loader.height + 5) { verticalDirection = 0 }
             else {
-                let minDistance = Math.sqrt(Math.pow(window.width, 2) + Math.pow(window.height, 2))
+                let minDistance = Math.sqrt(Math.pow(loader.width, 2) + Math.pow(loader.height, 2))
                 let distance = 0
                 let point = []
                 for (let i = 0; i < spawnPoints.length; i++) {

@@ -5,7 +5,7 @@ QtObject {
         let fullHeight = 0
         let height = 0
         let y = 0
-        let width = window.width / 6
+        let width = loader.width / 6
         for (let i = 1; i < objects.length; i++) {
             width *= 1.14636
             height = width / (358 / 220)
@@ -15,7 +15,7 @@ QtObject {
         stairs.scale = 358 / width
         repeater.height = fullHeight
         repeater.width = width
-        return (window.height - fullHeight) / 2
+        return (loader.height - fullHeight) / 2
     }
     function finish() {
         ++repeat

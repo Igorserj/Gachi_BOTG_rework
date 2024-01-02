@@ -14,7 +14,6 @@ Item {
             spawnPoints = spawnPoints.concat(spawnCache)
             entGen.metadata = entGen.metadata.concat(metaCache)
             entGen.objects = entGen.objects.concat(objCache)
-            console.log("spawn", spawnPoints)
         } else entGenClear()
     }
 

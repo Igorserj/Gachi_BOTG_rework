@@ -13,8 +13,8 @@ Item {
             property real scaling: 1 / 1.14636//1.14159
             source: modelData
             y: index > 0 ? repeater.itemAt(index - 1).y + repeater.itemAt(index - 1).height * 0.19 : funcs.heightCalc()
-            width: index > 0 ? repeater.itemAt(index - 1).width / scaling : window.width / 6
-            height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : window.height / 6
+            width: index > 0 ? repeater.itemAt(index - 1).width / scaling : loader.width / 6
+            height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : loader.height / 6
             fillMode: Image.PreserveAspectFit
         }
         Component.onCompleted: anim.running = true

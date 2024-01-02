@@ -40,8 +40,8 @@ Item {
         }
     ]
     Rectangle {
-        width: window.recalculatedWidth * 0.05
-        height: window.recalculatedHeight * 0.05
+        width: loader.width * 0.05
+        height: loader.height * 0.05
         color: style.grayGlass
         Text {
             id: fpsText

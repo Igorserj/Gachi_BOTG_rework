@@ -1,7 +1,7 @@
 import QtQuick 2.15
 
 QtObject {
-    property string currentLanguage: "English"
+    property string currentLanguage: opSave.settings.currentLanguage
     readonly property var languages: ["Українська", "English", "Русский"]
 
     readonly property var exitDialogText: ["Вийти з гри?", "Quit game?", "Выйти из игры?"][languages.indexOf(currentLanguage)]

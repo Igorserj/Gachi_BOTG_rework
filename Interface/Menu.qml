@@ -8,8 +8,8 @@ Rectangle {
     Rectangle {
         id: backRect
         color: style.grayGlass//"#55777777"
-        height: col.childrenRect.height + 100 * recalculatedWidth / 1280
-        width: col.childrenRect.width + 150 * recalculatedHeight / 720
+        height: col.childrenRect.height + 100 * loader.width / 1280
+        width: col.childrenRect.width + 150 * loader.height / 720
         radius: width / 16
         anchors.centerIn: parent
         Rectangle {
@@ -31,7 +31,7 @@ Rectangle {
         Column {
             id: col
             anchors.centerIn: frontRect
-            spacing: recalculatedHeight / 20
+            spacing: loader.height / 20
             Repeater {
                 anchors.horizontalCenter: parent.horizontalCenter
                 model: locale.menuButtonNames

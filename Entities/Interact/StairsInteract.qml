@@ -6,8 +6,16 @@ InteractPattern {
         loadingScreen.objects = objects
         loadingScreen.source = interact.name
         levelLoader.item.roomLoader.visible = false
-        if (interact.name === "upstairs") loader.item.floor++
-        else if (interact.name === "downstairs") loader.item.floor--
+        if (interact.name === "upstairs") {
+            heroDataSaving()
+            opSave.level.hero.y += loader.height
+            loader.item.floor++
+        }
+        else if (interact.name === "downstairs") {
+            heroDataSaving()
+            opSave.level.hero.y -= loader.height
+            loader.item.floor--
+        }
         loader.item.position = corridorShift[loader.item.floor] + 1
         roomLoad()
     }

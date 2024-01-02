@@ -47,7 +47,7 @@ Item {
             id: buttonText
             text: parent.parent.text
             width: contentWidth
-            height: window.height * 0.05
+            height: loader.height * 0.05
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: alignment === "center" ? parent.horizontalCenter : undefined
             anchors.left: alignment === "left" ? parent.left : undefined

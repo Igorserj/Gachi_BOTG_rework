@@ -4,8 +4,8 @@ import "../../Controls"
 Rectangle {
     id: sb
     property color stamColor: "#3333AA"//"blue"
-    width: 180 * recalculatedWidth / 1280
-    height: 21 * recalculatedHeight / 720
+    width: 180 * loader.width / 1280
+    height: 21 * loader.height / 720
     color: style.blackGlass
     border.width: 2
     Rectangle {

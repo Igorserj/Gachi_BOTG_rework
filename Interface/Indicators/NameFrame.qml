@@ -3,8 +3,8 @@ import "../../Controls"
 
 Rectangle {
     property string name: ""
-    width: 180 * recalculatedWidth / 1280
-    height: 21 * recalculatedHeight / 720
+    width: 180 * loader.width / 1280
+    height: 21 * loader.height / 720
     color: style.blackGlass
     Text {
         anchors.fill: parent

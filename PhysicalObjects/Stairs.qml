@@ -24,14 +24,14 @@ Item {
         stairs.y = -stairBuilder.height
         metaCache.push( {name: "upstairs", objects: objects} )
         const point = [parent.x - parent.width / 2, parent.y]
-        objCache.push( ["interact", point[0], point[1], parent.width, 10] )
-        spawnCache.push(point)
+        objCache.push( ["interact", point[0], point[1], parent.width, (10 * scaleCoeff)] )
+        spawnCache.push([point[0] + parent.width / 2, point[1] + (5 * scaleCoeff)])
     }
     function downs() {
         metaCache.push( {name: "downstairs", objects: objects} )
         const point = [parent.x - parent.width / 2, parent.y]
-        objCache.push( ["interact", point[0], point[1], parent.width, 10] )
-        spawnCache.push(point)
+        objCache.push( ["interact", point[0], point[1], parent.width, (10 * scaleCoeff)] )
+        spawnCache.push([point[0] + parent.width / 2, point[1] + (5 * scaleCoeff)])
     }
 
     Repeater {

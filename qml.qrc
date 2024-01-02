@@ -161,7 +161,6 @@
         <file>Levels/Level1/Corridor.qml</file>
         <file>Levels/Level1/Library.qml</file>
         <file>Levels/Level1/Staircase.qml</file>
-        <file>Interface/Nothing.qml</file>
         <file>Loading/Stairs/StairsFunc.qml</file>
         <file>PhysicalObjects/Passthrough.qml</file>
         <file>Entities/Interact/PassInteract.qml</file>
@@ -169,5 +168,8 @@
         <file>Loading/Passes/PassesFunc.qml</file>
         <file>Loading/Passes/Rightpass.qml</file>
         <file>Loading/Gachi_Vignette.png</file>
+        <file>Saves/Operational.qml</file>
+        <file>Controls/Heading.qml</file>
+        <file>Design/icons/icon5.webp</file>
     </qresource>
 </RCC>

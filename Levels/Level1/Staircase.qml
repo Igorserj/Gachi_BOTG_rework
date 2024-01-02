@@ -1,30 +1,33 @@
 import QtQuick 2.15
 
-CorridorView {
+Corridor {
     onRoomIsReadyChanged: roomIsReady ? init() : {}
     readonly property var stairs: [
         {model: [], type: "up"},
         {model: [], type: "down"}
     ]
-    readonly property var passes: [
-        {type: "left"},
-        {type: "right"}
-    ]
 
     function init() {
         const v = stairSeed()
+        const stairsPos = [["stair", loader.width / 2, floor.y + (25 * scaleCoeff), 0.25 * 1.627 * loader.width, 0.25 * loader.height],
+                           ["stair", loader.width / 2, floor.y + floor.height - (35 * scaleCoeff), 0.25 * 1.627 * loader.width, 0.25 * loader.height]]
+        const passPos = [["pass", floor.x + floor.width - (30 * scaleCoeff), floor.y, 10 * scaleCoeff, floor.height],
+                         ["pass", floor.x + (20 * scaleCoeff), floor.y, 10 * scaleCoeff, floor.height]
+                      ]
         stairs[0].model = v[0]
         stairs[1].model = v[1]
         objGen.objects = [[-100, 0, 100, loader.height], [loader.width, 0, 100, loader.height], [0, loader.height, loader.width, 100], [0, 0, loader.width, floor.y]
                 ]
-        pobjGen.objects = (currentRoom === "stairs" ? [["stair", loader.width / 2, floor.y, 0.25 * 1.627 * loader.width, 0.25 * loader.height], ["stair", loader.width / 2, floor.y + floor.height - 10/*loader.height - 0.25 * loader.height*/, 0.25 * 1.627 * loader.width, 0.25 * loader.height]] :
-                                                      currentRoom === "entrance" ? [["stair", loader.width / 2, floor.y, 0.25 * 1.627 * loader.width, 0.25 * loader.height]] :
-                                                                                   [["stair", loader.width / 2, floor.y + floor.height - 10/*loader.height - 0.25 * loader.height*/, 0.25 * 1.627 * loader.width, 0.25 * loader.height]]).concat(position === 0 ? [["pass", floor.x + floor.width - 10, floor.y, 10, floor.height]] : position === 5 ? [["pass", floor.x, floor.y, 10, floor.height]] : [["pass", floor.x, floor.y, 10, floor.height], ["pass", floor.x + floor.width - 10, floor.y, 10, floor.height]])
-        pobjGen.metadata = (currentRoom === "stairs" ? stairs : currentRoom === "entrance" ? [stairs[0]] : [stairs[1]]).concat(position === 0 ? [passes[1]] : position === 5 ? [passes[0]] : passes)
-        entGen.objects = [["hero", loader.width / 2, floor.y + floor.height / 2]]
+        const oldObjects = pobjGen.objects
+        const oldMetadata = pobjGen.metadata
+        pobjGen.objects = (currentRoom === "stairs" ? stairsPos :
+                                                      currentRoom === "entrance" ? [stairsPos[0]] :
+                                                                                   [stairsPos[1]]).concat(oldObjects)
+        pobjGen.metadata = (currentRoom === "stairs" ? stairs : currentRoom === "entrance" ? [stairs[0]] : [stairs[1]]).concat(oldMetadata)
+        entGen.objects = [["hero", opSave.level.hero.x, opSave.level.hero.y]]
         entGen.metadata = [{ name: "Semen" }]
 
-        itmGen.objects = [[350, 600, 10, 10], [350, 550, 10, 10], [530, 600, 10, 10]]
+        itmGen.objects = [[350 * scaleCoeff, 600 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff], [350 * scaleCoeff, 550 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff], [530 * scaleCoeff, 600 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff]]
         itmGen.metadata = [{name: "Super Vodka", type: "Consumable", isEquipment: false, additionalInfo: "This is super Vodka!", buffName: "StaminaUp", points: 35},
                    {name: "Mask", additionalInfo: "Maska tupa", buffName: "HealthUp", points: 10, type: "Head", isEquipment: true},
                    {name: "money", pcs: 10}]

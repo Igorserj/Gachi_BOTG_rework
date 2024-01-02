@@ -89,7 +89,7 @@ Item {
     SequentialAnimation {
         id: hideAll
         ScriptAction {
-            script: interfaceLoader.sourceComponent = nothing
+            script: interfaceLoader.sourceComponent = undefined
         }
     }
 
@@ -110,9 +110,5 @@ Item {
     Component {
         id: dialogue
         Dialogue {}
-    }
-    Component {
-        id: nothing
-        Nothing {}
     }
 }

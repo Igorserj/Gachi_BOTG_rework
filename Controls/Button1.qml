@@ -10,8 +10,8 @@ Item {
     property bool active: (buttonArea.containsMouse && buttonArea.enabled)// || currentIndex === controlModule.currentIndex
     property int currentIndex: -1
     activeFocusOnTab: true
-    width: buttonText.contentWidth + window.recalculatedWidth / 1280 * 30
-    height: buttonText.contentHeight + window.recalculatedHeight / 720 * 15
+    width: buttonText.contentWidth + loader.width / 1280 * 30
+    height: buttonText.contentHeight + loader.height / 720 * 15
 //    Component.onCompleted: { currentIndex = controlModule.createdComponents; controlModule.createdComponents++ }
     Rectangle {
         id: buttonRect
@@ -38,7 +38,7 @@ Item {
             id: buttonText
             text: parent.parent.text
             width: contentWidth
-            height: window.recalculatedHeight * 0.05
+            height: loader.height * 0.05
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: alignment === "center" ? parent.horizontalCenter : undefined
             anchors.left: alignment === "left" ? parent.left : undefined

@@ -18,7 +18,7 @@ Item {
     }
     Loader {
         id: load
-        width: window.width
+        width: loader.width
     }
 
     Component {

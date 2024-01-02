@@ -12,9 +12,6 @@ InteractPattern {
         }
         else {
             ifaceLoader.item.interfaceLoader.item.dialogueOpen()
-//            let name1 = ifaceLoader.item.interfaceLoader.item.name1
-//            let scenario = [[name1, "I can't sit"],
-//                [name1, 'The bench is broken']]
             ifaceLoader.item.interfaceLoader.item.text = scenario
         }
     }

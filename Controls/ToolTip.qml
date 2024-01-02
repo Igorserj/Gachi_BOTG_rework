@@ -5,7 +5,7 @@ Rectangle {
     property string mainText: ""
     property string addText: ""
     color: style.blackGlass
-    width: 0.15 * window.recalculatedWidth
+    width: 0.15 * loader.width
     height: childrenRect.height + width * 0.05
     opacity: 0
     radius: width / 8
@@ -104,8 +104,8 @@ Rectangle {
     }
 
     function borderVDetect() {
-        if (y + height > loader.y + recalculatedHeight) {
-            y = loader.y + recalculatedHeight - height - 1
+        if (y + height > loader.y + loader.height) {
+            y = loader.y + loader.height - height - 1
         }
         else if (y < loader.y) {
             y = loader.y + 1
@@ -113,8 +113,8 @@ Rectangle {
     }
 
     function borderHDetect() {
-        if (x + width > loader.x + recalculatedWidth) {
-            x = loader.x + recalculatedWidth - width - 1
+        if (x + width > loader.x + loader.width) {
+            x = loader.x + loader.width - width - 1
         }
         else if (x < loader.x) {
             x = loader.x + 1

@@ -5,15 +5,18 @@ CorridorView {
         {type: "left"},
         {type: "right"}
     ]
+    readonly property var passPos: [["pass", floor.x + floor.width - (35 * scaleCoeff), floor.y, 10 * scaleCoeff, floor.height],
+    ["pass", floor.x + (25 * scaleCoeff), floor.y, 10 * scaleCoeff, floor.height]]
+
     objGen.objects: [[-100, 0, 100, room.height], [room.width, 0, 100, room.height], [0, room.height, room.width, 100], [0, 0, room.width, floor.y]
     ]
     entGen {
-        objects: [["hero", loader.width / 2, floor.y + floor.height / 2]]
+        objects: [["hero", opSave.level.hero.x, opSave.level.hero.y]]
         metadata: [
             { name: "Semen" }]
     }
     pobjGen {
-        objects: position === 0 ? [["pass", floor.x + floor.width - 10, floor.y, 10, floor.height]] : position === 5 ? [["pass", floor.x, floor.y, 10, floor.height]] : [["pass", floor.x, floor.y, 10, floor.height], ["pass", floor.x + floor.width - 10, floor.y, 10, floor.height]]
+        objects: position === 0 ? [passPos[0]] : position === 5 ? [passPos[1]] : [passPos[1], passPos[0]]
         metadata: position === 0 ? [passes[1]] : position === 5 ? [passes[0]] : passes
     }
 }

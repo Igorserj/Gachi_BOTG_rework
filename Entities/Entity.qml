@@ -9,17 +9,17 @@ Rectangle {
     property int walkUp: 0
     property int walkDown: 0
 
-    property double health: 100
-    property double maxHealth: 100
+    property double health: opSave.level.hero.health
+    property double maxHealth: opSave.level.hero.maxHealth
 
-    property double stamina: 30
-    property double maxStamina: 30
+    property double stamina: opSave.level.hero.stamina
+    property double maxStamina: opSave.level.hero.maxStamina
 
-    property int speedCoeff: 20
-    property double speed: speedCoeff * recalculatedWidth / 1280
-    property double damage: 10
-    property double defense: 0 //20 max
-    property int money: 0
+    property int speedCoeff: opSave.level.hero.speedCoeff
+    property double speed: speedCoeff * scaleCoeff
+    property double damage: opSave.level.hero.damage
+    property double defense: opSave.level.hero.defense //20 max
+    property int money: opSave.level.hero.money
 
     property bool movementBlocked: false
     property bool interactionBlocked: false
@@ -28,18 +28,20 @@ Rectangle {
     property alias animations: animations
     property alias inventory: inventory
     property alias buffList: buffList
-    property bool facingRight: true
-    property int rot: 0
-    property string name: ""
+    property bool facingRight: opSave.level.hero.facingRight
+    property int rot: opSave.level.hero.rot
+    property string name: opSave.level.hero.name
 
     property bool recovery: false
     property bool anotherRoom: false
 
     state: "alive"
-    width: 50
-    height: 50
+    width: 50 * loader.width / 1280
+    height: 50 * loader.height / 720
     border.width: 2
-    transform: Rotation { origin.x: width / 2; origin.y: height / 2; axis { x: 0; y: 1; z: 0 } angle: rot }
+    transform: [
+        Rotation { origin.x: width / 2; origin.y: height / 2; axis { x: 0; y: 1; z: 0 } angle: rot }
+    ]
 
     states: [
         State {

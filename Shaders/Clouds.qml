@@ -1,15 +1,15 @@
 import QtQuick 2.15
 
 Item {
-    width: window.width
-    height: window.height
+    width: loader.width
+    height: loader.height
     ShaderEffect {
         id: shader
-        width: window.width
-        height: window.height
-        property point windowSize: Qt.point(window.width, window.height)
+        width: loader.width
+        height: loader.height
+        property point windowSize: Qt.point(loader.width, loader.height)
         property real time: 0
-        property real shiftSpeed: 100. * window.height / 720
+        property real shiftSpeed: 100. * loader.height / 720
         fragmentShader: "
             #ifdef GL_ES
             precision highp float;

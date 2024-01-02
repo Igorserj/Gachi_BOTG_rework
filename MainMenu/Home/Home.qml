@@ -6,6 +6,7 @@ Item {
     property var buttonNames: locale.homeButtonNames/*[["Почати гру", "Налаштування", "Вихід"], ["Нова гра", "Продовжити", "Назад"]]*/
     property int actionSet: 0
     property alias buttonsModel: buttons.model
+//    property string stateName: ""
     Logo {
         height: (parent.height - homeColumn.height) / 2
         x: parent.width - width - composer.width / 30
@@ -78,4 +79,18 @@ Item {
     function back() {
         composer.state = "home"
     }
+
+//    SequentialAnimation {
+//        id: fadingAway
+//        running: false
+//        PropertyAnimation {
+//            target: composeLoader
+//            property: "opacity"
+//            to: 0
+//            duration: 250
+//        }
+//        ScriptAction {
+//            script: composer.state = stateName
+//        }
+//    }
 }

@@ -7,7 +7,7 @@ Rectangle {
     property int index: 0
     property var activeCells: []
     property int animationDuration: 200
-    height: window.recalculatedHeight * 0.05 + window.recalculatedHeight / 720 * 15
+    height: loader.height * 0.05 + loader.height / 720 * 15
     width: childrenRect.width
     state: "collapsed"
     color: "transparent"
@@ -53,7 +53,7 @@ Rectangle {
                     enabled: typeof(activeCells[index]) !== "undefined" ? activeCells[index] : true
                     anchors.horizontalCenter: parent.horizontalCenter
                     height: button.height
-                    width: repeater.maxWidth + window.recalculatedWidth / 1280 * 30
+                    width: repeater.maxWidth + loader.width / 1280 * 30
                     color: enabled ? rectangleArea.containsMouse ? style.darkGlass : style.grayGlass : style.blackGlass
 
                     radius: enabled ? rectangleArea.containsMouse ? rectangle.height / 2.5 : rectangle.height
@@ -86,7 +86,7 @@ Rectangle {
                         y: (parent.height - height) / 2
                         text: modelData
                         verticalAlignment: Text.AlignVCenter
-                        height: window.recalculatedHeight * 0.05
+                        height: loader.height * 0.05
                         fontSizeMode: Text.VerticalFit
                         font.pointSize: 72
                         font.family: comfortaaName

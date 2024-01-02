@@ -14,8 +14,8 @@ Item {
             property real scaling: 1 / 1.14636
             source: modelData
             y: index > 0 ? repeater.itemAt(index - 1).y - repeater.itemAt(index - 1).height * 0.05 : funcs.heightCalc()
-            width: window.width / 6 / Math.pow(scaling, index)
-            height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : window.height / 6
+            width: loader.width / 6 / Math.pow(scaling, index)
+            height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : loader.height / 6
             fillMode: Image.PreserveAspectFit
         }
         Component.onCompleted: anim.running = true
@@ -66,7 +66,7 @@ Item {
 //        let fullHeight = 0
 //        let height = 0
 //        let y = 0
-//        let width = window.width / 6
+//        let width = loader.width / 6
 //        for (let i = 1; i < objects.length; i++) {
 //            width *= 1.14636
 //            height = width / (358 / 220)
@@ -76,7 +76,7 @@ Item {
 //        stairs.scale = 358 / width
 //        repeater.height = fullHeight
 //        repeater.width = width
-//        return (window.height - fullHeight) / 2
+//        return (loader.height - fullHeight) / 2
 //    }
 //    function finish() {
 //        ++repeat
