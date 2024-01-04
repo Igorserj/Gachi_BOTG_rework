@@ -7,6 +7,8 @@ Item {
     property alias itmGen: itmGen
     property alias pobjGen: pobjGen
     property alias room: room
+    property alias eventHandler: eventLoader.item
+    property alias eventLoader: eventLoader
     property var spawnPoints: []
     property bool ready: pobjGen.ready && entGen.ready
     function scripts(scriptName) {}
@@ -56,7 +58,13 @@ Item {
         z: room.z + 1
     }
 
-    EventHandler {
-        id: eventHandler
+    Loader {
+        id: eventLoader
+        sourceComponent: eventComponent
+    }
+    Component {
+        id: eventComponent
+        EventHandler {
+        }
     }
 }

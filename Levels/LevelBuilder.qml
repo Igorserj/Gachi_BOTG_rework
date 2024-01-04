@@ -7,7 +7,7 @@ import "../Shaders"
 Item {
     property int blurDuration: 500
     property var seed: [0, 0, 0, 0, 0, 0] // "000000"
-    property int floor: 1
+    property int floor: 0
     property int position: -1//  levelLoader.item.corridorShift[floor]
     property alias levelLoader: levelLoader
     Loader {

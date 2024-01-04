@@ -7,7 +7,7 @@ Item {
     property double deltaDuration: 0
     //    property int iteration: 0
     property double timeElapsed: parent.timeElapsed
-    property int timeLeft: 0
+    property int timeLeft: (timeDuration - timeElapsed) / 1000 + 1
     property int points: parent.points !== 0 ? parent.points : predefinedPoints
     property int predefinedPoints: 0
     property string name: ""
@@ -46,7 +46,7 @@ Item {
 
     function timeCalc() {
         timeElapsed += timer.interval
-        timeLeft = (timeDuration - timeElapsed) / 1000 + 1
+        // timeLeft = (timeDuration - timeElapsed) / 1000 + 1
     }
 
     function loopsCalc() {

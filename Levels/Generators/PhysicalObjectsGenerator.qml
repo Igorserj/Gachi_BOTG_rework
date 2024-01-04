@@ -33,12 +33,13 @@ Item {
                 else if (modelData[0] === 'pass') return pass
             }
             onLoaded: {
-                if (!!metadata[index].model) item.objects = metadata[index].model
+                if (!!metadata[index].model !== undefined) item.objects = metadata[index].model
                 if (index === 0) {
                     repeater.numberOfCreatedObjects = 1
                 }
                 else { repeater.numberOfCreatedObjects++ }
                 if (index === objects.length - 1) {
+                    if (entGen.objects.length !== entGen.metadata.length) console.error("entGen.objects.length != entGen.metadata.length")
                     entGen.repeater.model = entGen.objects
                 }
             }

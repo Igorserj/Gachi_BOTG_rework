@@ -9,9 +9,9 @@ Item {
     property int hp: 0
     property int defense: 0
     property bool isEquipment: equipmnets.includes(type)
-    property var usedByEntity
+    // property var usedByEntity
 
-    function use(permanent = false) {
+    function use(permanent = false, usedByEntity) {
         if (buffName !== "") {
             usedByEntity.buffList.updateBuffs(buffName, -1, permanent, points, false)
         }
@@ -22,7 +22,7 @@ Item {
             usedByEntity.buffList.updateBuffs("DefenseUp", -1, true, defense, false)
         }
     }
-    function removeEffect(permanent = false, reversible = false) {
+    function removeEffect(permanent = false, reversible = false, usedByEntity) {
         let buffList = usedByEntity.buffList.currentBuffs
         for (let i = 0; i < buffList.length; i++) {
             if (buffName === buffList[i][0] && permanent === buffList[i][2]) {

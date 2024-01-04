@@ -24,13 +24,20 @@ Corridor {
                                                       currentRoom === "entrance" ? [stairsPos[0]] :
                                                                                    [stairsPos[1]]).concat(oldObjects)
         pobjGen.metadata = (currentRoom === "stairs" ? stairs : currentRoom === "entrance" ? [stairs[0]] : [stairs[1]]).concat(oldMetadata)
-        entGen.objects = [["hero", opSave.level.hero.x, opSave.level.hero.y]]
-        entGen.metadata = [{ name: "Semen" }]
+        entGen.objects = [["hero", opSave.level.hero.x, opSave.level.hero.y]
+                          ,["hostile", 350 * scaleCoeff, 600 * scaleCoeff]
+                ]
+        entGen.metadata = [{ name: "Semen" }
+                           , { name: "Steve" }
+                ]
 
         itmGen.objects = [[350 * scaleCoeff, 600 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff], [350 * scaleCoeff, 550 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff], [530 * scaleCoeff, 600 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff]]
-        itmGen.metadata = [{name: "Super Vodka", type: "Consumable", isEquipment: false, additionalInfo: "This is super Vodka!", buffName: "StaminaUp", points: 35},
-                   {name: "Mask", additionalInfo: "Maska tupa", buffName: "HealthUp", points: 10, type: "Head", isEquipment: true},
-                   {name: "money", pcs: 10}]
+        itmGen.metadata = [
+                    // {name: "Super Vodka", type: "Consumable", isEquipment: false, additionalInfo: "This is super Vodka!", buffName: "StaminaUp", points: 35},
+
+                    {name: "Vodka"},
+                    {name: "Mask", additionalInfo: "Maska tupa", buffName: "HealthUp", points: 10, type: "Head", isEquipment: true},
+                    {name: "money", pcs: 10}]
     }
 
     function stairSeed() {

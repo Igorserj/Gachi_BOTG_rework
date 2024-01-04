@@ -11,18 +11,18 @@ Item {
     Loader {
         id: interactLoader
         sourceComponent: {
-            if (name === "default") return interactPattern
-            else if (name === "bench") return bench
+            console.log(name)
+            // if (name === "default") return interactPattern
+            if (name === "bench") return bench
             else if (name === "upstairs" || name === "downstairs") return stairs
             else if (name === "leftpass" || name === "rightpass") return pass
         }
     }
-    Component {
-        id: interactPattern
-        InteractPattern {
-//            Component.onCompleted: console.log("default")
-        }
-    }
+    // Component {
+    //     id: interactPattern
+    //     InteractPattern {
+    //     }
+    // }
     Component {
         id: bench
         Bench {}

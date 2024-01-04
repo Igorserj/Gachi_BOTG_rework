@@ -14,6 +14,7 @@ Item {
         property var hero: ({
                                 x: (loader.width - (50 * scaleCoeff)) / 2,
                                 y: loader.height - (50 * scaleCoeff),
+
                                 health: 100,
                                 maxHealth: 100,
                                 stamina: 30,
@@ -24,7 +25,20 @@ Item {
                                 money: 0,
                                 facingRight: true,
                                 rot: 0,
-                                name: ""
+                                name: "",
+
+                                inventoryCells: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+                                previousInventory: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+                                equipmentCells: ['', '', '', '', '', '', ''],
+                                previousEquipment: ['', '', '', '', '', '', ''],
+                                activatedWeapon: [false, false, false],
+                                twoHands: false,
+                                metadataCells: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+                                    {}, {}, {}, {}, {}, {}, {}],
+                                previousMetadata: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+                                    {}, {}, {}, {}, {}, {}, {}],
+
+                                // buffs: []
                             })
     }
 

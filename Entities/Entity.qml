@@ -76,9 +76,11 @@ Rectangle {
             name: "idle"
         }
     ]
+
     InventoryItems {
         id: inventory
     }
+
     BuffList {
         id: buffList
     }

@@ -6,8 +6,8 @@ Entity {
     health: interact.health
     maxHealth: interact.maxHealth
     canPickUp: false
-    width: (interact.width > 0 ? interact.width : 50 * loader.width / 1280)
-    height: (interact.height > 0 ? interact.height : 50 * loader.height / 720)
+    width: (interact.width > 0 ? interact.width : 50 * scaleCoeff)
+    height: (interact.height > 0 ? interact.height : 50 * scaleCoeff)
     readonly property double baseHealth: 10
     readonly property double baseMaxHealth: 10
     property var scenario: []
@@ -15,6 +15,7 @@ Entity {
     function interaction(entity) {
         console.log("nothing to interact with!")
     }
+
     function heroDataSaving() {
         opSave.level.hero.x = entGen.repeater.itemAt(0).x
         opSave.level.hero.y = entGen.repeater.itemAt(0).y
@@ -30,5 +31,17 @@ Entity {
         opSave.level.hero.facingRight = entGen.repeater.itemAt(0).item.facingRight
         opSave.level.hero.rot = entGen.repeater.itemAt(0).item.rot
         opSave.level.hero.name = entGen.repeater.itemAt(0).item.name
+
+        opSave.level.hero.inventoryCells = entGen.repeater.itemAt(0).item.inventory.inventoryCells
+        opSave.level.hero.previousInventory = entGen.repeater.itemAt(0).item.inventory.previousInventory
+        opSave.level.hero.equipmentCells = entGen.repeater.itemAt(0).item.inventory.equipmentCells
+        opSave.level.hero.previousEquipment = entGen.repeater.itemAt(0).item.inventory.previousEquipment
+        opSave.level.hero.activatedWeapon = entGen.repeater.itemAt(0).item.inventory.activatedWeapon
+        opSave.level.hero.twoHands = entGen.repeater.itemAt(0).item.inventory.twoHands
+        opSave.level.hero.metadataCells = entGen.repeater.itemAt(0).item.inventory.metadataCells
+        opSave.level.hero.previousMetadata = entGen.repeater.itemAt(0).item.inventory.previousMetadata
+
+        const buffList = entGen.repeater.itemAt(0).item.buffList
+        opSave.level.hero.buffs = buffList.currentBuffs
     }
 }

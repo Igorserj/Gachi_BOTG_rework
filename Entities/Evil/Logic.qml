@@ -1,7 +1,6 @@
 import QtQuick 2.15
 
 Item {
-
     SequentialAnimation {
         running: entGen.repeater.numberOfCreatedObjects / entGen.objects.length === 1
         paused: ifaceLoader.item.pauseStates.includes(ifaceLoader.item.state)
@@ -9,7 +8,10 @@ Item {
         ScriptAction {
             script: {
                 if (anotherRoom) alternateControls()
-                else dir()
+                else {
+                    inv()
+                    dir()
+                }
             }
         }
 
@@ -29,10 +31,22 @@ Item {
             }
         }
     }
+    WorkerScript {
+        id: inventoryScript
+        source: "inventory.mjs"
+        onMessage: {
+            const items = messageObject.items
+            const metas = messageObject.metas
+            const indexes = messageObject.indexes
+            for (let i = 0; i < items.length; i++) {
+                useItem(items[i], metas[i], indexes[i])
+            }
+        }
+    }
 
     function dir() {
         if (!movementBlocked) {
-            let enemies = heroScan()
+            const enemies = heroScan()
             directionScript.sendMessage({
                                             "objects": objGen.objects,
                                             "x": hostile.parent.x,
@@ -44,6 +58,14 @@ Item {
                                             "hW": enemies[2],
                                             "hH": enemies[3],
                                             "states": enemies[4]
+                                        })
+        }
+    }
+    function inv() {
+        if (!movementBlocked) {
+            inventoryScript.sendMessage({
+                                            "inventory": hostile.inventory.inventoryCells,
+                                            "metadata": hostile.inventory.metadataCells
                                         })
         }
     }
@@ -129,6 +151,29 @@ Item {
             animations.moveUpRun = false
             walkDown = false
             animations.moveDownRun = false
+        }
+    }
+
+    //Cell logic.qml
+    function useItem(itemName, metaData, index) {
+            if (itemList.itemNames.includes(itemName)) {
+                const j = itemList.itemNames.indexOf(itemName)
+                itemList.items[j].use(false, hostile)
+            }
+            else {
+                const cell = metaData
+                itemList.customItem.pool.push({buffName: cell.buffName, points: cell.points, usedByEntity: hostile, action: "use", hp: cell.hp, defense: cell.defense})
+                itemList.customItem.modelUpdate()
+            }
+            destroyItem(index, metaData.isEquipment)
+    }
+
+    //Cell logic.qml
+    function destroyItem(currentIndex, isEquipment) {
+        const entityInv = hostile.inventory
+        if (!isEquipment) {
+            entityInv.inventoryCells[currentIndex] = ''
+            entityInv.metadataCells[currentIndex] = {}
         }
     }
 }

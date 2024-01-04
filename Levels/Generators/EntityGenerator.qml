@@ -9,35 +9,13 @@ Item {
     property var objects: []
     property var metadata: []
     property bool ready: objects.length > 0 ? repeater.numberOfCreatedObjects / objects.length === 1 : true
-//    onReadyChanged: heroTp()
-
-//    function heroTp() {
-//        const hX = objects[0][1]
-//        const hY = objects[0][2]
-//        let distance = loader.width + loader.height
-//        let index = -1
-//        let curDist = 0
-//        if (ready) {
-//            for (let i = 0; i < spawnPoints.length; i++) {
-//                curDist = Math.sqrt(Math.pow(hX - spawnPoints[i][0], 2) + Math.pow(hY - spawnPoints[i][1], 2))
-//                if (curDist < distance) {
-//                    index = i
-//                    distance = curDist
-//                }
-//            }
-//        }
-//        repeater.itemAt(0).x = spawnPoints[index][0]
-//        repeater.itemAt(0).y = spawnPoints[index][1]
-//    }
 
     Repeater {
         id: repeater
         property int numberOfCreatedObjects: 0
-        //        model: pobjGen.ready ? objects : []
         Loader {
             id: entityLoader
             property int entityIndex: -1
-            //            asynchronous: true
             sourceComponent: {
                 if (modelData[0] === "hero") {return hero}
                 else if (modelData[0] === "hostile") { return hostile }

@@ -22,7 +22,7 @@ Item {
             points: modelData.points !== undefined ? modelData.points : 0
             hp: modelData.hp !== undefined ? modelData.hp : 0
             defense: modelData.defense !== undefined ? modelData.defense : 0
-            usedByEntity: modelData.usedByEntity !== undefined ? modelData.usedByEntity : undefined
+            // usedByEntity: modelData.usedByEntity !== undefined ? modelData.usedByEntity : undefined
             Component.onCompleted: {
                 let permanent
                 let reversible
@@ -33,10 +33,10 @@ Item {
                 else reversible = modelData.reversible
 
                 if (modelData.action === "use") {
-                    use(permanent)
+                    use(permanent, modelData.usedByEntity)
                 }
                 else if (modelData.action === "remove") {
-                    removeEffect(permanent, reversible)
+                    removeEffect(permanent, reversible, modelData.usedByEntity)
                 }
                 customItem.pool.shift()
                 customItem.modelUpdate()
@@ -50,7 +50,6 @@ Item {
         }
     }
 
-
     ItemPattern {
         id: hat
         type: types[0]
@@ -61,18 +60,18 @@ Item {
 
     ItemPattern {
         id: vodka
-        type: types[5]
+        type: types[6]
         name: "Vodka"
-        additionalInfo: "Vodka don't need to be presented"
-        buffName: "StrengthUp"
+        additionalInfo: "Vodka don't need to be advertised"
+        buffName: "SpeedUp"
     }
 
     ItemPattern {
         id: bat
-        type: types[4]
+        type: types[5]
         name: "Bat"
         additionalInfo: "Beat them up!"
-        buffName: "SpeedUp"
+        buffName: "StrengthUp"
     }
 
     ItemPattern {
@@ -80,7 +79,7 @@ Item {
         type: types[1]
         name: "Jacket"
         additionalInfo: "Leather jacket"
-        defense: 5
+        defense: 1
     }
 
     ItemPattern {
@@ -88,7 +87,7 @@ Item {
         type: types[2]
         name: "Jeans"
         additionalInfo: " "
-        defense: 5
+        defense: 1
     }
 
     ItemPattern {
@@ -96,6 +95,6 @@ Item {
         type: types[3]
         name: "Sneakers"
         additionalInfo: "Put my sneakers on"
-        defense: 5
+        defense: 1
     }
 }

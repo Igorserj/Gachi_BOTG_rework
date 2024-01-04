@@ -69,6 +69,7 @@ RoomView {
     Row {
         id: wall2
         y: floor.y + floor.height - childrenRect.height
+        z: itmGen.z + 1
         property bool ready: fenceRepeater2.numberOfCreatedObjects / fenceRepeater2.count === 1
         Repeater {
             id: fenceRepeater2
@@ -79,7 +80,7 @@ RoomView {
                 width: loader.width / 11
                 height: width
                 fillMode: Image.PreserveAspectFit
-                opacity: (index > 2 && index < 8) && staircaseLayout.includes(currentRoom)/*pobjGen.objects.length === 4*/ ? 0 : 0.35
+                opacity: (index > 2 && index < 8) && staircaseLayout.includes(currentRoom)/*pobjGen.objects.length === 4*/ ? 0 : 1//0.95
             }
             onItemAdded: numberOfCreatedObjects++
         }

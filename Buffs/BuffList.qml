@@ -10,11 +10,20 @@ Item {
         , staRegen, staHeal, staUp, defUp
     ]
 
-    property var currentBuffs: []
+    property var currentBuffs: /*!!hero ? opSave.level.hero.buffs :*/ []
     property int buffLevel: 1
     property var usedByEntity: entity
     property alias repeater: repeater
     visible: false
+
+    // Component.onCompleted: {
+    //     if (currentBuffs.length > 0 && usedByEntity === entGen.repeater.itemAt(0).item) {
+    //         for (let i = 0; i < currentBuffs.length; i++) {
+    //             console.log(opSave.level.hero.buffs[i])
+    //             updateBuffs(opSave.level.hero.buffs[i][0], -1, opSave.level.hero.buffs[i][1], opSave.level.hero.buffs[i][2], opSave.level.hero.buffs[i][3])
+    //         }
+    //     }
+    // }
 
     Repeater {
         id: repeater
@@ -34,6 +43,7 @@ Item {
         BuffPattern {
             type: types[0]
             timeDuration: 15000
+            predefinedPoints: 5
             characteristic: "damage"
             name: "Increased damage"
             description: "Your damage increased by 1.5 times."
@@ -44,7 +54,7 @@ Item {
         BuffPattern {
             type: types[0]
             timeDuration: 15000
-            points: 10
+            points: 3
             characteristic: "speed"
             name: "Increased speed"
             description: "Your speed increased on 10 points."
@@ -138,48 +148,28 @@ Item {
     }
 
     function updateBuffs(addBuff = "", index = -1, permanent = false, points = 0, reversible = false) {
-        var buffProperties = []
-        //        if (currentBuffs.length > 0) {
-        //            for (let i = 0; i < currentBuffs.length; i++) {
-        //                let buff = repeater.itemAt(i).item
-        //                if (buff !== null) {
-        //                    let buff2 = []
-        //                    buff2.push(currentBuffs[i][0], buff.timeElapsed, buff.isPermanent, points, reversible)
-        //                    buffProperties.push(buff2)
-        //                }
-        //            }
-        //        }
-        //        if (index !== -1) {
-        //            let buff = repeater.itemAt(index).item
-        //            if (buff !== null) {
-        //                buff.animation.stop()
-        //            }
-        //            buffProperties.splice(index, 1)
-        //        }
-        //        else {
-        //            let buff2 = []
-        //            buff2.push(addBuff, 0, permanent, points, reversible)
-        //            buffProperties.push(buff2)
-        //        }
+        let buffProperties = []
+        let buff
+        let buff2 = []
         if (currentBuffs.length > 0) {
             for (let i = 0; i < currentBuffs.length; i++) {
-                var buff = repeater.itemAt(i)
-                if (buff.item !== null) {
-                    let buff2 = []
+                let buff = repeater.itemAt(i)
+                if (buff !== null && buff.item !== null) {
+                    buff2 = []
                     buff2.push(buff.buffName, buff.item.timeElapsed, buff.isPermanent, buff.points, buff.isReversible)
                     buffProperties.push(buff2)
                 }
             }
         }
         if (index !== -1) {
-            let buff = repeater.itemAt(index).item
+            buff = repeater.itemAt(index).item
             if (buff !== null) {
                 buff.animation.stop()
             }
             buffProperties.splice(index, 1)
         }
         else {
-            let buff2 = []
+            buff2 = []
             buff2.push(addBuff, 0, permanent, points, reversible)
             buffProperties.push(buff2)
         }

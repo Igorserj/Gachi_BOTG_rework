@@ -171,5 +171,6 @@
         <file>Saves/Operational.qml</file>
         <file>Controls/Heading.qml</file>
         <file>Design/icons/icon5.webp</file>
+        <file>Entities/Evil/inventory.mjs</file>
     </qresource>
 </RCC>

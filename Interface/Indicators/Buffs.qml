@@ -4,7 +4,7 @@ Column {
     id: buffCol
     Rectangle {
         width: height
-        height: 21 * loader.height / 720
+        height: 21 * scaleCoeff
         radius: width / 8
         MouseArea {
             anchors.fill: parent
@@ -21,7 +21,7 @@ Column {
         id: textPlaceholder
         color: "#DD363436"
         width: height
-        height: 21 * loader.height / 720
+        height: 21 * scaleCoeff
         Text {
             text: modelData[0] > 99 ? "##" : modelData[0]
             height: parent.height

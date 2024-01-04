@@ -98,7 +98,7 @@ Repeater {
                         entity.inventory.metadataCells[i] = itmGen.metadata[index]
                         removing()
                         entity.inventory.invCellsChanged()
-                        if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
+                        if (!!ifaceLoader.item.interfaceLoader.item && !!ifaceLoader.item.interfaceLoader.item.inventoryLoader.item) {
                             ifaceLoader.item.interfaceLoader.item.inventoryLoader.item.invInterface.update()
                         }
                     }

@@ -23,7 +23,7 @@ Item {
         id: inventoryLoader
         anchors.fill: parent
         asynchronous: true
-        onStatusChanged: status===Loader.Null ? toolTip.hide() : {}
+        onStatusChanged: status === Loader.Null ? toolTip.hide() : {}
     }
     Component {
         id: inventory
@@ -65,6 +65,14 @@ Item {
                 HealthBar {
                     hpColor: "#AA3333"//"red"
                     leftAlign: false
+                }
+                StaminaBar {}
+                Row {
+                    spacing: ui.width * 0.003
+                    Repeater {
+                        model: modelData[4]
+                        Buffs {}
+                    }
                 }
             }
         }
@@ -114,25 +122,40 @@ Item {
         const entities = entGen.repeater
         let entitiesProperties = []
         let entitiesProperties2 = []
+        let items = []
+        let buffs = []
+        let buff = []
+        let buffRep
+        let j = 0
         for (let i = 0; i < entityList.length; i++) {
             if (entityList[i][0] === "hero") {
-                let items = []
-                let buffs = []
-                var buffRep = entities.itemAt(i).item.buffList.repeater
-                for (let j = 0; j < entities.itemAt(i).item.buffList.currentBuffs.length; j++) {
-                    let buff = []
-                    buff.push(buffRep.itemAt(j).item.timeLeft, buffRep.itemAt(j).item.name, buffRep.itemAt(j).item.description)
-                    buffs.push(buff)
+                items = []
+                buffs = []
+                buffRep = entities.itemAt(i).item.buffList.repeater
+                for (j = 0; j < entities.itemAt(i).item.buffList.currentBuffs.length; j++) {
+                    if (buffRep.itemAt(j) !== null) {
+                        buff = []
+                        buff.push(buffRep.itemAt(j).item.timeLeft, buffRep.itemAt(j).item.name, buffRep.itemAt(j).item.description)
+                        buffs.push(buff)
+                    }
                 }
                 items.push(entities.itemAt(i).item.health, entities.itemAt(i).item.maxHealth, entities.itemAt(i).item.stamina, entities.itemAt(i).item.maxStamina, buffs)
                 entitiesProperties.push(items)
             } else if (entityList[i][0] === "hostile") {
-                let items = []
-                items.push(entities.itemAt(i).item.health, entities.itemAt(i).item.maxHealth)
+                items = []
+                buffs = []
+                buffRep = entities.itemAt(i).item.buffList.repeater
+                for (j = 0; j < entities.itemAt(i).item.buffList.currentBuffs.length; j++) {
+                    buff = []
+                    buff.push(buffRep.itemAt(j).item.timeLeft, buffRep.itemAt(j).item.name, buffRep.itemAt(j).item.description)
+                    buffs.push(buff)
+                }
+                items.push(entities.itemAt(i).item.health, entities.itemAt(i).item.maxHealth, entities.itemAt(i).item.stamina, entities.itemAt(i).item.maxStamina, buffs)
                 entitiesProperties2.push(items)
             }
         }
         heroesRepeater.model = entitiesProperties
+        // opSave.level.hero.buffs = entitiesProperties[4]
         hostilesRepeater.model = entitiesProperties2
     }
     Timer {

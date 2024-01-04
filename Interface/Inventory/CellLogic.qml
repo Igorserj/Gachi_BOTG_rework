@@ -2,7 +2,7 @@ import QtQuick 2.15
 
 QtObject {
     property var equipRow: parent.parent
-     property var itmGen: levelLoader.item.roomLoader.item.itmGen
+    property var itmGen: levelLoader.item.roomLoader.item.itmGen
     function optionChoose() {
         var text = cellView.cellText
         if (text !== "") {
@@ -86,8 +86,8 @@ QtObject {
         var cells = cellView.cellText
         if (itemList.itemNames.includes(cells)) {
             const i = itemList.itemNames.indexOf(cells)
-            itemList.items[i].usedByEntity = invInterface.usedByEntity
-            itemList.items[i].use()
+            // itemList.items[i].usedByEntity = invInterface.usedByEntity
+            itemList.items[i].use(false, usedByEntity)
         }
         else {
             const cell = usedByEntity.inventory.metadataCells[currentIndex]
