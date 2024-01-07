@@ -36,8 +36,8 @@ Rectangle {
     property bool anotherRoom: false
 
     state: "alive"
-    width: 50 * loader.width / 1280
-    height: 50 * loader.height / 720
+    width: 50 * scaleCoeff
+    height: 50 * scaleCoeff
     border.width: 2
     transform: [
         Rotation { origin.x: width / 2; origin.y: height / 2; axis { x: 0; y: 1; z: 0 } angle: rot }

@@ -8,8 +8,8 @@ Rectangle {
     Rectangle {
         id: backRect
         color: style.grayGlass//"#55777777"
-        height: col.childrenRect.height + 100 * loader.width / 1280
-        width: col.childrenRect.width + 150 * loader.height / 720
+        height: col.childrenRect.height + 100 * scaleCoeff
+        width: col.childrenRect.width + 150 * scaleCoeff
         radius: width / 16
         anchors.centerIn: parent
         Rectangle {

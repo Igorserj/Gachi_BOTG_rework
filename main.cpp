@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include <QQmlContext>
 
 int main(int argc, char *argv[])
 {
@@ -11,7 +12,9 @@ int main(int argc, char *argv[])
     QQuickWindow::setSceneGraphBackend(QSGRendererInterface::OpenGL);
     //    QQuickWindow::setSceneGraphBackend(QSGRendererInterface::VulkanRhi);
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("applicationDirPath", QGuiApplication::applicationDirPath());
     const QUrl url(QStringLiteral("qrc:/main.qml"));
+    qputenv("QML_XHR_ALLOW_FILE_READ", QByteArray("1"));
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreated,

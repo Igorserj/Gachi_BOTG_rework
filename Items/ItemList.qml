@@ -53,48 +53,48 @@ Item {
     ItemPattern {
         id: hat
         type: types[0]
-        name: "Hat"
-        additionalInfo: "Just a normal hat"
+        name: locale.itemNames[0]
+        additionalInfo: locale.itemAddInfo[0]
         defense: 5
     }
 
     ItemPattern {
         id: vodka
         type: types[6]
-        name: "Vodka"
-        additionalInfo: "Vodka don't need to be advertised"
+        name: locale.itemNames[1]
+        additionalInfo: locale.itemAddInfo[1]
         buffName: "SpeedUp"
     }
 
     ItemPattern {
         id: bat
         type: types[5]
-        name: "Bat"
-        additionalInfo: "Beat them up!"
+        name: locale.itemNames[2]
+        additionalInfo: locale.itemAddInfo[2]
         buffName: "StrengthUp"
     }
 
     ItemPattern {
         id: jacket
         type: types[1]
-        name: "Jacket"
-        additionalInfo: "Leather jacket"
+        name: locale.itemNames[3]
+        additionalInfo: locale.itemAddInfo[3]
         defense: 1
     }
 
     ItemPattern {
         id: jeans
         type: types[2]
-        name: "Jeans"
-        additionalInfo: " "
+        name: locale.itemNames[4]
+        additionalInfo: locale.itemAddInfo[4]
         defense: 1
     }
 
     ItemPattern {
         id: sneakers
         type: types[3]
-        name: "Sneakers"
-        additionalInfo: "Put my sneakers on"
+        name: locale.itemNames[5]
+        additionalInfo: locale.itemAddInfo[5]
         defense: 1
     }
 }

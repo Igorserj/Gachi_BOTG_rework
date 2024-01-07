@@ -17,6 +17,7 @@ InteractPattern {
             loader.item.floor--
         }
         loader.item.position = corridorShift[loader.item.floor] + 1
+        builderDataSaving()
         roomLoad()
     }
     function roomLoad() {

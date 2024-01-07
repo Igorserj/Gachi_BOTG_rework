@@ -3,7 +3,7 @@ import "../../Controls"
 import QtGraphicalEffects 1.15
 
 Item {
-    property var buttonNames: locale.homeButtonNames/*[["Почати гру", "Налаштування", "Вихід"], ["Нова гра", "Продовжити", "Назад"]]*/
+    property var buttonNames: locale.homeButtonNames
     property int actionSet: 0
     property alias buttonsModel: buttons.model
 //    property string stateName: ""
@@ -31,6 +31,7 @@ Item {
             model: buttonNames[0]
             Button1 {
                 text: modelData
+                enabled: opSave.level.builder.seed.length === 6 || modelData !== buttonNames[1][1]
                 anchors.right: parent.right
                 function clickFunction() { return actionSet === 0 ? action(index) : action2(index) }
             }
@@ -69,11 +70,12 @@ Item {
     function newGame() {
         vignetteLoader.sourceComponent = undefined
         //        loader.state = "level"
-        loadLevel()
+        loadLevel("new")
     }
 
     function continueGame() {
         vignetteLoader.sourceComponent = undefined
+        loadLevel()
     }
 
     function back() {

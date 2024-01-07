@@ -11,7 +11,6 @@ Item {
     Loader {
         id: interactLoader
         sourceComponent: {
-            console.log(name)
             // if (name === "default") return interactPattern
             if (name === "bench") return bench
             else if (name === "upstairs" || name === "downstairs") return stairs

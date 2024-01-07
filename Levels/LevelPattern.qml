@@ -13,10 +13,10 @@ Item {
     property var allocation: []
     property var corridorShift: []
     property string currentRoom: ""//"stairs"
-    Component.onCompleted: alloc()
+    // Component.onCompleted: alloc()
 
-    function alloc() {
-        script.sendMessage({ 'seed' : seed })
+    function alloc(type) {
+        script.sendMessage({ 'seed' : seed, "type": type })
     }
 
     WorkerScript {
@@ -24,7 +24,10 @@ Item {
         source: "allocation.mjs"
         onMessage: {
             corridorsLayout = messageObject.corridorsLayout
-            corridorShift = messageObject.corShift; position = messageObject.corShift[floor] + 1; allocation = messageObject.allocation; console.log(allocation);
+            corridorShift = messageObject.corShift
+            if (messageObject.type === "new") position = messageObject.corShift[floor] + 1
+            allocation = messageObject.allocation
+            console.log(allocation)
             currentRoom = messageObject.corridorsLayout[floor][position]
 //            if (position === -1) position = corridorShift[floor]
         }

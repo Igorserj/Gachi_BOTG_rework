@@ -7,6 +7,7 @@ import "Shaders"
 import "Controls" as MyControls
 import "Loading"
 import "Saves"
+import "Localization"
 
 ApplicationWindow {
     id: window
@@ -135,15 +136,29 @@ ApplicationWindow {
         loader.focus = false
         loader.sourceComponent = menuCompose
     }
-    function loadLevel() {
+    function loadLevel(type) {
         loader.focus = true
+        if (type === "new") {
+            opSave.level.levelBuilderClear()
+        }
         loader.sourceComponent = levelBuilder
+        if (type === "new") {
+            opSave.level.heroClear()
+            seedGeneration()
+            loader.item.levelChooser("new")
+        }
+        else {
+            loader.item.levelChooser("")
+        }
+    }
+
+    function seedGeneration() {
         let seed = []
         for (let i = 0; i < 6; i++) {
             seed.push(Math.floor(Math.random() * 10))
         }
         loader.item.seed = seed
-        loader.item.levelChooser()
+        opSave.level.builder.seed = seed
         console.log(seed)
     }
 }

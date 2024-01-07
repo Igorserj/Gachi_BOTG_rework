@@ -15,5 +15,6 @@ InteractPattern {
             opSave.level.hero.x -= loader.width
             loader.item.position++
         }
+        builderDataSaving()
     }
 }

@@ -29,7 +29,6 @@
         <file>Interface/Menu.qml</file>
         <file>Interface/UserInterface.qml</file>
         <file>Levels/LevelBuilder.qml</file>
-        <file>Localization.qml</file>
         <file>Controls/DropDown.qml</file>
         <file>Entities/InventoryItems.qml</file>
         <file>Controls/ToolTip.qml</file>
@@ -172,5 +171,7 @@
         <file>Controls/Heading.qml</file>
         <file>Design/icons/icon5.webp</file>
         <file>Entities/Evil/inventory.mjs</file>
+        <file>Localization/Localization.qml</file>
+        <file>Localization/readLocale.js</file>
     </qresource>
 </RCC>

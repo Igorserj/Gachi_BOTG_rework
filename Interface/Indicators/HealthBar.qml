@@ -5,8 +5,8 @@ Rectangle {
     id: hb
     property color hpColor: "#008800"//"green"
     property bool leftAlign: true
-    width: 180 * loader.width / 1280
-    height: 21 * loader.height / 720
+    width: 180 * scaleCoeff
+    height: 21 * scaleCoeff
     color: style.blackGlass
     border.width: 2
     Rectangle {

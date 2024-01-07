@@ -44,4 +44,10 @@ Entity {
         const buffList = entGen.repeater.itemAt(0).item.buffList
         opSave.level.hero.buffs = buffList.currentBuffs
     }
+
+    function builderDataSaving() {
+        opSave.level.builder.seed = seed
+        opSave.level.builder.position = position
+        opSave.level.builder.floor = loader.item.floor
+    }
 }

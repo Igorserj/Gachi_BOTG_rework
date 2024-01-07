@@ -260,6 +260,7 @@ WorkerScript.onMessage = function(message) {
     WorkerScript.sendMessage({
                                  'allocation' : allocation,
                                  'corShift' : csh,
-                                 'corridorsLayout' : corridorsLayout
+                                 'corridorsLayout' : corridorsLayout,
+                                 'type' : message.type
                              })
 }
