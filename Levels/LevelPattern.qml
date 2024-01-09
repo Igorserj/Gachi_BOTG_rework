@@ -25,7 +25,10 @@ Item {
         onMessage: {
             corridorsLayout = messageObject.corridorsLayout
             corridorShift = messageObject.corShift
-            if (messageObject.type === "new") position = messageObject.corShift[floor] + 1
+            if (messageObject.type === "new") {
+                position = messageObject.corShift[floor] + 1
+                opSave.level.builder.position = position
+            }
             allocation = messageObject.allocation
             console.log(allocation)
             currentRoom = messageObject.corridorsLayout[floor][position]

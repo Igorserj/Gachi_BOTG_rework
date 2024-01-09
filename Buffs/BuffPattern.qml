@@ -5,9 +5,7 @@ Item {
     property string type: ""
     property double timeDuration: 0
     property double deltaDuration: 0
-    //    property int iteration: 0
-    property double timeElapsed: parent.timeElapsed
-    property int timeLeft: (timeDuration - timeElapsed) / 1000 + 1
+    property int timeLeft: (timeDuration - parent.timeElapsed) / 1000 + 1
     property int points: parent.points !== 0 ? parent.points : predefinedPoints
     property int predefinedPoints: 0
     property string name: ""
@@ -18,7 +16,7 @@ Item {
 
     ParallelAnimation {
         id: animation
-        running: true
+        running: ifaceLoader.item.state === "ui"
         loops: loopsCalc()
 
         PauseAnimation {
@@ -32,21 +30,23 @@ Item {
         onFinished: {
             if (isPermanent) {}
             else typeTake()
-            updateBuffs(parent.buffName, parent.currentIndex, isPermanent, points, isReversible)
+            updateBuffs(parent.buffName, parent.currentIndex, isPermanent, points, isReversible, parent.timeElapsed)
         }
     }
 
     Timer {
         id: timer
-        running: false
+        property bool started: false
+        running: started && ifaceLoader.item.state === "ui"
         repeat: true
         interval: 100
         onTriggered: timeCalc()
     }
 
     function timeCalc() {
-        timeElapsed += timer.interval
-        // timeLeft = (timeDuration - timeElapsed) / 1000 + 1
+        parent.timeElapsed += timer.interval
+        currentBuffs[currentIndex][5] = parent.timeElapsed
+        // timeLeft = (timeDuration - parent.timeElapsed) / 1000 + 1
     }
 
     function loopsCalc() {
@@ -60,10 +60,10 @@ Item {
         if (isPermanent) {return 0}
         else {
             if (type === "Continuous") {
-                return (deltaDuration - timeElapsed % deltaDuration)
+                return (deltaDuration - parent.timeElapsed % deltaDuration)
             }
             else if (type !== "Continuous") {
-                return (timeDuration - timeElapsed % timeDuration)
+                return (timeDuration - parent.timeElapsed % timeDuration)
             }
         }
     }
@@ -72,7 +72,7 @@ Item {
         if (type === "Immediate") immediateGive()
         else if (type === "Continuous") giving()
         else if (type === "Instant") giving()
-        timer.start()
+        timer.started = true
     }
 
     function giving() {
@@ -86,7 +86,7 @@ Item {
     }
 
     function immediateGive() {
-        if (timeElapsed === 0) {
+        if (parent.timeElapsed === 0) {
             giving()
         }
     }

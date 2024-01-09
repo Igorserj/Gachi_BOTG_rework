@@ -60,6 +60,7 @@ Rectangle {
                 target: entity
                 movementBlocked: true
                 interactionBlocked: true
+                canPickUp: false
             }
         },
         State {
