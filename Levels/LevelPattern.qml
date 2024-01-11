@@ -12,8 +12,7 @@ Item {
 
     property var allocation: []
     property var corridorShift: []
-    property string currentRoom: ""//"stairs"
-    // Component.onCompleted: alloc()
+    property string currentRoom: ""  /*--entrance--*/
 
     function alloc(type) {
         script.sendMessage({ 'seed' : seed, "type": type })
@@ -31,8 +30,7 @@ Item {
             }
             allocation = messageObject.allocation
             console.log(allocation)
-            currentRoom = messageObject.corridorsLayout[floor][position]
-//            if (position === -1) position = corridorShift[floor]
+            currentRoom = inRoom ? messageObject.allocation[floor][position] : messageObject.corridorsLayout[floor][position]
         }
     }
 
@@ -43,9 +41,9 @@ Item {
         height: loader.height
         sourceComponent: {
             if (currentRoom === "corridor") return corridor
-            else if (currentRoom === "entrance" || currentRoom === "stairs" || currentRoom === "roof") return staircase
-            else if (currentRoom === "room" || currentRoom === "02" || currentRoom === "04" || currentRoom === "key") return room
-            else if (currentRoom === "wc1" || currentRoom === "wc2") return wc
+            else if (["room", "02", "04", "key"].includes(currentRoom)) return room
+            else if (["wc1", "wc2"].includes(currentRoom)) return wc
+            else if (["entrance", "stairs", "roof"].includes(currentRoom)) return staircase
             else if (currentRoom === "library") return library
             else if (currentRoom === "canteen") return canteen
             else return undefined

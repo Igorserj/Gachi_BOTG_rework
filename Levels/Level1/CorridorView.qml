@@ -80,7 +80,7 @@ RoomView {
                 width: loader.width / 11
                 height: width
                 fillMode: Image.PreserveAspectFit
-                opacity: (index > 2 && index < 8) && staircaseLayout.includes(currentRoom)/*pobjGen.objects.length === 4*/ ? 0 : 1//0.95
+                opacity: (index > 2 && index < 8) && staircaseLayout.includes(currentRoom) ? 0 : 1
             }
             onItemAdded: numberOfCreatedObjects++
         }

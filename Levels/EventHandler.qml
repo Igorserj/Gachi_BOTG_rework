@@ -54,7 +54,15 @@ Repeater {
                                 names.push("Talk to " + entGen.metadata[index[i]].name)
                             }
                             else if (type[index[i]] === "interact") {
-                                names.push("Interact with " + entGen.metadata[index[i]].name)
+                                if (entGen.metadata[index[i]].name === "upstairs")
+                                    names.push("Go up")
+                                else if (entGen.metadata[index[i]].name === "downstairs")
+                                    names.push("Go down")
+                                else if (entGen.metadata[index[i]].name === "leftpass")
+                                    names.push("Go left")
+                                else if (entGen.metadata[index[i]].name === "rightpass")
+                                    names.push("Go right")
+                                else names.push("Interact with " + entGen.metadata[index[i]].name)
                             }
                         }
                         ifaceLoader.item.interfaceLoader.item.contextMenu.obj = index

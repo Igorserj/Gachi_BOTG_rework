@@ -173,5 +173,9 @@
         <file>Entities/Evil/inventory.mjs</file>
         <file>Localization/Localization.qml</file>
         <file>Localization/readLocale.js</file>
+        <file>PhysicalObjects/Door.qml</file>
+        <file>Entities/Interact/DoorInteract.qml</file>
+        <file>Loading/Doors/Doors.qml</file>
+        <file>Loading/Doors/DoorsFunc.qml</file>
     </qresource>
 </RCC>

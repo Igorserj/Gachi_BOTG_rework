@@ -18,7 +18,7 @@ Rectangle {
     property int speedCoeff: opSave.level.hero.speedCoeff
     property double speed: speedCoeff * scaleCoeff
     property double damage: opSave.level.hero.damage
-    property double defense: opSave.level.hero.defense //20 max
+    property double defense: opSave.level.hero.defense
     property int money: opSave.level.hero.money
 
     property bool movementBlocked: false
@@ -35,7 +35,7 @@ Rectangle {
     property bool recovery: false
     property bool anotherRoom: false
 
-    state: "alive"
+    state: opSave.level.hero.state
     width: 50 * scaleCoeff
     height: 50 * scaleCoeff
     border.width: 2
@@ -56,6 +56,7 @@ Rectangle {
         },
         State {
             name: "paused"
+            when: animations.pauseCondition
             PropertyChanges {
                 target: entity
                 movementBlocked: true

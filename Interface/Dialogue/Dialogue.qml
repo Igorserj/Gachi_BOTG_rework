@@ -158,7 +158,7 @@ Item {
             id: entityTextRect
             width: parent.width
             height: 0.3 * parent.height
-            color: "transparent"//style.darkGlass
+            color: "transparent"
             Text {
                 id: entityText
                 width: parent.width
@@ -176,8 +176,8 @@ Item {
         Rectangle {
             id: dialogueTextRet
             width: parent.width
-            height: parent.height//parent.height - entityTextRect.height
-            color: "transparent"//style.darkGlass
+            height: parent.height
+            color: "transparent"
             Text {
                 id: dialogueText
                 width: parent.width
@@ -217,7 +217,7 @@ Item {
         id: entity1Frame
         Rectangle {
             anchors.fill: parent
-            color: style.blackGlass//textFrame.enabled ? style.blackGlass : style.darkGlass //"transparent"
+            color: style.blackGlass
             Text {
                 id: textFrame
                 text: entity1.name
@@ -239,7 +239,7 @@ Item {
         id: entity2Frame
         Rectangle {
             anchors.fill: parent
-            color: style.blackGlass//textFrame.enabled ? style.blackGlass : style.darkGlass//textFrame.enabled ? style.blackGlass : style.grayGlass
+            color: style.blackGlass
             Text {
                 id: textFrame
                 text: entity2.name
@@ -269,6 +269,4 @@ Item {
             ifaceLoader.item.state = "ui"
         }
     }
-
-    //    function scriptRun() {}
 }

@@ -142,13 +142,6 @@ Item {
                     to: entity.parent.y - speed
                     duration: moveDuration
                 }
-                // PropertyAnimation {
-                //     target: entity
-                //     property: "rot"
-                //     duration: moveDuration
-                //     to: !entity.facingRight ? -45 : -225
-                //     easing.type: Easing.OutCubic
-                // }
                 SequentialAnimation {
                     PropertyAction {
                         target: entity.parent
@@ -189,13 +182,6 @@ Item {
                     to: entity.parent.y + speed
                     duration: moveDuration
                 }
-                // PropertyAnimation {
-                //     target: entity
-                //     property: "rot"
-                //     duration: moveDuration
-                //     to: !entity.facingRight ? 45 : -135
-                //     easing.type: Easing.OutCubic
-                // }
                 SequentialAnimation {
                     PropertyAction {
                         target: entity.parent

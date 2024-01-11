@@ -4,10 +4,10 @@ import "../Controls"
 
 Rectangle {
     opacity: blur.opacity
-    color: style.blackGlass//"#88000000"
+    color: style.blackGlass
     Rectangle {
         id: backRect
-        color: style.grayGlass//"#55777777"
+        color: style.grayGlass
         height: col.childrenRect.height + 100 * scaleCoeff
         width: col.childrenRect.width + 150 * scaleCoeff
         radius: width / 16

@@ -6,9 +6,10 @@ import "../Shaders"
 
 Item {
     readonly property int blurDuration: 500
-    property var seed: opSave.level.builder.seed // "000000"
+    property var seed: opSave.level.builder.seed
     property int floor: opSave.level.builder.floor
-    property int position: opSave.level.builder.position//  levelLoader.item.corridorShift[floor]
+    property int position: opSave.level.builder.position
+    property bool inRoom: opSave.level.builder.inRoom
     property alias levelLoader: levelLoader
     Loader {
         id: levelLoader
@@ -74,6 +75,5 @@ Item {
     function levelChooser(type) {
         levelLoader.sourceComponent = levelPattern
         levelLoader.item.alloc(type)
-//        position = levelLoader.item.corridorShift[floor]
     }
 }

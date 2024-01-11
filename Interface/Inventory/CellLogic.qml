@@ -64,7 +64,7 @@ QtObject {
     }
     function itemName() {
         var entityInv = usedByEntity.inventory
-        if (isEquipment) return modelData//entityInv.equipmentCells[currentIndex]
+        if (isEquipment) return modelData
         else return entityInv.inventoryCells[currentIndex]
     }
 
@@ -86,7 +86,6 @@ QtObject {
         var cells = cellView.cellText
         if (itemList.itemNames.includes(cells)) {
             const i = itemList.itemNames.indexOf(cells)
-            // itemList.items[i].usedByEntity = invInterface.usedByEntity
             itemList.items[i].use(false, usedByEntity)
         }
         else {
@@ -212,14 +211,12 @@ QtObject {
             heroInv.inventoryCells[i] = cellView.cellText
             unMoveItem()
             interfaceLoader.item.inventoryLoader.item.inventoryCells = entityInv.inventoryCells
-            //            interfaceLoader.item.inventoryLoader.item.usedByEntity = mainHero
             invInterface.update()
             entityInv.activeArmor()
         }
         else {
             toolTip.mainText = "Not enough space!"
             toolTip.addText = "There is no vacant cells in your inventory"
-            //            toolTip.show(cell.x + cell.width + col.x, row.y + col.y)
             toolTip.show(inventoryArea.mouseX, inventoryArea.mouseY)
         }
     }

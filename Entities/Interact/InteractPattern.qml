@@ -13,7 +13,7 @@ Entity {
     property var scenario: []
 
     function interaction(entity) {
-        console.log("nothing to interact with!")
+        console.log("Nothing to interact with!")
     }
 
     function heroDataSaving() {
@@ -26,7 +26,7 @@ Entity {
         opSave.level.hero.maxStamina = entGen.repeater.itemAt(0).item.maxStamina
         opSave.level.hero.speedCoeff = entGen.repeater.itemAt(0).item.speedCoeff
         opSave.level.hero.damage = entGen.repeater.itemAt(0).item.damage
-        opSave.level.hero.defense = entGen.repeater.itemAt(0).item.defense //20 max
+        opSave.level.hero.defense = entGen.repeater.itemAt(0).item.defense
         opSave.level.hero.money = entGen.repeater.itemAt(0).item.money
         opSave.level.hero.facingRight = entGen.repeater.itemAt(0).item.facingRight
         opSave.level.hero.rot = entGen.repeater.itemAt(0).item.rot
@@ -41,13 +41,13 @@ Entity {
         opSave.level.hero.metadataCells = entGen.repeater.itemAt(0).item.inventory.metadataCells
         opSave.level.hero.previousMetadata = entGen.repeater.itemAt(0).item.inventory.previousMetadata
 
-        const buffList = entGen.repeater.itemAt(0).item.buffList
-        opSave.level.hero.buffs = buffList.currentBuffs
+        opSave.level.hero.buffs = entGen.repeater.itemAt(0).item.buffList.currentBuffs
     }
 
     function builderDataSaving() {
         opSave.level.builder.seed = seed
         opSave.level.builder.position = position
+        opSave.level.builder.inRoom = inRoom
         opSave.level.builder.floor = loader.item.floor
     }
 }

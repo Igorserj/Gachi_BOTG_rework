@@ -15,7 +15,7 @@ Item {
             source: modelData
             y: index > 0 ? repeater.itemAt(index - 1).y - repeater.itemAt(index - 1).height * 0.05 : funcs.heightCalc()
             width: loader.width / 6 / Math.pow(scaling, index)
-            height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : loader.height / 6
+            height: width / (sourceSize.width / sourceSize.height)
             fillMode: Image.PreserveAspectFit
         }
         Component.onCompleted: anim.running = true
@@ -31,13 +31,13 @@ Item {
             PropertyAnimation {
                 target: stairs
                 property: "scale"
-                to: /*repeat !== objects.length - 1 ?*/ stairs.scale + 0.25// : stairs.scale + 0.6
+                to: stairs.scale + 0.25
                 duration: 350 / stairs.scale
             }
             PropertyAnimation {
                 target: stairs
                 property: "y"
-                to: !!repeater.itemAt(repeat) ? stairs.y - (repeater.itemAt(repeat - 1).y - repeater.itemAt(repeat).y) /** stairs.scale*/ : stairs.y
+                to: !!repeater.itemAt(repeat) ? stairs.y - (repeater.itemAt(repeat - 1).y - repeater.itemAt(repeat).y) : stairs.y
                 duration: 250
                 easing.type: "InQuad"
             }
@@ -62,25 +62,4 @@ Item {
     StairsFunc {
         id: funcs
     }
-//    function heightCalc() {
-//        let fullHeight = 0
-//        let height = 0
-//        let y = 0
-//        let width = loader.width / 6
-//        for (let i = 1; i < objects.length; i++) {
-//            width *= 1.14636
-//            height = width / (358 / 220)
-//            y -= height * 0.05
-//            if (i === objects.length - 1) {fullHeight = y + height}
-//        }
-//        stairs.scale = 358 / width
-//        repeater.height = fullHeight
-//        repeater.width = width
-//        return (loader.height - fullHeight) / 2
-//    }
-//    function finish() {
-//        ++repeat
-//        if (repeat < objects.length) anim.running = true
-//        else loader.item.levelLoader.item.roomLoader.visible = true
-//    }
 }

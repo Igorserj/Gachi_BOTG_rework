@@ -2,17 +2,15 @@ import QtQuick 2.15
 
 QtObject {
 
-    property var inventoryCells: !!mainHero ? opSave.level.hero.inventoryCells : ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-    property var previousInventory: !!mainHero ? opSave.level.hero.previousInventory : ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+    property var inventoryCells: !!mainHero ? opSave.level.hero.inventoryCells : ['', '', '', '', '', '', '']
+    property var previousInventory: !!mainHero ? opSave.level.hero.previousInventory : ['', '', '', '', '', '', '']
     property var equipmentCells: !!mainHero ? opSave.level.hero.equipmentCells : ['', '', '', '', '', '', '']
     property var previousEquipment: !!mainHero ? opSave.level.hero.previousEquipment : ['', '', '', '', '', '', '']
     property var activatedWeapon: !!mainHero ? opSave.level.hero.activatedWeapon : [false, false, false]
     property bool twoHands: !!mainHero ? opSave.level.hero.twoHands : false
 
-    property var metadataCells: !!mainHero ? opSave.level.hero.metadataCells : [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-        {}, {}, {}, {}, {}, {}, {}] //inventoryCells + equipmentCells
-    property var previousMetadata: !!mainHero ? opSave.level.mainHero.previousMetadata : [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-        {}, {}, {}, {}, {}, {}, {}]
+    property var metadataCells: !!mainHero ? opSave.level.hero.metadataCells : [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] //inventoryCells + equipmentCells
+    property var previousMetadata: !!mainHero ? opSave.level.mainHero.previousMetadata : [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
 
     function invCellsChanged() {
         if (inventoryCells.length !== previousInventory.length) {
@@ -94,7 +92,6 @@ QtObject {
         let index3 = inventoryCells.indexOf(previousEquipment[i])
         if (index !== -1) {
             if (itemList.items[index].isEquipment) {
-                // itemList.items[index].usedByEntity = entity
                 itemList.items[index].removeEffect(true, true, entity)
             }
         }
@@ -118,7 +115,6 @@ QtObject {
         index = itemList.itemNames.indexOf(equipmentCells[i])
         if (index !== -1) {
             if (itemList.items[index].isEquipment) {
-                // itemList.items[index].usedByEntity = entity
                 itemList.items[index].use(true, entity)
             }
         }

@@ -11,17 +11,14 @@ Item {
     Loader {
         id: interactLoader
         sourceComponent: {
-            // if (name === "default") return interactPattern
             if (name === "bench") return bench
             else if (name === "upstairs" || name === "downstairs") return stairs
             else if (name === "leftpass" || name === "rightpass") return pass
+            else if (name === "frontdoor" || name === "backdoor") return door
+            else if (name !== "default") console.error("No interact object!")
         }
     }
-    // Component {
-    //     id: interactPattern
-    //     InteractPattern {
-    //     }
-    // }
+
     Component {
         id: bench
         Bench {}
@@ -33,5 +30,9 @@ Item {
     Component {
         id: pass
         PassInteract {}
+    }
+    Component {
+        id: door
+        DoorInteract {}
     }
 }

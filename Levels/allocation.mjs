@@ -130,7 +130,6 @@ WorkerScript.onMessage = function(message) {
             values2.push(Math.round(values[i] / 6))
         }
         return values2
-//        console.log(values, values2)
     }
 
     function decorsShift() {
@@ -254,6 +253,7 @@ WorkerScript.onMessage = function(message) {
 
     for (i = 0; i < corridorsLayout.length; i++) {
         corridorsLayout[i].splice(csh[i] + 1, 0, staircaseLayout[i])
+        allocation[i].splice(csh[i] + 1, 0, "")
     }
     console.log(corridorsLayout)
 

@@ -6,19 +6,9 @@ Item {
     property var buttonNames: locale.homeButtonNames
     property int actionSet: 0
     property alias buttonsModel: buttons.model
-//    property string stateName: ""
     Logo {
         height: (parent.height - homeColumn.height) / 2
         x: parent.width - width - composer.width / 30
-//        Glow {
-//            anchors.fill: parent
-//            radius: 6.0
-//            samples: 17
-//            spread: 0.3
-//            color: "#80000000"
-//            source: parent
-//            z: parent.z - 1
-//        }
     }
     Column {
         id: homeColumn
@@ -81,18 +71,4 @@ Item {
     function back() {
         composer.state = "home"
     }
-
-//    SequentialAnimation {
-//        id: fadingAway
-//        running: false
-//        PropertyAnimation {
-//            target: composeLoader
-//            property: "opacity"
-//            to: 0
-//            duration: 250
-//        }
-//        ScriptAction {
-//            script: composer.state = stateName
-//        }
-//    }
 }

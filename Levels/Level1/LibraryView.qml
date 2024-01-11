@@ -31,6 +31,8 @@ RoomView {
     Column {
         id: floor
         y: loader.height - childrenRect.height
+        height: childrenRect.height
+        width: childrenRect.width
         Repeater {
             model: 5
             Row {

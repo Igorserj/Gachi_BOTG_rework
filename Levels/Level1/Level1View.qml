@@ -1,3 +1,5 @@
+/*-----------------Non-playable-example--------------------*/
+
 import QtQuick 2.15
 import ".."
 

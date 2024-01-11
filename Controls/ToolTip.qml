@@ -72,7 +72,7 @@ Rectangle {
         anchors.top: mainTextRect.bottom
         height: addTextText.contentHeight
         anchors.margins: parent.width * 0.05
-        color: style.blackGlass//"#22000000"
+        color: style.blackGlass
         radius: parent.width / 16
         Text {
             id: addTextText

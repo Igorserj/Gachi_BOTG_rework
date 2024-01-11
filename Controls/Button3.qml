@@ -33,8 +33,6 @@ Item {
             font.family: comfortaaName
             font.bold: true
             color: buttonArea.containsMouse ? "#CCCCCC" : "#EEEEEE"
-            //            style: Text.Outline
-            //            styleColor: "black"
         }
         MouseArea {
             id: buttonArea

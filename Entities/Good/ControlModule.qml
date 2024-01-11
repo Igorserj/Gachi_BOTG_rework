@@ -2,22 +2,23 @@ import QtQuick 2.15
 
 Item {
     focus: true
+    property bool keyEPressed: true
+    property bool keyIPressed: true
     Keys.onPressed: {
         if (!!ifaceLoader.item) {
             if (ifaceLoader.item.state === "ui") {
                 walking(event.key)
-                if (event.key === Qt.Key_I) {
+                if (event.key === Qt.Key_I && (!keyIPressed && !interactionBlocked)) {
+                    keyIPressed = true
                     if (ifaceLoader.item.interfaceLoader.item.inventoryLoader.status === Loader.Ready) {
                         ifaceLoader.item.interfaceLoader.item.closeInventory()
                     }
                     else {
                         ifaceLoader.item.interfaceLoader.item.openInventory(mainHero, mainHero)
-//                        console.log(ifaceLoader.item.interfaceLoader.item.inventoryLoader.item, ifaceLoader.item.interfaceLoader.item.inventoryLoader)
-//                        ifaceLoader.item.interfaceLoader.item.inventoryLoader.item.usedByEntity = mainHero
-//                        ifaceLoader.item.interfaceLoader.item.inventoryLoader.item.heroEntity = mainHero
                     }
                 }
-                if (event.key === Qt.Key_E) {
+                if (event.key === Qt.Key_E && !keyEPressed && !interactionBlocked) {
+                    keyEPressed = true
                     interaction()
                 }
                 if (event.key === Qt.Key_F) {
@@ -104,5 +105,17 @@ Item {
         } else if (key === Qt.Key_S && !movementBlocked) {
             toTheBot()
         }
+    }
+
+    SequentialAnimation {
+        running: keyEPressed
+        PauseAnimation {duration: 500}
+        ScriptAction {script: keyEPressed = false}
+    }
+
+    SequentialAnimation {
+        running: keyIPressed
+        PauseAnimation {duration: 500}
+        ScriptAction {script: keyIPressed = false}
     }
 }

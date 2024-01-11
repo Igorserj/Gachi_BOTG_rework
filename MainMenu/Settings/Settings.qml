@@ -16,7 +16,6 @@ Item {
             Repeater {
                 id: resRep
                 model: resolutions
-                // state: opSave.settings.screenProps.visibility === 5 ? "active" : "disabled"
                 Button1 {
                     text: modelData[0] + "x" + modelData[1]
                     enabled: resRep.state === "active" && (screen.width >= modelData[0] && screen.height >= modelData[1])
@@ -37,9 +36,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             function clickFunction() { heading.changeVisibility(); visibilittyCheck() }
         }
-//        DropDown {
-//            objects: ["Windowed", "Fullscreen", ""]
-//        }
+
         Button1 {
             text: frameTimerLoader.status === Loader.Null ? locale.settingsFPSon : locale.settingsFPSoff
             anchors.horizontalCenter: parent.horizontalCenter

@@ -10,11 +10,11 @@ Item {
         model: objects
         Image {
             anchors.horizontalCenter: parent.horizontalCenter
-            property real scaling: 1 / 1.14636//1.14159
+            property real scaling: 1 / 1.14636
             source: modelData
             y: index > 0 ? repeater.itemAt(index - 1).y + repeater.itemAt(index - 1).height * 0.19 : funcs.heightCalc()
             width: index > 0 ? repeater.itemAt(index - 1).width / scaling : loader.width / 6
-            height: width / (sourceSize.width / sourceSize.height)//index > 0 ? repeater.itemAt(index - 1).height / scaling : loader.height / 6
+            height: width / (sourceSize.width / sourceSize.height)
             fillMode: Image.PreserveAspectFit
         }
         Component.onCompleted: anim.running = true
@@ -37,7 +37,7 @@ Item {
             PropertyAnimation {
                 target: stairs
                 property: "scale"
-                to: /*repeat !== objects.length - 1 ?*/ stairs.scale + 0.25// : stairs.scale + 0.6
+                to: stairs.scale + 0.25
                 duration: 350 / stairs.scale
             }
         }

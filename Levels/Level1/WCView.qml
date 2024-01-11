@@ -25,6 +25,8 @@ RoomPattern {
 
     Column {
         id: floor
+        height: childrenRect.height
+        width: childrenRect.width
         y: loader.height - childrenRect.height
         Repeater {
             model: 4
@@ -94,13 +96,16 @@ RoomPattern {
 
     Row {
         opacity: 1 / 2.75
-        y: loader.height - childrenRect.height
         x: wall.x + wall.width
+        y: loader.height - childrenRect.height
+        z: itmGen.z + 1
         Repeater {
             model: 3
             Row {
+                height: door.height
+                clip: true
                 Tiles {
-                    rows: Math.round(door.height / (loader.width / 36))
+                    rows: Math.round(door.height / (loader.width / 36)) + 1
                     columns: index === 0 ? 2 : 1
                 }
                 Image {
@@ -110,7 +115,7 @@ RoomPattern {
                     width: loader.width / 6
                 }
                 Tiles {
-                    rows: Math.round(door.height / (loader.width / 36))
+                    rows: Math.round(door.height / (loader.width / 36)) + 1
                     columns: 1
                 }
             }

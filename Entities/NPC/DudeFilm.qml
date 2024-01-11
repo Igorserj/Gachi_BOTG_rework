@@ -1,7 +1,6 @@
 import QtQuick 2.15
 
 Item {
-    //    Component.onCompleted: initiation()
     function interaction(entity) {
         ifaceLoader.item.interfaceLoader.item.dialogueOpen(0, currentIndex)
         connectionLoader.sourceComponent = con1
@@ -23,7 +22,6 @@ Item {
             target: ifaceLoader.item.interfaceLoader.item
             function onRunChanged() {
                 console.log("triggered")
-//                entGen.repeater.itemAt(0).item.health = 0
                 connectionLoader.sourceComponent = undefined
             }
         }

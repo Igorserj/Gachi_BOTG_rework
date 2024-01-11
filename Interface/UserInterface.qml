@@ -39,7 +39,7 @@ Item {
             id: heroesRepeater
             Column {
                 NameFrame {
-                    name: entGen.metadata[index].name
+                    name: entGen.repeater.itemAt(index).item.name
                 }
                 HealthBar {}
                 StaminaBar {}
@@ -63,7 +63,7 @@ Item {
                     name: entGen.metadata[index + 1].name
                 }
                 HealthBar {
-                    hpColor: "#AA3333"//"red"
+                    hpColor: "#AA3333"
                     leftAlign: false
                 }
                 StaminaBar {}
@@ -155,7 +155,6 @@ Item {
             }
         }
         heroesRepeater.model = entitiesProperties
-        // opSave.level.hero.buffs = entitiesProperties[4]
         hostilesRepeater.model = entitiesProperties2
     }
     Timer {

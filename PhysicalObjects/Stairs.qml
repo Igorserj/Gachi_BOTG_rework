@@ -41,9 +41,7 @@ Item {
             source: modelData
             property real scaling: 1 / 1.14636
             y: index > 0 ? stairBuilder.itemAt(index - 1).y + stairBuilder.itemAt(index - 1).height * 0.19 : 0
-//            width: type === "up" ? stairs.width / Math.pow(scaling, index) : stairs.width / Math.pow(scaling, model.length - (index + 1))
             height: type === "up" ? stairs.height / Math.pow(scaling, index) : stairs.height / Math.pow(scaling, model.length - (index + 1))
-//            rotation: type === "up" ? 0 : 180
             width: height / (sourceSize.height / sourceSize.width)
             fillMode: Image.PreserveAspectFit
             anchors.horizontalCenter: parent.horizontalCenter

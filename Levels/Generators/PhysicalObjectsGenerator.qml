@@ -12,6 +12,7 @@ Item {
     onReadyChanged: {
         if (ready) {
             spawnPoints = spawnPoints.concat(spawnCache)
+            if (spawnPoints.length === 0) console.error("No spawnPoints!")
             entGen.metadata = entGen.metadata.concat(metaCache)
             entGen.objects = entGen.objects.concat(objCache)
         } else entGenClear()
@@ -31,9 +32,10 @@ Item {
             sourceComponent: {
                 if (modelData[0] === "stair") return stair
                 else if (modelData[0] === 'pass') return pass
+                else if (modelData[0] === 'door') return door
             }
             onLoaded: {
-                if (!!metadata[index].model) item.objects = metadata[index].model
+                if (!!metadata[index]) item.objects = metadata[index].model
                 if (index === 0) {
                     repeater.numberOfCreatedObjects = 1
                 }
@@ -60,5 +62,10 @@ Item {
     Component {
         id: pass
         Passthrough {}
+    }
+
+    Component {
+        id: door
+        Door {}
     }
 }

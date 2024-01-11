@@ -6,7 +6,7 @@ Rectangle {
     property string type: ""
     property alias cellText: cellText.text
     property alias cellArea: cellArea
-    readonly property int currentIndex: parent.currentIndex//parent.colIndex * 5 + index
+    readonly property int currentIndex: parent.currentIndex
     property bool isEquipment: itemList.equipmnets.includes(type)
     height: invInterface.height / 7
     width: height

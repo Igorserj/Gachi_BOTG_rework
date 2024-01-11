@@ -11,8 +11,7 @@ Item {
     Repeater {
         id: customItem
         property var pool: []
-        model: []
-//      properties = [{type: "", name: "", additionalInfo: "", buffName: "", points: 0, usedByEntity: undefined, action = "use", permanent = false}]
+        model: [] // EXAMPLE [{type: "", name: "", additionalInfo: "", buffName: "", points: 0, usedByEntity: undefined, action = "use", permanent = false}]
 
         ItemPattern {
             type: modelData.type !== undefined ? modelData.type : ""
@@ -22,7 +21,6 @@ Item {
             points: modelData.points !== undefined ? modelData.points : 0
             hp: modelData.hp !== undefined ? modelData.hp : 0
             defense: modelData.defense !== undefined ? modelData.defense : 0
-            // usedByEntity: modelData.usedByEntity !== undefined ? modelData.usedByEntity : undefined
             Component.onCompleted: {
                 let permanent
                 let reversible

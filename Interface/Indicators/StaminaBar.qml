@@ -3,7 +3,7 @@ import "../../Controls"
 
 Rectangle {
     id: sb
-    property color stamColor: "#3333AA"//"blue"
+    property color stamColor: "#3333AA"
     width: 180 * scaleCoeff
     height: 21 * scaleCoeff
     color: style.blackGlass
@@ -15,7 +15,6 @@ Rectangle {
         y: (parent.height - height) / 2
         height: parent.height -  parent.border.width * 2
         width: modelData[2] / modelData[3] * parent.width - parent.border.width * 2 > sb.width ? sb.width * 1.05 : modelData[2] / modelData[3] * parent.width - parent.border.width * 2
-//        z: sb.z - 1
     }
     Text {
         anchors.fill: parent

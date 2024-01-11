@@ -46,7 +46,6 @@ Item {
     function timeCalc() {
         parent.timeElapsed += timer.interval
         currentBuffs[currentIndex][5] = parent.timeElapsed
-        // timeLeft = (timeDuration - parent.timeElapsed) / 1000 + 1
     }
 
     function loopsCalc() {

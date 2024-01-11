@@ -23,7 +23,7 @@ Item {
                 else if (modelData[0] === "interact") { return interact }
                 else return undefined
             }
-            focus: modelData[0] === "hero"
+            focus: modelData[0] === "hero" && ifaceLoader.status === Loader.Ready
             x: modelData[1]
             y: modelData[2]
 

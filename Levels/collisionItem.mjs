@@ -5,7 +5,6 @@ WorkerScript.onMessage = function (message) {
     const hW = message.hW
     const hH = message.hH
 
-//    const speed = message.speed
     const objects = message.objects
 
     const x = message.x

@@ -6,10 +6,6 @@ Item {
     id: composer
     property alias composeLoader: composeLoader
     state: "home"
-//    onStateChanged: {
-//        controlModule.createdComponents = 0
-//        controlModule.currentIndex = -1
-//    }
     states: [
         State {
             name: "home"
@@ -52,15 +48,6 @@ Item {
         sourceComponent: home
         height: composer.height
         width: composer.width
-//        Behavior on opacity {
-//            PropertyAnimation {
-//                target: composeLoader
-//                property: "opacity"
-//                duration: 250
-//            }
-//        }
-//        onSourceComponentChanged: opacity = 0
-//        onLoaded: opacity = 1
     }
     Component {
         id: home

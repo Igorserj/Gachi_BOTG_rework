@@ -14,6 +14,7 @@ Item {
         property var builder: ({
                                    seed: [],
                                    position: -1,
+                                   inRoom: false,
                                    floor: 0
                                })
         property var hero: ({
@@ -26,11 +27,12 @@ Item {
                                 maxStamina: 30,
                                 speedCoeff: 20,
                                 damage: 10,
-                                defense: 0, //20 max
+                                defense: 0,
                                 money: 0,
                                 facingRight: true,
                                 rot: 0,
                                 name: "",
+                                state: "alive",
 
                                 inventoryCells: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
                                 previousInventory: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
@@ -56,11 +58,12 @@ Item {
             hero.maxStamina = 30
             hero.speedCoeff = 20
             hero.damage = 10
-            hero.defense = 0 //20 max
+            hero.defense = 0
             hero.money = 0
             hero.facingRight = true
             hero.rot = 0
-            hero.name = ""
+            hero.name = "Semen"
+            hero.state = "alive"
 
             hero.inventoryCells = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
             hero.previousInventory = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
@@ -79,6 +82,7 @@ Item {
         function levelBuilderClear() {
             builder.seed = []
             builder.position = -1
+            builder.inRoom = false
             builder.floor = 0
         }
     }

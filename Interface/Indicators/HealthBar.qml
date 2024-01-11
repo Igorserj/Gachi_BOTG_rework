@@ -3,7 +3,7 @@ import "../../Controls"
 
 Rectangle {
     id: hb
-    property color hpColor: "#008800"//"green"
+    property color hpColor: "#008800"
     property bool leftAlign: true
     width: 180 * scaleCoeff
     height: 21 * scaleCoeff

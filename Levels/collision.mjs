@@ -8,10 +8,6 @@ WorkerScript.onMessage = function (message) {
     const dir = message.dir
     const speed = message.speed
 
-    //    const x = message.x
-    //    const y = message.y
-    //    const height = message.height
-    //    const width = message.width
     const indices = message.index
     const objects = message.objects
 
@@ -53,18 +49,12 @@ WorkerScript.onMessage = function (message) {
 
     function horOrVer(x, y, width, height) {
         if (hor === 1) {
-            //        var leftBoundry = hX - speed <= x + width && hX + speed >= x
-            //        var rightBoundry = hX + hW + speed >= x && hX + hW - speed <= x + width
-            //        var verticalBoundry = hY + hH + 1 > y && hY - 1 < y + height
             const leftBoundry = hX + hW > x
             const rightBoundry = hX < x + width
             const verticalBoundry = hY + hH > y && hY < y + height
             horizontalCol(leftBoundry, rightBoundry, verticalBoundry)
 
         } else if (hor === 0) {
-            //        var upperBoundry = hY - speed <= y + height && hY + speed >= y
-            //        var lowerBoundry = hY + hH + speed >= y && hY + hH - speed <= y + height
-            //        var horizontalBoundry = hX - 1 < x + width && hX + hW + 1 > x
             const lowerBoundry = hY < y + height
             const upperBoundry = hY + hH > y
             const horizontalBoundry = hX + hW > x && hX < x + width

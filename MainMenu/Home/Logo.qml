@@ -5,7 +5,6 @@ Rectangle {
     color: "transparent"
     Text {
         id: gachi
-//        anchors.top: parent.top
         font.family: monotonName
         height: parent.height / 2.4
         anchors.left: parent.left
@@ -22,8 +21,8 @@ Rectangle {
         id: boss
         anchors.top: gachi.bottom
         style: Text.Outline
-        anchors.leftMargin: gachi.width*0.237//228
-        anchors.topMargin: -gachi.height*0.35//-77
+        anchors.leftMargin: gachi.width*0.237
+        anchors.topMargin: -gachi.height*0.35
         font.family: monotonName
         height: parent.height / 3.1
         width: parent.width / 3.1

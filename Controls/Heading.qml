@@ -35,12 +35,6 @@ Item {
         Row {
             x: (parent.width - width) / 2
             anchors.verticalCenter: parent.verticalCenter
-            // Image {
-            //     source: "../Design/icons/icon5.webp"
-            //     height: head.height * 0.95
-            //     width: height
-            //     fillMode: Image.PreserveAspectFit
-            // }
             Text {
                 height: head.height * 0.95
                 width: contentWidth
@@ -55,7 +49,6 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             spacing: head.height * 0.3
             x: parent.width - width - spacing
-            // anchors.rightMargin: spacing
             Repeater {
                 model: ["⎼", "□", "⨯"]
                 Button1 {
