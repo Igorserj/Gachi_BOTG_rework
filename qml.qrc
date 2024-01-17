@@ -177,5 +177,7 @@
         <file>Entities/Interact/DoorInteract.qml</file>
         <file>Loading/Doors/Doors.qml</file>
         <file>Loading/Doors/DoorsFunc.qml</file>
+        <file>Entities/Evil/Slave.qml</file>
+        <file>Entities/Evil/Man.qml</file>
     </qresource>
 </RCC>

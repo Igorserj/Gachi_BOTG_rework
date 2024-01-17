@@ -24,12 +24,10 @@ Corridor {
                                                                                    [stairsPos[1]]).concat(oldObjects)
         pobjGen.metadata = (currentRoom === "stairs" ? stairs : currentRoom === "entrance" ? [stairs[0]] : [stairs[1]]).concat(oldMetadata)
         entGen.objects = [["hero", opSave.level.hero.x, opSave.level.hero.y]
-                          ,["hostile", floor.width / 2, floor.y]
-                          ,["hostile", 0, floor.y + floor.height / 2]
+                          // ,["hostile", floor.width / 2, floor.y]
                 ]
         entGen.metadata = [{ }
-                           , { name: "Steve", hp: 0 }
-                           , { name: "Alex", hp: 0 }
+                           // , { name: "Steve", hp: 0 }
                 ]
 
         itmGen.objects = [[350 * scaleCoeff, 600 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff], [350 * scaleCoeff, 550 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff], [530 * scaleCoeff, 600 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff]]

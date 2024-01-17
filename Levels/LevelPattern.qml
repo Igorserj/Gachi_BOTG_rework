@@ -11,6 +11,10 @@ Item {
         ["corridor", "corridor", "corridor", "corridor", "corridor"]]
 
     property var allocation: []
+    property var corridorEnemy: []
+    property var corridorEnemyMeta: []
+    property var roomEnemy: []
+    property var roomEnemyMeta: []
     property var corridorShift: []
     property string currentRoom: ""  /*--entrance--*/
 
@@ -26,8 +30,25 @@ Item {
             corridorShift = messageObject.corShift
             if (messageObject.type === "new") {
                 position = messageObject.corShift[floor] + 1
+                corridorEnemy = messageObject.corNmy
+                roomEnemy = messageObject.roomNmy
+                corridorEnemyMeta = messageObject.corNmyM
+                roomEnemyMeta = messageObject.roomNmyM
+
                 opSave.level.builder.position = position
+                opSave.level.hostile.corridorEnemy = corridorEnemy
+                opSave.level.hostile.corridorEnemyMeta = corridorEnemyMeta
+                opSave.level.hostile.roomEnemy = roomEnemy
+                opSave.level.hostile.roomEnemyMeta = roomEnemyMeta
             }
+            else {
+                position = opSave.level.builder.position
+                corridorEnemy = opSave.level.hostile.corridorEnemy
+                corridorEnemyMeta = opSave.level.hostile.corridorEnemyMeta
+                roomEnemy = opSave.level.hostile.roomEnemy
+                roomEnemyMeta = opSave.level.hostile.roomEnemyMeta
+            }
+
             allocation = messageObject.allocation
             console.log(allocation)
             currentRoom = inRoom ? messageObject.allocation[floor][position] : messageObject.corridorsLayout[floor][position]

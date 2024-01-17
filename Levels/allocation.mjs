@@ -1,11 +1,13 @@
 WorkerScript.onMessage = function(message) {
 
+    /*-----------------------------------------------------*/
+    /*Room allocation*/
     const staircaseLayout = ["entrance", "stairs", "stairs", "roof"]
     var corridorsLayout = [
-            ["corridor", "corridor", "corridor", "corridor", "corridor"],
-            ["corridor", "corridor", "corridor", "corridor", "corridor"],
-            ["corridor", "corridor", "corridor", "corridor", "corridor"],
-            ["corridor", "corridor", "corridor", "corridor", "corridor"]]
+                ["corridor", "corridor", "corridor", "corridor", "corridor"],
+                ["corridor", "corridor", "corridor", "corridor", "corridor"],
+                ["corridor", "corridor", "corridor", "corridor", "corridor"],
+                ["corridor", "corridor", "corridor", "corridor", "corridor"]]
 
     function twoCombs(value, action = "+") {
         let values = []
@@ -206,11 +208,11 @@ WorkerScript.onMessage = function(message) {
         return values
     }
 
-    let seed = message.seed
+    let seed = message.seed // Default [7,8,1,6,2,9] //
     const decorativesLayout = [["library", "canteen"],
-        ["wc1", "wc2"],
-        ["wc1", "wc2"],
-        ["wc1", "wc2"]]
+                               ["wc1", "wc2"],
+                               ["wc1", "wc2"],
+                               ["wc1", "wc2"]]
     const roomsLayout = [ "04", "02", "key", "room", "room"]
 
     let i = 0
@@ -231,11 +233,11 @@ WorkerScript.onMessage = function(message) {
     const dsh = decorsShift()
     const da = decorsAlloc()
     const allocation = [
-                ["","","","",""],
-                ["","","","",""],
-                ["","","","",""],
-                ["","","","",""]
-            ]
+                         ["","","","",""],
+                         ["","","","",""],
+                         ["","","","",""],
+                         ["","","","",""]
+                     ]
     for (i = 0; i < rs.length; i++) {
         allocation[rsh[i] - 1][ra[i] - 1] = rs[i]
     }
@@ -257,10 +259,120 @@ WorkerScript.onMessage = function(message) {
     }
     console.log(corridorsLayout)
 
+    /*-----------------------------------------------------*/
+    /*Enemy allocation*/
+    let treassureRoomIds = []
+    let identifier = -1
+    for (i = 0; i < allocation.length; i++ ) {
+        identifier = allocation[i].indexOf("room")
+        if (identifier !== -1) {
+            treassureRoomIds.push([i, identifier])
+            identifier = allocation[i].indexOf("room", identifier + 1)
+            if (identifier !== -1) {
+                treassureRoomIds.push([i, identifier])
+            }
+        }
+    }
+
+    let enemyList = ["slave", "slave", "slave", "slave", "slave", "slave", "slave", "slave",
+                     "slave", "slave", "slave", "slave", "slave", "slave", "slave", "slave",
+                     "slave", "slave", "slave", "slave", "slave",
+                     "man", "man", "man", "man", "man", "man", "man", "man",
+                     "man", "man", "man"
+        ]
+
+    const firstKey = [seed[0], seed[2], seed[4]]
+    const secondKey = [seed[1], seed[3], seed[5]]
+    let keys = []
+    if (treassureRoomIds.length >= 1) {
+        keys.push([[], []])
+        keys[0][0] = [firstKey[0] + firstKey[1], firstKey[0] + firstKey[2], firstKey[1] + firstKey[2]]
+        keys[0][1] = [Math.abs(firstKey[0] - firstKey[1]), Math.abs(firstKey[0] - firstKey[2]), Math.abs(firstKey[1] - firstKey[2])]
+        if (treassureRoomIds.length == 2) {
+            keys.push([[], []])
+            keys[1][0] = [secondKey[0] + secondKey[1], secondKey[0] + secondKey[2], secondKey[1] + secondKey[2]]
+            keys[1][1] = [Math.abs(secondKey[0] - secondKey[1]), Math.abs(secondKey[0] - secondKey[2]), Math.abs(secondKey[1] - secondKey[2])]
+        }
+    }
+
+    const randomNumbers = [[[2, -7, 4], [-3, 5, -8]], [[-6, 2, 5], [9, -4, 2]]]
+
+    if (treassureRoomIds.length >= 1) {
+        keys[0][0] = keys[0][0].map(function (num, idx) {
+            return num + randomNumbers[0][0][idx]
+        })
+        keys[0][1] = keys[0][1].map(function (num, idx) {
+            return Math.abs(num - randomNumbers[0][1][idx])
+        })
+        keys[0] = keys[0][0].map(function (num, idx) {
+            return num + keys[0][1][idx]
+        })
+
+        if (treassureRoomIds.length == 2) {
+            keys[1][0] = keys[1][0].map(function (num, idx) {
+                return num + randomNumbers[1][0][idx]
+            })
+            keys[1][1] = keys[1][1].map(function (num, idx) {
+                return Math.abs(num - randomNumbers[1][1][idx])
+            })
+            keys[1] = keys[1][0].map(function (num, idx) {
+                return num + keys[1][1][idx]
+            })
+        }
+    }
+
+    const medians = [[18, 4, 25], [7, 19, 17]]
+
+    let treassureRoomAlloc = keys.map(function (num, idx) {
+        return num.map(function (_num, _idx) {return _idx % 2 === 0 ? _num <= medians[idx][_idx] ? "slave" : "man" : _num >= medians[idx][_idx] ? "slave" : "man"})
+    }) //false = man, true = slave
+
+    treassureRoomAlloc.map(function (elem, idx) { elem.map(function (_elem, _idx) { return _elem ? enemyList.shift() : enemyList.pop() })})
+
+    let listLength = enemyList.length
+    function dot(a,b) {
+        return a[0] * b[0] + a[1] * b[1]
+    }
+
+    function pseudoRandom(st, q) {
+        return Math.round( q/2 + ((Math.sin(dot(st, [12.9898, 78.233])) * 43758.5453123) % q/2) )
+    }
+
+    let enemyAlloc = []
+    enemyList.map(function () { enemyAlloc.push([]) })
+
+    i = 0
+    let number = -1
+    while (enemyList.length > 0) {
+        number = pseudoRandom([i , seed.join('')], listLength - 1)
+        if (enemyAlloc[number].length < 2) {
+            enemyAlloc[number].push(enemyList.shift())
+        }
+        i++
+    }
+    let corridorEnemy = []
+    corridorsLayout.map(function (elem, idx) { corridorEnemy.push([enemyAlloc.shift(), enemyAlloc.shift(), enemyAlloc.shift(), enemyAlloc.shift(), enemyAlloc.shift()]) })
+
+    for (i = 0; i < corridorEnemy.length; i++) {
+        corridorEnemy[i].splice(csh[i] + 1, 0, [])
+    }
+    let corridorEnemyMeta = corridorEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map((__elem) => {return { type: __elem, name: "Steve" }})} )} )
+
+    let roomEnemy = []
+    allocation.map( function (elem, idx) { roomEnemy.push( elem.map( (_elem, _idx) => (_elem === "wc1" || _elem === "wc2") ? enemyAlloc.shift() : _elem === "room" ? treassureRoomAlloc.shift() : [] )) } )
+    let roomEnemyMeta = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map((__elem) => {return { type: __elem, name: "Alex" }})} )} )
+
+    corridorEnemy = corridorEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return "hostile" })} )} )
+    roomEnemy = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return "hostile" })} )} )
+
     WorkerScript.sendMessage({
                                  'allocation' : allocation,
                                  'corShift' : csh,
                                  'corridorsLayout' : corridorsLayout,
-                                 'type' : message.type
+                                 'type' : message.type,
+                                 'corNmy' : corridorEnemy,
+                                 'roomNmy' : roomEnemy,
+                                 'corNmyM' : corridorEnemyMeta,
+                                 'roomNmyM' : roomEnemyMeta
                              })
 }

@@ -3,9 +3,21 @@ import ".."
 
 Entity {
     id: hostile
-    color: "red"
-    stamina: maxStamina
-    maxStamina: 15
-    speedCoeff: 15
+    property string type: ""
+
+    Loader {
+        id: hostileLoader
+        sourceComponent: type === "slave" ? slave : type === "man" ? man : undefined
+        onLoaded: item.init()
+    }
+    Component {
+        id: slave
+        Slave {}
+    }
+    Component {
+        id: man
+        Man {}
+    }
+
     Logic {}
 }

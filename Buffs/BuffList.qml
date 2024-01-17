@@ -10,7 +10,7 @@ Item {
         , staRegen, staHeal, staUp, defUp
     ]
 
-    property var currentBuffs: !!mainHero ? opSave.level.hero.buffs : []
+    property var currentBuffs: []
     property int buffLevel: 1
     property var usedByEntity: entity
     property alias repeater: repeater

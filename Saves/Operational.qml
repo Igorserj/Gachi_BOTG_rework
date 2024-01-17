@@ -48,6 +48,13 @@ Item {
                                 buffs: []
                             })
 
+        property var hostile: ({
+                                   corridorEnemy: [],
+                                   corridorEnemyMeta: [],
+                                   roomEnemy: [],
+                                   roomEnemyMeta: []
+                               })
+
         function heroClear() {
             hero.x = (loader.width - (50 * scaleCoeff)) / 2
             hero.y = loader.height - (50 * scaleCoeff)
@@ -85,6 +92,12 @@ Item {
             builder.inRoom = false
             builder.floor = 0
         }
-    }
 
+        function hostileClear() {
+            hostile.corridorEnemy = []
+            hostile.corridorEnemyMeta = []
+            hostile.roomEnemy = []
+            hostile.roomEnemyMeta = []
+        }
+    }
 }

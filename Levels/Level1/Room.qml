@@ -1,6 +1,7 @@
 import QtQuick 2.15
 
 RoomView {
+    readonly property var enemySpawn: [[floor.x + (25 * scaleCoeff), floor.y, 10 * scaleCoeff, floor.height], [floor.x + (25 * scaleCoeff), floor.y, 10 * scaleCoeff, floor.height], [floor.x + (25 * scaleCoeff), floor.y, 10 * scaleCoeff, floor.height]]
     readonly property var passes: [
         {type: "backward"}
     ]
@@ -11,9 +12,9 @@ RoomView {
     objGen.objects: [[-100, 0, 100, room.height], [room.width, 0, 100, room.height], [0, room.height, room.width, 100], [0, 0, room.width, floor.y]
     ]
     entGen {
-        objects: [["hero", opSave.level.hero.x, opSave.level.hero.y]]
+        objects: [["hero", opSave.level.hero.x, opSave.level.hero.y]].concat(roomEnemy[loader.item.floor][position].map((elem, idx)=>[elem, enemySpawn[idx][0], enemySpawn[idx][1]]))
         metadata: [
-            { }]
+            { }].concat(roomEnemyMeta[loader.item.floor][position].map((elem)=>elem))
     }
     pobjGen {
         objects: passPos

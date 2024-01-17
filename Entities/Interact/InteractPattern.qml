@@ -50,4 +50,9 @@ Entity {
         opSave.level.builder.inRoom = inRoom
         opSave.level.builder.floor = loader.item.floor
     }
+
+    function hostileDataSaving() {
+
+    }
+
 }

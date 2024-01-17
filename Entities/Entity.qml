@@ -9,17 +9,17 @@ Rectangle {
     property int walkUp: 0
     property int walkDown: 0
 
-    property double health: opSave.level.hero.health
-    property double maxHealth: opSave.level.hero.maxHealth
+    property double health: 0
+    property double maxHealth: 0
 
-    property double stamina: opSave.level.hero.stamina
-    property double maxStamina: opSave.level.hero.maxStamina
+    property double stamina: 0
+    property double maxStamina: 0
 
-    property int speedCoeff: opSave.level.hero.speedCoeff
+    property int speedCoeff: 0
     property double speed: speedCoeff * scaleCoeff
-    property double damage: opSave.level.hero.damage
-    property double defense: opSave.level.hero.defense
-    property int money: opSave.level.hero.money
+    property double damage: 0
+    property double defense: 0
+    property int money: 0
 
     property bool movementBlocked: false
     property bool interactionBlocked: false
@@ -28,14 +28,14 @@ Rectangle {
     property alias animations: animations
     property alias inventory: inventory
     property alias buffList: buffList
-    property bool facingRight: opSave.level.hero.facingRight
-    property int rot: opSave.level.hero.rot
-    property string name: opSave.level.hero.name
+    property bool facingRight: false
+    property int rot: 0
+    property string name: ""
 
     property bool recovery: false
     property bool anotherRoom: false
 
-    state: opSave.level.hero.state
+    state: "dead"
     width: 50 * scaleCoeff
     height: 50 * scaleCoeff
     border.width: 2
