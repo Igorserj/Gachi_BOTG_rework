@@ -7,14 +7,14 @@ Repeater {
             id: colliderScript
             source: "collision.mjs"
             onMessage: {
-                let walkLeft = messageObject.walkLeft
-                let walkRight = messageObject.walkRight
-                let walkUp = messageObject.walkUp
-                let walkDown = messageObject.walkDown
-                let hor = messageObject.hor
-                let dir = messageObject.dir
-                let edge = messageObject.edge
-                let entity = entGen.repeater.itemAt(messageObject.i).item
+                const walkLeft = messageObject.walkLeft
+                const walkRight = messageObject.walkRight
+                const walkUp = messageObject.walkUp
+                const walkDown = messageObject.walkDown
+                const hor = messageObject.hor
+                const dir = messageObject.dir
+                const edge = messageObject.edge
+                const entity = entGen.repeater.itemAt(messageObject.i).item
 
                 if (hor === 1 && dir === 0) entity.animations.moveLeftRun = walkLeft === 1
                 else if (hor === 1 && dir === 1) entity.animations.moveRightRun = walkRight === 1
@@ -116,7 +116,7 @@ Repeater {
         }
 
         function collision(hor, dir, index, i) {
-            var entity = entGen.repeater.itemAt(i)
+            const entity = entGen.repeater.itemAt(i)
             colliderScript.sendMessage({
                                            "hX": entity.x,
                                            "hY": entity.y,
@@ -169,7 +169,7 @@ Repeater {
                                    })
         }
         function collisionItem(index, i) {
-            var entity = entGen.repeater.itemAt(i)
+            const entity = entGen.repeater.itemAt(i)
             if (itmGen.objects[index] !== undefined) {
                 collisionItemScript.sendMessage({
                                                     "hX": entity.x,
@@ -188,14 +188,14 @@ Repeater {
     }
 
     function entitiesObjects(ids) {
-        var x = []
-        var y = []
-        var width = []
-        var height = []
-        var health = []
-        var defense = []
-        var state = []
-        var type = []
+        let x = []
+        let y = []
+        let width = []
+        let height = []
+        let health = []
+        let defense = []
+        let state = []
+        let type = []
         for (let i = 0; i < ids.length; i++) {
             x.push(entGen.repeater.itemAt(ids[i]).x)
             y.push(entGen.repeater.itemAt(ids[i]).y)

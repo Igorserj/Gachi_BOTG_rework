@@ -2,15 +2,16 @@ import QtQuick 2.15
 
 QtObject {
     function init() {
-        hostile.health = 45
-        hostile.maxHealth = 45
+        const meta = hostile.parent.meta
+        if (meta.hp === undefined) hostile.health = 45
+        if (meta.maxHealth === undefined) hostile.maxHealth = 45
 
-        hostile.stamina = 15
-        hostile.maxStamina = 15
+        if (meta.stamina === undefined) hostile.stamina = 20
+        if (meta.maxStamina === undefined) hostile.maxStamina = 20
 
-        hostile.speedCoeff = 9
-        hostile.damage = 15
-        hostile.defense = 0
+        if (meta.speedCoeff === undefined) hostile.speedCoeff = 12
+        if (meta.damage === undefined) hostile.damage = 15
+        if (meta.defense === undefined) hostile.defense = 0
 
         hostile.canPickUp = true
 
@@ -23,6 +24,6 @@ QtObject {
         hostile.anotherRoom = false
         hostile.color = "red"
 
-        hostile.state = "alive"
+        // hostile.state = "alive"
     }
 }

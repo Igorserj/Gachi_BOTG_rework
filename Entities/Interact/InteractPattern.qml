@@ -17,31 +17,34 @@ Entity {
     }
 
     function heroDataSaving() {
-        opSave.level.hero.x = entGen.repeater.itemAt(0).x
-        opSave.level.hero.y = entGen.repeater.itemAt(0).y
+        let hero = opSave.level.hero
+        const item = entGen.repeater.itemAt(0).item
 
-        opSave.level.hero.health = entGen.repeater.itemAt(0).item.health
-        opSave.level.hero.maxHealth = entGen.repeater.itemAt(0).item.maxHealth
-        opSave.level.hero.stamina = entGen.repeater.itemAt(0).item.stamina
-        opSave.level.hero.maxStamina = entGen.repeater.itemAt(0).item.maxStamina
-        opSave.level.hero.speedCoeff = entGen.repeater.itemAt(0).item.speedCoeff
-        opSave.level.hero.damage = entGen.repeater.itemAt(0).item.damage
-        opSave.level.hero.defense = entGen.repeater.itemAt(0).item.defense
-        opSave.level.hero.money = entGen.repeater.itemAt(0).item.money
-        opSave.level.hero.facingRight = entGen.repeater.itemAt(0).item.facingRight
-        opSave.level.hero.rot = entGen.repeater.itemAt(0).item.rot
-        opSave.level.hero.name = entGen.repeater.itemAt(0).item.name
+        hero.x = entGen.repeater.itemAt(0).x
+        hero.y = entGen.repeater.itemAt(0).y
 
-        opSave.level.hero.inventoryCells = entGen.repeater.itemAt(0).item.inventory.inventoryCells
-        opSave.level.hero.previousInventory = entGen.repeater.itemAt(0).item.inventory.previousInventory
-        opSave.level.hero.equipmentCells = entGen.repeater.itemAt(0).item.inventory.equipmentCells
-        opSave.level.hero.previousEquipment = entGen.repeater.itemAt(0).item.inventory.previousEquipment
-        opSave.level.hero.activatedWeapon = entGen.repeater.itemAt(0).item.inventory.activatedWeapon
-        opSave.level.hero.twoHands = entGen.repeater.itemAt(0).item.inventory.twoHands
-        opSave.level.hero.metadataCells = entGen.repeater.itemAt(0).item.inventory.metadataCells
-        opSave.level.hero.previousMetadata = entGen.repeater.itemAt(0).item.inventory.previousMetadata
+        hero.health = item.health
+        hero.maxHealth = item.maxHealth
+        hero.stamina = item.stamina
+        hero.maxStamina = item.maxStamina
+        hero.speedCoeff = item.speedCoeff
+        hero.damage = item.damage
+        hero.defense = item.defense
+        hero.money = item.money
+        hero.facingRight = item.facingRight
+        hero.rot = item.rot
+        hero.name = item.name
 
-        opSave.level.hero.buffs = entGen.repeater.itemAt(0).item.buffList.currentBuffs
+        hero.inventoryCells = item.inventory.inventoryCells
+        hero.previousInventory = item.inventory.previousInventory
+        hero.equipmentCells = item.inventory.equipmentCells
+        hero.previousEquipment = item.inventory.previousEquipment
+        hero.activatedWeapon = item.inventory.activatedWeapon
+        hero.twoHands = item.inventory.twoHands
+        hero.metadataCells = item.inventory.metadataCells
+        hero.previousMetadata = item.inventory.previousMetadata
+
+        hero.buffs = item.buffList.currentBuffs
     }
 
     function builderDataSaving() {
@@ -52,7 +55,39 @@ Entity {
     }
 
     function hostileDataSaving() {
+        let hostileObj = []
+        entGen.objects.map(function (elem, idx) {return elem[0] === "hostile" ? hostileObj.push(idx) : {}})
+        if (!inRoom) {
+            opSave.level.hostile.corridorEnemyMeta[loader.item.floor][position] = hostileObj.map((elem)=>entGen.metadata[elem])
+            hostileObj.map((elem, idx)=> {
+                               let nmyMeta = opSave.level.hostile.corridorEnemyMeta[loader.item.floor][position][idx]
+                               const item = entGen.repeater.itemAt(elem).item
+                               opSave.level.hostile.corridorEnemy[loader.item.floor][position][idx] = ["hostile", entGen.repeater.itemAt(elem).x, entGen.repeater.itemAt(elem).y]
+                                nmyMetaSave(nmyMeta, item)
+                           }
+                           )
+        }
+        else {
+            opSave.level.hostile.roomEnemyMeta[loader.item.floor][position] = hostileObj.map((elem)=>entGen.metadata[elem])
+            hostileObj.map((elem, idx)=> {
+                               let nmyMeta = opSave.level.hostile.roomEnemyMeta[loader.item.floor][position][idx]
+                               const item = entGen.repeater.itemAt(elem).item
+                               opSave.level.hostile.roomEnemy[loader.item.floor][position][idx] = ["hostile", entGen.repeater.itemAt(elem).x, entGen.repeater.itemAt(elem).y]
+                               nmyMetaSave(nmyMeta, item)
+                           }
+                           )
+        }
 
+        function nmyMetaSave(nmyMeta, item) {
+            nmyMeta.hp = item.health
+            nmyMeta.equipment = item.inventory.equipmentCells
+            nmyMeta.inventory = item.inventory.inventoryCells
+            // nmyMeta.state = item.state
+            nmyMeta.stamina = item.stamina
+            nmyMeta.money = item.money
+            nmyMeta.facingRight = item.facingRight
+            nmyMeta.rot = item.rot
+            nmyMeta.buffs = item.buffList.currentBuffs
+        }
     }
-
 }

@@ -40,7 +40,7 @@ QtObject {
 
     function activeArmor() {
         if (equipmentCells.length === 7) {
-            var index = -1
+            let index = -1
             for (let i = 0; i < 4; i++) {
                 const effectIsApplied = (equipmentCells[i] !== '' && previousEquipment[i] === '')
                 const effectIsTaken = (equipmentCells[i] === '' && previousEquipment[i] !== '')
@@ -53,7 +53,7 @@ QtObject {
     }
 
     function activeWeapon() {
-        var index = -1
+        let index = -1
         const armorCellsQ = itemList.equipmnets.length
         let i = 4
         let j = 0

@@ -4,11 +4,11 @@ QtObject {
     property var equipRow: parent.parent
     property var itmGen: levelLoader.item.roomLoader.item.itmGen
     function optionChoose() {
-        var text = cellView.cellText
+        const text = cellView.cellText
         if (text !== "") {
             if (itemList.itemNames.includes(text)) {
-                var entityInv = usedByEntity.inventory
-                let type1 = itemList.items[itemList.itemNames.indexOf(text)].type
+                // const entityInv = usedByEntity.inventory
+                const type1 = itemList.items[itemList.itemNames.indexOf(text)].type
                 if (type === type1) {
                     contextMenu.set = 2
                     return locale.inventoryCellOptions[2]
@@ -23,9 +23,9 @@ QtObject {
                 }
             }
             else {
-                var entityInv = usedByEntity.inventory
-                var itemType
-                var itemIsEquipment
+                const entityInv = usedByEntity.inventory
+                let itemType
+                let itemIsEquipment
                 if (isEquipment) {
                     itemType = entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex].type
                     itemIsEquipment = entityInv.metadataCells[entityInv.inventoryCells.length + currentIndex].isEquipment
@@ -63,7 +63,7 @@ QtObject {
         return [""]
     }
     function itemName() {
-        var entityInv = usedByEntity.inventory
+        const entityInv = usedByEntity.inventory
         if (isEquipment) return modelData
         else return entityInv.inventoryCells[currentIndex]
     }
@@ -83,7 +83,7 @@ QtObject {
         invItem.visible = true
     }
     function useItem() {
-        var cells = cellView.cellText
+        const cells = cellView.cellText
         if (itemList.itemNames.includes(cells)) {
             const i = itemList.itemNames.indexOf(cells)
             itemList.items[i].use(false, usedByEntity)
@@ -133,7 +133,7 @@ QtObject {
     }
 
     function unEquipItem() {
-        var entityInv = usedByEntity.inventory
+        let entityInv = usedByEntity.inventory
         let i = entityInv.inventoryCells.indexOf('')
         if (i !== -1) {
             inventoryArea.enabled = true
@@ -156,7 +156,7 @@ QtObject {
     }
 
     function destroyItem() {
-        var entityInv = usedByEntity.inventory
+        let entityInv = usedByEntity.inventory
         if (!isEquipment) {
             entityInv.inventoryCells[currentIndex] = ''
             entityInv.metadataCells[currentIndex] = {}
@@ -178,7 +178,7 @@ QtObject {
                            })
         }
 
-        var entity = usedByEntity.parent
+        const entity = usedByEntity.parent
         if (!isEquipment) {
             itemDrop()
         }
@@ -199,8 +199,8 @@ QtObject {
     }
 
     function lootItem() {
-        var entityInv = usedByEntity.inventory
-        var heroInv = heroEntity.inventory
+        let entityInv = usedByEntity.inventory
+        let heroInv = heroEntity.inventory
         let i = heroInv.inventoryCells.indexOf('')
         if (i !== -1) {
             inventoryArea.enabled = true
@@ -222,7 +222,7 @@ QtObject {
     }
 
     function showToolTip() {
-        var cells = cellView.cellText
+        const cells = cellView.cellText
         if (contextMenu.opacity === 0) {
             if (isEquipment) {
                 if (cells !== "") {
@@ -271,8 +271,8 @@ QtObject {
 
     function swapCells() {
         if (invItem.visible) {
-            var entityInv = usedByEntity.inventory
-            var localMeta
+            let entityInv = usedByEntity.inventory
+            let localMeta
             if (!isEquipment) {
                 if (invItem.isEquipment && !(entityInv.equipmentCells[invItem.index] !== "" && cellView.cellText !== "")) {
                     entityInv.equipmentCells[invItem.index] = cellView.cellText

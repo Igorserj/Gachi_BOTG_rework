@@ -12,9 +12,9 @@ RoomView {
     objGen.objects: [[-100, 0, 100, room.height], [room.width, 0, 100, room.height], [0, room.height, room.width, 100], [0, 0, room.width, floor.y]
     ]
     entGen {
-        objects: [["hero", opSave.level.hero.x, opSave.level.hero.y]].concat(roomEnemy[loader.item.floor][position].map((elem, idx)=>[elem, enemySpawn[idx][0], enemySpawn[idx][1]]))
+        objects: [["hero", opSave.level.hero.x, opSave.level.hero.y]].concat(roomEnemy[loader.item.floor][position].map((elem, idx)=> [elem[0], !!elem[1] ? elem[1] : enemySpawn[idx][0], !!elem[2] ? elem[2] : enemySpawn[idx][1]]))
         metadata: [
-            { }].concat(roomEnemyMeta[loader.item.floor][position].map((elem)=>elem))
+            { }].concat(opSave.level.hostile.roomEnemyMeta[loader.item.floor][position].map((elem)=>elem))
     }
     pobjGen {
         objects: passPos

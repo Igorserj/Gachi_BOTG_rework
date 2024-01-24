@@ -16,15 +16,18 @@ Item {
     property alias repeater: repeater
     visible: false
 
-    Component.onCompleted: {
-        if (currentBuffs.length > 0) {
-            let curBuff = []
-            for (let i = 0; i < currentBuffs.length; i++) {
-                curBuff = opSave.level.hero.buffs[i]
-                updateBuffs(curBuff[0], -1, curBuff[2], curBuff[3], curBuff[4], curBuff[5])
-            }
-        }
+    // Component.onCompleted: {
+    //     console.log(2)
+    function buffsApply() {
+        currentBuffs.map((elem, idx)=>updateBuffs(elem[0],
+                                                  -1,
+                                                  elem[2],
+                                                  elem[3],
+                                                  elem[4],
+                                                  elem[5]))
     }
+
+    // }
 
     Repeater {
         id: repeater

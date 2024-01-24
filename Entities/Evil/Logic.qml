@@ -71,11 +71,11 @@ Item {
     }
 
     function heroScan() {
-        var xPool = []
-        var yPool = []
-        var wPool = []
-        var hPool = []
-        var statesPool = []
+        let xPool = []
+        let yPool = []
+        let wPool = []
+        let hPool = []
+        let statesPool = []
         for (let i = 0; i < entGen.objects.length; i++) {
             if (entGen.objects[i][0] === "hero") {
                 xPool.push(entGen.repeater.itemAt(i).x)

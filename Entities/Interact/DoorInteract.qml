@@ -7,12 +7,14 @@ InteractPattern {
         loadingScreen.source = interact.name
         if (interact.name === "frontdoor") {
             heroDataSaving()
+            hostileDataSaving()
             opSave.level.hero.x = loader.width / 2
             opSave.level.hero.y += loader.height
             loader.item.inRoom = true
         }
         else if (interact.name === "backdoor") {
             heroDataSaving()
+            hostileDataSaving()
             opSave.level.hero.x = loader.width / 2
             opSave.level.hero.y -= loader.height
             loader.item.inRoom = false

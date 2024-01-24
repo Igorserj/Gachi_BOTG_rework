@@ -16,7 +16,7 @@ Item {
         Loader {
             id: entityLoader
             property int entityIndex: -1
-            // property string type: !!metadata[index].type ? metadata[index].type : ""
+            readonly property var meta: metadata[index]
             sourceComponent: {
                 if (modelData[0] === "hero") {return hero}
                 else if (modelData[0] === "hostile") { return hostile }
@@ -32,7 +32,6 @@ Item {
             onLoaded: {
                 if (modelData[3] !== undefined) item.width = modelData[3]
                 if (modelData[4] !== undefined) item.height = modelData[4]
-
 
                 if (modelData[0] === "hero") {
                     item.name = opSave.level.hero.name
@@ -57,44 +56,38 @@ Item {
                     item.inventory.metadataCells = opSave.level.hero.metadataCells
                     item.inventory.previousMetadata = opSave.level.hero.previousMetadata
                     item.buffList.currentBuffs = opSave.level.hero.buffs
+                    item.buffList.buffsApply()
 
                     item.inventory.activeArmor()
                 }
                 else {
-                    if (metadata[index] !== undefined) {
-                        if (metadata[index].name !== undefined) {
-                            item.name = metadata[index].name
-                        }
-                        if (metadata[index].type !== undefined) {
-                            item.type = metadata[index].type
-                        }
-                        if (metadata[index].hp !== undefined) {
-                            item.health = metadata[index].hp
-                        }
-                        if (metadata[index].equipment !== undefined) {
-                            item.inventory.equipmentCells = metadata[index].equipment
-                        }
-                        if (metadata[index].inventory !== undefined) {
-                            item.inventory.inventoryCells = metadata[index].inventory
-                        }
-                        if (metadata[index].money !== undefined) {
-                            item.money = metadata[index].money
-                        }
-                        if (metadata[index].anotherRoom !== undefined) {
-                            item.anotherRoom = metadata[index].anotherRoom
-                        }
-                        if (modelData[0] !== "interact")
-                            item.inventory.activeArmor()
-                        else if (modelData[0] === "interact") {
-                            if (metadata[index].scenario !== undefined)
-                                item.interactLoader.item.scenario = metadata[index].scenario
-                            else if (metadata[index].objects !== undefined)
-                                item.interactLoader.item.objects = metadata[index].objects
-                        }
+                    // if (meta !== undefined) {
+                    if (!!meta.name) item.name = meta.name
+                    if (!!meta.type) item.type = meta.type
+                    if (!!meta.state) item.state = meta.state
+                    if (!!meta.stamina) item.stamina = meta.stamina
+                    if (!!meta.hp) item.health = meta.hp
+                    if (!!meta.facingRight) item.facingRight = meta.facingRight
+                    if (!!meta.rot) item.rot = meta.rot
+                    if (!!meta.equipment) item.inventory.equipmentCells = meta.equipment
+                    if (!!meta.inventory) item.inventory.inventoryCells = meta.inventory
+                    if (!!meta.money) item.money = meta.money
+                    if (!!meta.anotherRoom) item.anotherRoom = meta.anotherRoom
+                    if (!!meta.buffs) item.buffList.currentBuffs = meta.buffs
+                    if (modelData[0] !== "interact")
+                    {
+                        item.inventory.activeArmor()
+                        item.buffList.buffsApply()
                     }
-                    else { console.log("No metadata!") }
+                    else if (modelData[0] === "interact") {
+                        if (meta.scenario !== undefined)
+                            item.interactLoader.item.scenario = meta.scenario
+                        else if (meta.objects !== undefined)
+                            item.interactLoader.item.objects = meta.objects
+                    }
+                    // }
+                    // else { console.log("No metadata!") }
                 }
-
                 index === 0 ? repeater.numberOfCreatedObjects = 1 : repeater.numberOfCreatedObjects++
             }
         }

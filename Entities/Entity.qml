@@ -35,7 +35,7 @@ Rectangle {
     property bool recovery: false
     property bool anotherRoom: false
 
-    state: "dead"
+    state: ""
     width: 50 * scaleCoeff
     height: 50 * scaleCoeff
     border.width: 2

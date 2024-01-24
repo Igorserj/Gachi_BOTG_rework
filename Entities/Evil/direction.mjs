@@ -38,7 +38,8 @@ WorkerScript.onMessage = function (message) {
             verticalDirection = -1
     }
     let value
-    for (var i = 0; i < objects.length; i++) {
+    let i = 0
+    for (i = 0; i < objects.length; i++) {
         value = (Math.min(Math.abs(objects[i][0] - (x + width)),
                               Math.abs(objects[i][0] + objects[i][2] - x)))
         if (value < indexHValue) {

@@ -11,7 +11,7 @@ WorkerScript.onMessage = function (message) {
     let objects = message.objects
 
     let index = []
-    for (var i = 0; i < objects.length; i++) {
+    for (let i = 0; i < objects.length; i++) {
         if (hor === 1) {
             if (Math.abs(objects[i][0] - (x + width)) <= speed || Math.abs(
                         objects[i][0] + objects[i][2] - x) <= speed) {

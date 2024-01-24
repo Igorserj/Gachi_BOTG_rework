@@ -17,6 +17,7 @@ Item {
                                    inRoom: false,
                                    floor: 0
                                })
+
         property var hero: ({
                                 x: (loader.width - (50 * scaleCoeff)) / 2,
                                 y: loader.height - (50 * scaleCoeff),

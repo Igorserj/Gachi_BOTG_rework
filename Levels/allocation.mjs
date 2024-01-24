@@ -3,7 +3,7 @@ WorkerScript.onMessage = function(message) {
     /*-----------------------------------------------------*/
     /*Room allocation*/
     const staircaseLayout = ["entrance", "stairs", "stairs", "roof"]
-    var corridorsLayout = [
+    let corridorsLayout = [
                 ["corridor", "corridor", "corridor", "corridor", "corridor"],
                 ["corridor", "corridor", "corridor", "corridor", "corridor"],
                 ["corridor", "corridor", "corridor", "corridor", "corridor"],
@@ -152,10 +152,10 @@ WorkerScript.onMessage = function(message) {
 
     function roomsShift() {
         let values = fromMinToMax( twoCombs( evenOddsSwap(seed) ) )
-        let rooms = roomsLayout.slice()
+        // let rooms = [...roomsLayout]
         let values2 = []
         for (let i = 0; i < values.length; i++) {
-            values2[values[i] - 1] = rooms[i]
+            values2[values[i] - 1] = roomsLayout[i]
         }
         return values2
     }
@@ -208,7 +208,7 @@ WorkerScript.onMessage = function(message) {
         return values
     }
 
-    let seed = message.seed // Default [7,8,1,6,2,9] //
+    let seed = [7,3,5,1,4,6]//message.seed // Default [7,8,1,6,2,9] //
     const decorativesLayout = [["library", "canteen"],
                                ["wc1", "wc2"],
                                ["wc1", "wc2"],
@@ -362,8 +362,8 @@ WorkerScript.onMessage = function(message) {
     allocation.map( function (elem, idx) { roomEnemy.push( elem.map( (_elem, _idx) => (_elem === "wc1" || _elem === "wc2") ? enemyAlloc.shift() : _elem === "room" ? treassureRoomAlloc.shift() : [] )) } )
     let roomEnemyMeta = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map((__elem) => {return { type: __elem, name: "Alex" }})} )} )
 
-    corridorEnemy = corridorEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return "hostile" })} )} )
-    roomEnemy = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return "hostile" })} )} )
+    corridorEnemy = corridorEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return ["hostile"] })} )} )
+    roomEnemy = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return ["hostile"] })} )} )
 
     WorkerScript.sendMessage({
                                  'allocation' : allocation,

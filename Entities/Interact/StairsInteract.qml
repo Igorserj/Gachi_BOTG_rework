@@ -8,11 +8,13 @@ InteractPattern {
         levelLoader.item.roomLoader.visible = false
         if (interact.name === "upstairs") {
             heroDataSaving()
+            hostileDataSaving()
             opSave.level.hero.y += loader.height
             loader.item.floor++
         }
         else if (interact.name === "downstairs") {
             heroDataSaving()
+            hostileDataSaving()
             opSave.level.hero.y -= loader.height
             loader.item.floor--
         }
