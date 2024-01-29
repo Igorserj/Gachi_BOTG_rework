@@ -80,14 +80,21 @@ Entity {
 
         function nmyMetaSave(nmyMeta, item) {
             nmyMeta.hp = item.health
-            nmyMeta.equipment = item.inventory.equipmentCells
-            nmyMeta.inventory = item.inventory.inventoryCells
             // nmyMeta.state = item.state
             nmyMeta.stamina = item.stamina
             nmyMeta.money = item.money
             nmyMeta.facingRight = item.facingRight
             nmyMeta.rot = item.rot
             nmyMeta.buffs = item.buffList.currentBuffs
+
+            nmyMeta.inventoryCells = item.inventory.inventoryCells
+            nmyMeta.previousInventory = item.inventory.previousInventory
+            nmyMeta.equipmentCells = item.inventory.equipmentCells
+            nmyMeta.previousEquipment = item.inventory.previousEquipment
+            nmyMeta.activatedWeapon = item.inventory.activatedWeapon
+            nmyMeta.twoHands = item.inventory.twoHands
+            nmyMeta.metadataCells = item.inventory.metadataCells
+            nmyMeta.previousMetadata = item.inventory.previousMetadata
         }
     }
 }

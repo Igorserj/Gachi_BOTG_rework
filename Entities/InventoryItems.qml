@@ -4,8 +4,8 @@ QtObject {
 
     property var inventoryCells: ['', '', '', '', '']
     property var previousInventory: ['', '', '', '', '']
-    property var equipmentCells: ['', '', '', '', '']
-    property var previousEquipment: ['', '', '', '', '']
+    property var equipmentCells: ['', '', '', '', '', '', '']
+    property var previousEquipment: ['', '', '', '', '', '', '']
     property var activatedWeapon: [false, false, false]
     property bool twoHands: false
 
@@ -34,22 +34,16 @@ QtObject {
         activeArmor()
     }
 
-    onInventoryCellsChanged: invCellsChanged()
-    onEquipmentCellsChanged: equipCellsChanged()
-    Component.onCompleted: activeArmor()
-
     function activeArmor() {
-        if (equipmentCells.length === 7) {
-            let index = -1
-            for (let i = 0; i < 4; i++) {
-                const effectIsApplied = (equipmentCells[i] !== '' && previousEquipment[i] === '')
-                const effectIsTaken = (equipmentCells[i] === '' && previousEquipment[i] !== '')
-                if (effectIsApplied) giveEffect(index, i)
-                else if (effectIsTaken) takeEffect(index, i)
-                previousEquipment[i] = equipmentCells[i].slice()
-            }
-            activeWeapon()
+        let index = -1
+        for (let i = 0; i < 4; i++) {
+            const effectIsApplied = (equipmentCells[i] !== '' && previousEquipment[i] === '')
+            const effectIsTaken = (equipmentCells[i] === '' && previousEquipment[i] !== '')
+            if (effectIsApplied) giveEffect(index, i)
+            else if (effectIsTaken) takeEffect(index, i)
+            previousEquipment[i] = equipmentCells[i].slice()
         }
+        activeWeapon()
     }
 
     function activeWeapon() {

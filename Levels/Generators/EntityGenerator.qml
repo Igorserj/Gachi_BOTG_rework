@@ -69,15 +69,23 @@ Item {
                     if (!!meta.hp) item.health = meta.hp
                     if (!!meta.facingRight) item.facingRight = meta.facingRight
                     if (!!meta.rot) item.rot = meta.rot
-                    if (!!meta.equipment) item.inventory.equipmentCells = meta.equipment
-                    if (!!meta.inventory) item.inventory.inventoryCells = meta.inventory
                     if (!!meta.money) item.money = meta.money
                     if (!!meta.anotherRoom) item.anotherRoom = meta.anotherRoom
                     if (!!meta.buffs) item.buffList.currentBuffs = meta.buffs
+
+                    if (!!meta.inventoryCells) item.inventory.inventoryCells = meta.inventoryCells
+                    if (!!meta.previousInventory) item.inventory.previousInventory = meta.previousInventory
+                    if (!!meta.equipmentCells) item.inventory.equipmentCells = meta.equipmentCells
+                    if (!!meta.previousEquipment) item.inventory.previousEquipment = meta.previousEquipment
+                    if (!!meta.activatedWeapon) item.inventory.activatedWeapon = meta.activatedWeapon
+                    if (!!meta.twoHands) item.inventory.twoHands = meta.twoHands
+                    if (!!meta.metadataCells) item.inventory.metadataCells = meta.metadataCells
+                    if (!!meta.previousMetadata) item.inventory.previousMetadata = meta.previousMetadata
+
                     if (modelData[0] !== "interact")
                     {
-                        item.inventory.activeArmor()
                         item.buffList.buffsApply()
+                        item.inventory.activeArmor()
                     }
                     else if (modelData[0] === "interact") {
                         if (meta.scenario !== undefined)
