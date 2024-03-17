@@ -16,8 +16,6 @@ Item {
     property alias repeater: repeater
     visible: false
 
-    // Component.onCompleted: {
-    //     console.log(2)
     function buffsApply() {
         currentBuffs.map((elem, idx)=>updateBuffs(elem[0],
                                                   -1,
@@ -26,8 +24,6 @@ Item {
                                                   elem[4],
                                                   elem[5]))
     }
-
-    // }
 
     Repeater {
         id: repeater
@@ -39,7 +35,7 @@ Item {
             property bool isPermanent: modelData[2]
             property int points: modelData[3]
             property bool isReversible: modelData[4]
-            sourceComponent: buffName !== "" ? buffs[buffNames.indexOf(buffName)] : undefined
+            sourceComponent: buffName !== "" ? buffNames.indexOf(buffName) !== -1 ? buffs[buffNames.indexOf(buffName)] : console.log("Unknown buff name", buffName) : undefined
         }
     }
     Component {
@@ -166,7 +162,7 @@ Item {
             }
         }
         if (index !== -1) {
-            buff = repeater.itemAt(index).item
+            buff = repeater.itemAt(index) === null ? null : repeater.itemAt(index).item
             if (buff !== null) {
                 buff.animation.stop()
             }
@@ -179,7 +175,6 @@ Item {
         }
         toolTip.hide()
         currentBuffs = buffProperties
-        console.log(currentBuffs)
         repeater.model = currentBuffs
     }
 }

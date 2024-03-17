@@ -41,7 +41,7 @@ Rectangle {
                         property: "x"
                         from: 0
                         to: - mainTextText.contentWidth + mainTextRect.width
-                        duration: mainTextText.contentWidth / mainTextRect.width * 1000
+                        duration: mainTextRect.width === 0 ? 0 : mainTextText.contentWidth / mainTextRect.width * 1000
                     }
                     PauseAnimation {
                         duration: 1000
@@ -51,7 +51,7 @@ Rectangle {
                         property: "x"
                         from: - mainTextText.contentWidth + mainTextRect.width
                         to: 0
-                        duration: mainTextText.contentWidth / mainTextRect.width * 500
+                        duration: mainTextRect.width === 0 ? 0 : mainTextText.contentWidth / mainTextRect.width * 500
                     }
                 }
             }

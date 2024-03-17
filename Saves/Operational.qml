@@ -3,11 +3,13 @@ import QtQuick 2.15
 Item {
     property alias level: level
     property alias settings: settings
-    QtObject {
+    Item {
         id: settings
         property string currentLanguage: "English"
         property var screenProps: ({width: screen.width * 0.75, height: screen.height * 0.75,
                                        visibility: 2})
+        Component.onCompleted: updateSizes()
+
     }
     QtObject {
         id: level
@@ -17,6 +19,14 @@ Item {
                                    inRoom: false,
                                    floor: 0
                                })
+        property var items: ({
+                                 treassuresSpawn: {},
+                                 corridorsLayout: {},
+                                 roomsLayout: {},
+                                 enemiesTreassure: {},
+                                 enemiesCorridor: {},
+                                 enemiesRoom: {}
+                             })
 
         property var hero: ({
                                 x: (loader.width - (50 * scaleCoeff)) / 2,

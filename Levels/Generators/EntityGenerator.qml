@@ -61,7 +61,6 @@ Item {
                     item.inventory.activeArmor()
                 }
                 else {
-                    // if (meta !== undefined) {
                     if (!!meta.name) item.name = meta.name
                     if (!!meta.type) item.type = meta.type
                     if (!!meta.state) item.state = meta.state
@@ -93,8 +92,6 @@ Item {
                         else if (meta.objects !== undefined)
                             item.interactLoader.item.objects = meta.objects
                     }
-                    // }
-                    // else { console.log("No metadata!") }
                 }
                 index === 0 ? repeater.numberOfCreatedObjects = 1 : repeater.numberOfCreatedObjects++
             }

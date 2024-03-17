@@ -179,5 +179,20 @@
         <file>Loading/Doors/DoorsFunc.qml</file>
         <file>Entities/Evil/Slave.qml</file>
         <file>Entities/Evil/Man.qml</file>
+        <file>Levels/Generators/itemsListGenerator.js</file>
+        <file>Levels/Generators/ItemsListGenerator.qml</file>
+        <file>Items/Usable/DishesDrinksOthers.qml</file>
+        <file>Items/Usable/Ingridients.qml</file>
+        <file>Items/Weapon/OneHanded.qml</file>
+        <file>Items/Weapon/TwoHanded.qml</file>
+        <file>Items/Wearable/Feet.qml</file>
+        <file>Items/Wearable/Head.qml</file>
+        <file>Items/Wearable/Legs.qml</file>
+        <file>Items/Wearable/Torso.qml</file>
+        <file>Items/Items.qml</file>
+        <file>Items/Usable.qml</file>
+        <file>Items/Weapon.qml</file>
+        <file>Items/Wearable.qml</file>
+        <file>Interface/Cheats/SidePanel.qml</file>
     </qresource>
 </RCC>

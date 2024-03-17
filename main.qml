@@ -4,17 +4,15 @@ import QtQuick.Controls 2.15
 import "MainMenu"
 import "Levels"
 import "Shaders"
-import "Controls" as MyControls
+import "Controls" as Controls
 import "Loading"
 import "Saves"
 import "Localization"
 
 ApplicationWindow {
     id: window
-    width: opSave.settings.screenProps.width
-    height: opSave.settings.screenProps.height
-    readonly property double recalculatedWidth: (width / height > 16 / 9) ? height / 9 * 16 : width
-    readonly property double recalculatedHeight: ((width / height > 16 / 9) ? height : width / 16 * 9) - heading.height
+    width: 1280
+    height: 720
     readonly property double scaleCoeff: loader.width / 1280
     readonly property string comfortaaName: "Arial"//comfortaa.name
     readonly property string monotonName: "Arial"//monoton.name
@@ -32,10 +30,10 @@ ApplicationWindow {
     Item {
         id: container
         clip: true
-        x: (window.width - width) / 2
-        y: heading.y + heading.height
-        width: opSave.settings.screenProps.visibility === 2 ? recalculatedHeight * 16 / 9 : recalculatedWidth
-        height: opSave.settings.screenProps.visibility === 2 ? recalculatedHeight : recalculatedHeight + heading.height
+        x: 0
+        y: 0
+        width: 1280
+        height: 720
         Loader {
             id: loader
             width: parent.width
@@ -43,7 +41,7 @@ ApplicationWindow {
             z: 0
             sourceComponent: menuCompose
 
-            MyControls.ToolTip {
+            Controls.ToolTip {
                 id: toolTip
                 z: 1
             }
@@ -93,28 +91,28 @@ ApplicationWindow {
         Component {
             id: menuCompose
             MenuCompose {
-                width: parent.width
-                height: parent.height
+                width: loader.width
+                height: loader.height
             }
         }
 
         Component {
             id: levelBuilder
             LevelBuilder {
-                width: parent.width
-                height: parent.height
+                width: loader.width
+                height: loader.height
             }
         }
 
         Component {
             id: frameTimer
-            MyControls.FrameTimer {
+            Controls.FrameTimer {
             }
         }
 
         Component {
             id: exitDialog
-            MyControls.Dialog {
+            Controls.Dialog {
                 mainText: locale.exitDialogText
                 anchors.centerIn: parent
                 objects: locale.exitDialogOptions
@@ -128,7 +126,7 @@ ApplicationWindow {
         }
     }
 
-    MyControls.Heading {
+    Controls.Heading {
         id: heading
     }
 
@@ -157,8 +155,34 @@ ApplicationWindow {
         for (let i = 0; i < 6; i++) {
             seed.push(Math.floor(Math.random() * 10))
         }
+        seed = [8,8,3,9,7,5]
         loader.item.seed = seed
         opSave.level.builder.seed = seed
         console.log(seed)
+    }
+
+    function updateSizes() {
+        if (opSave.settings.screenProps.visibility === 2) {
+            heading.head.width = opSave.settings.screenProps.width
+            heading.head.height = 0.05 * opSave.settings.screenProps.height
+            const heightCoeff = 16 * (opSave.settings.screenProps.width * 9 / 16 + heading.height) / opSave.settings.screenProps.width
+            width = (opSave.settings.screenProps.width / opSave.settings.screenProps.height < 16 / heightCoeff) ? opSave.settings.screenProps.height / heightCoeff * 16 : opSave.settings.screenProps.width
+            height = (opSave.settings.screenProps.width / opSave.settings.screenProps.height < 16 / heightCoeff) ? opSave.settings.screenProps.height : opSave.settings.screenProps.width / 16 * heightCoeff
+            container.width = width
+            container.height = (9 * width) / 16
+            container.x = (width - container.width) / 2
+            container.y = heading.y + heading.height
+        }
+        else {
+            heading.head.width = 0
+            heading.head.height = 0
+            const heightCoeff = 16 * (opSave.settings.screenProps.width * 9 / 16 + heading.height) / opSave.settings.screenProps.width
+            width = (opSave.settings.screenProps.width / opSave.settings.screenProps.height < 16 / heightCoeff) ? opSave.settings.screenProps.height / heightCoeff * 16 : opSave.settings.screenProps.width
+            height = (opSave.settings.screenProps.width / opSave.settings.screenProps.height < 16 / heightCoeff) ? opSave.settings.screenProps.height : opSave.settings.screenProps.width / 16 * heightCoeff
+            container.width = width
+            container.height = (9 * width) / 16
+            container.x = (width - container.width) / 2
+            container.y = heading.y + heading.height
+        }
     }
 }

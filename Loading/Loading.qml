@@ -14,6 +14,7 @@ Item {
         else if (source === "leftpass") { load.sourceComponent = leftpass }
         else if (source === "rightpass") { load.sourceComponent = rightpass }
         else if (source === "frontdoor" || source === "backdoor") { load.sourceComponent = doors }
+        else if (source === "instant") { load.sourceComponent = instant }
         else if (source === "") { load.sourceComponent = undefined }
     }
 
@@ -45,5 +46,16 @@ Item {
     Component {
         id: doors
         Doors {}
+    }
+
+    Component {
+        id: instant
+        Item {
+            Component.onCompleted: {
+                loader.item.levelLoader.item.currentRoom = ""
+                loader.item.levelLoader.item.currentRoom = loader.item.inRoom ? loader.item.levelLoader.item.allocation[loader.item.floor][loader.item.position] : loader.item.levelLoader.item.corridorsLayout[loader.item.floor][loader.item.position]
+                loading.source = ""
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ WorkerScript.onMessage = function(message) {
     const metadata = message.metadata //entityInv.metadataCells
     const equipment = message.equipment //entityInv.metadataCells
     const inventory = message.inventory //entityInv.inventoryCells
-    const equipments = message.equipments //itemList.equipmnets
+    const equipments = message.equipments //itemList.equipments
 
     let index = 0
     let isEquipment = false

@@ -54,6 +54,7 @@ Rectangle {
         ifaceLoader.item.state = "ui"
     }
     function mainMenu() {
+        cheatLoader.sourceComponent = undefined
         loadMenu()
     }
     function quitGame() {

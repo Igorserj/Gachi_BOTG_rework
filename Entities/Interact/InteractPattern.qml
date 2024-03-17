@@ -47,6 +47,25 @@ Entity {
         hero.buffs = item.buffList.currentBuffs
     }
 
+    function itemsSaving() {
+        if (inRoom) {
+            opSave.level.items.roomsLayout[loader.item.floor][position] = itmGen.metadata
+            opSave.level.items.roomsLayout[loader.item.floor][position].map((a, i)=>{
+                                                                                a.x = itmGen.objects[i][0]
+                                                                                a.y = itmGen.objects[i][1]
+                                                                                a.width = itmGen.objects[i][2]
+                                                                                a.height = itmGen.objects[i][3]})
+        }
+        else {
+            opSave.level.items.corridorsLayout[loader.item.floor][position] = itmGen.metadata
+            opSave.level.items.corridorsLayout[loader.item.floor][position].map((a, i)=>{
+                                                                                    a.x = itmGen.objects[i][0]
+                                                                                    a.y = itmGen.objects[i][1]
+                                                                                    a.width = itmGen.objects[i][2]
+                                                                                    a.height = itmGen.objects[i][3]})
+        }
+    }
+
     function builderDataSaving() {
         opSave.level.builder.seed = seed
         opSave.level.builder.position = position
@@ -63,7 +82,7 @@ Entity {
                                let nmyMeta = opSave.level.hostile.corridorEnemyMeta[loader.item.floor][position][idx]
                                const item = entGen.repeater.itemAt(elem).item
                                opSave.level.hostile.corridorEnemy[loader.item.floor][position][idx] = ["hostile", entGen.repeater.itemAt(elem).x, entGen.repeater.itemAt(elem).y]
-                                nmyMetaSave(nmyMeta, item)
+                               nmyMetaSave(nmyMeta, item)
                            }
                            )
         }

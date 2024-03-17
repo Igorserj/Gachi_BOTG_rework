@@ -86,7 +86,7 @@ Item {
             Repeater {
                 model: usedByEntity !== undefined ? usedByEntity.inventory.equipmentCells : 0
                 InventoryCell {
-                    type: itemList.equipmnets[index]
+                    type: itemList.equipments[index]
                 }
             }
         }

@@ -1,11 +1,18 @@
 import QtQuick 2.15
 import "Dialogue"
+import "Cheats"
 
 Item {
     id:  iface
     state: levelLoader.item.roomLoader.status === Loader.Ready ? levelLoader.item.roomLoader.visible ? "ui" : "pause" : "pause"
     property var pauseStates: ["menu", "dialogue", "pause"]
     property alias interfaceLoader: interfaceLoader
+    property string state2: "cheatsOff"
+    onState2Changed: {
+        if (state2 === "cheatsOn") cheatLoader.sourceComponent = undefined
+        else if (state2 === "cheatsOff") cheatLoader.sourceComponent = panel
+    }
+
     onStateChanged: toolTip.hide()
     states: [
         State {
@@ -97,6 +104,11 @@ Item {
         id: interfaceLoader
         anchors.fill: parent
     }
+
+    Loader {
+        id: cheatLoader
+    }
+
     Component {
         id: ui
         UserInterface {}
@@ -110,5 +122,10 @@ Item {
     Component {
         id: dialogue
         Dialogue {}
+    }
+
+    Component {
+        id: panel
+        SidePanel {}
     }
 }

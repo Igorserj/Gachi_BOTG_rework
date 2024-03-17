@@ -9,12 +9,14 @@ InteractPattern {
         if (interact.name === "upstairs") {
             heroDataSaving()
             hostileDataSaving()
+            itemsSaving()
             opSave.level.hero.y += loader.height
             loader.item.floor++
         }
         else if (interact.name === "downstairs") {
             heroDataSaving()
             hostileDataSaving()
+            itemsSaving()
             opSave.level.hero.y -= loader.height
             loader.item.floor--
         }

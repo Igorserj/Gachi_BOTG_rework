@@ -271,6 +271,18 @@ Item {
     }
 
     SequentialAnimation {
+        //healthOverfill
+        running: health > maxHealth
+        loops: Animation.Infinite
+        PauseAnimation {
+            duration: 1000
+        }
+        ScriptAction {
+            script: --health
+        }
+    }
+
+    SequentialAnimation {
         running: facingRight
         PropertyAnimation {
             target: entity

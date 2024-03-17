@@ -39,9 +39,14 @@ Item {
                         ifaceLoader.item.state = "menu"
                     }
                 }
-                if (event.key === Qt.Key_R) {//disable on release
-                    ifaceLoader.item.state = "dialogue"
-                    ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
+                // if (event.key === Qt.Key_R) {//disable on release
+                //     ifaceLoader.item.state = "dialogue"
+                //     ifaceLoader.item.interfaceLoader.item.entity1 = mainHero
+                // }
+                if (event.key === Qt.Key_C) {//disable on release
+                    if (ifaceLoader.item.state2 === "cheatsOn") ifaceLoader.item.state2 = "cheatsOff"
+                    else if (ifaceLoader.item.state2 === "cheatsOff") ifaceLoader.item.state2 = "cheatsOn"
+
                 }
             }
             else if (ifaceLoader.item.state === "menu") {
@@ -109,13 +114,13 @@ Item {
 
     SequentialAnimation {
         running: keyEPressed
-        PauseAnimation {duration: 500}
+        PauseAnimation {duration: 250}
         ScriptAction {script: keyEPressed = false}
     }
 
     SequentialAnimation {
         running: keyIPressed
-        PauseAnimation {duration: 500}
+        PauseAnimation {duration: 250}
         ScriptAction {script: keyIPressed = false}
     }
 }

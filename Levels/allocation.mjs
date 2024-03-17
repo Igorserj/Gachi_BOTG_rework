@@ -2,12 +2,13 @@ WorkerScript.onMessage = function(message) {
 
     /*-----------------------------------------------------*/
     /*Room allocation*/
+    let enemiesAllocByName = {}
     const staircaseLayout = ["entrance", "stairs", "stairs", "roof"]
     let corridorsLayout = [
-                ["corridor", "corridor", "corridor", "corridor", "corridor"],
-                ["corridor", "corridor", "corridor", "corridor", "corridor"],
-                ["corridor", "corridor", "corridor", "corridor", "corridor"],
-                ["corridor", "corridor", "corridor", "corridor", "corridor"]]
+            ["corridor", "corridor", "corridor", "corridor", "corridor"],
+            ["corridor", "corridor", "corridor", "corridor", "corridor"],
+            ["corridor", "corridor", "corridor", "corridor", "corridor"],
+            ["corridor", "corridor", "corridor", "corridor", "corridor"]]
 
     function twoCombs(value, action = "+") {
         let values = []
@@ -152,7 +153,6 @@ WorkerScript.onMessage = function(message) {
 
     function roomsShift() {
         let values = fromMinToMax( twoCombs( evenOddsSwap(seed) ) )
-        // let rooms = [...roomsLayout]
         let values2 = []
         for (let i = 0; i < values.length; i++) {
             values2[values[i] - 1] = roomsLayout[i]
@@ -208,7 +208,7 @@ WorkerScript.onMessage = function(message) {
         return values
     }
 
-    let seed = [7,3,5,1,4,6]//message.seed // Default [7,8,1,6,2,9] //
+    let seed = message.seed //CHECK [7,3,5,1,4,6]
     const decorativesLayout = [["library", "canteen"],
                                ["wc1", "wc2"],
                                ["wc1", "wc2"],
@@ -238,9 +238,25 @@ WorkerScript.onMessage = function(message) {
                          ["","","","",""],
                          ["","","","",""]
                      ]
-    for (i = 0; i < rs.length; i++) {
-        allocation[rsh[i] - 1][ra[i] - 1] = rs[i]
-    }
+
+    rs.map((item, i)=> {
+               let alloc
+               alloc = allocation[rsh[i] - 1][ra[i] - 1]
+               if (alloc !== "") {
+                   let a = allocation[rsh[i] - 1].indexOf('')
+                   if (a === -1) {
+                       for (let j = 0; j < allocation.length; ++j) {
+                           for (let k = 0; k < allocation[j].length; ++k) {
+                               if (allocation[j][k] === '') {allocation[j][k] = item; j = allocation.length; k = allocation[j].length}
+                           }
+                       }
+                   }
+                   else {
+                       allocation[rsh[i] - 1][a] = item
+                   }
+               }
+               else allocation[rsh[i] - 1][ra[i] - 1] = item
+           })
 
     for (i = 0; i < dsh.length; i++) {
         for (j = 0; j < dsh[i].length; j++) {
@@ -257,7 +273,6 @@ WorkerScript.onMessage = function(message) {
         corridorsLayout[i].splice(csh[i] + 1, 0, staircaseLayout[i])
         allocation[i].splice(csh[i] + 1, 0, "")
     }
-    console.log(corridorsLayout)
 
     /*-----------------------------------------------------*/
     /*Enemy allocation*/
@@ -329,6 +344,8 @@ WorkerScript.onMessage = function(message) {
 
     treassureRoomAlloc.map(function (elem, idx) { elem.map(function (_elem, _idx) { return _elem ? enemyList.shift() : enemyList.pop() })})
 
+    enemiesAllocByName.treassure = treassureRoomAlloc.slice()
+
     let listLength = enemyList.length
     function dot(a,b) {
         return a[0] * b[0] + a[1] * b[1]
@@ -356,15 +373,19 @@ WorkerScript.onMessage = function(message) {
     for (i = 0; i < corridorEnemy.length; i++) {
         corridorEnemy[i].splice(csh[i] + 1, 0, [])
     }
-    let corridorEnemyMeta = corridorEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map((__elem) => {return { type: __elem, name: "Steve" }})} )} )
+    let corridorEnemyMeta = corridorEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map((__elem) => {return { type: __elem, name: "Steve", metadataCells: [[],[],[],[],[],[],[],[],[],[],[],[]], inventoryCells: ["", "", "", "", ""], equipmentCells: ["","","","","","",""] }})} )} )
 
     let roomEnemy = []
     allocation.map( function (elem, idx) { roomEnemy.push( elem.map( (_elem, _idx) => (_elem === "wc1" || _elem === "wc2") ? enemyAlloc.shift() : _elem === "room" ? treassureRoomAlloc.shift() : [] )) } )
-    let roomEnemyMeta = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map((__elem) => {return { type: __elem, name: "Alex" }})} )} )
+    let roomEnemyMeta = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map((__elem) => {return { type: __elem, name: "Alex", metadataCells: [[],[],[],[],[],[],[],[],[],[],[],[]], inventoryCells: ["", "", "", "", ""], equipmentCells: ["","","","","","",""] }})} )} )
+
+    enemiesAllocByName.corridor = corridorEnemy.slice()
+    enemiesAllocByName.room = roomEnemy.slice()
 
     corridorEnemy = corridorEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return ["hostile"] })} )} )
     roomEnemy = roomEnemy.map( function (elem) {return elem.map( function (_elem) {return _elem.map(() => { return ["hostile"] })} )} )
 
+    console.log("TreassureAlloc:", enemiesAllocByName.treassure)
     WorkerScript.sendMessage({
                                  'allocation' : allocation,
                                  'corShift' : csh,
@@ -373,6 +394,7 @@ WorkerScript.onMessage = function(message) {
                                  'corNmy' : corridorEnemy,
                                  'roomNmy' : roomEnemy,
                                  'corNmyM' : corridorEnemyMeta,
-                                 'roomNmyM' : roomEnemyMeta
+                                 'roomNmyM' : roomEnemyMeta,
+                                 'enemiesAllocByName': enemiesAllocByName
                              })
 }

@@ -18,8 +18,6 @@ Item {
     property var menuButtonNames: ["Continue", "Main menu", "Quit"]
 
     property var inventoryCellOptions: [["Move", "Use", "Drop", "Destroy"], ["Move", "Equip", "Drop", "Destroy"], ["Move", "Unequip"], ["Loot", "Move", "Destroy"]]
-
-    property var itemNames: ["Hat", "Vodka", "Bat", "Jacket", "Jeans", "Sneakers"]
     property var itemAddInfo: ["Just a normal hat", "Vodka don't need to be advertised", "Beat them up!", "Leather jacket", " ", "Put my sneakers on"]
 
     WorkerScript {
@@ -38,7 +36,6 @@ Item {
                 const sfpsof = messageObject.settingsFPSoff
                 const mbn = messageObject.menuButtonNames
                 const ico = messageObject.inventoryCellOptions
-                const ins = messageObject.itemNames
                 const iai = messageObject.itemAddInfo
 
                 langs.unshift(languages[0])
@@ -73,9 +70,6 @@ Item {
 
                 ico.unshift(inventoryCellOptions)
                 inventoryCellOptions = Qt.binding(function() {return ico[languages.indexOf(currentLanguage)]})
-
-                ins.unshift(itemNames)
-                itemNames = Qt.binding(function() {return ins[languages.indexOf(currentLanguage)]})
 
                 iai.unshift(itemAddInfo)
                 itemAddInfo = Qt.binding(function() {return iai[languages.indexOf(currentLanguage)]})

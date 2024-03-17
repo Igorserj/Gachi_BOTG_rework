@@ -16,7 +16,7 @@ Item {
 
     ParallelAnimation {
         id: animation
-        running: ifaceLoader.item.state === "ui"
+        running: ifaceLoader.status === Loader.Ready ? ifaceLoader.item.state === "ui" : false
         loops: loopsCalc()
 
         PauseAnimation {
@@ -37,7 +37,7 @@ Item {
     Timer {
         id: timer
         property bool started: false
-        running: started && ifaceLoader.item.state === "ui"
+        running: started && ifaceLoader.status === Loader.Ready ? ifaceLoader.item.state === "ui" : false
         repeat: true
         interval: 100
         onTriggered: timeCalc()

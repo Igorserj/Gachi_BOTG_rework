@@ -9,7 +9,7 @@ Item {
             script: {
                 if (anotherRoom) alternateControls()
                 else {
-                    inv()
+                    // inv()
                     dir()
                 }
             }
@@ -156,16 +156,10 @@ Item {
 
     //Cell logic.qml
     function useItem(itemName, metaData, index) {
-            if (itemList.itemNames.includes(itemName)) {
-                const j = itemList.itemNames.indexOf(itemName)
-                itemList.items[j].use(false, hostile)
-            }
-            else {
-                const cell = metaData
-                itemList.customItem.pool.push({buffName: cell.buffName, points: cell.points, usedByEntity: hostile, action: "use", hp: cell.hp, defense: cell.defense})
-                itemList.customItem.modelUpdate()
-            }
-            destroyItem(index, metaData.isEquipment)
+        const cell = metaData
+        itemList.customItem.pool.push({buffName: cell.buffName, points: cell.points, usedByEntity: hostile, action: "use", hp: cell.hp, defense: cell.defense})
+        itemList.customItem.modelUpdate()
+        destroyItem(index, metaData.isEquipment)
     }
 
     //Cell logic.qml

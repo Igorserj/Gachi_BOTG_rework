@@ -14,7 +14,7 @@ Item {
     function scripts(scriptName) {}
     width: loader.width
     height: loader.height
-    onReadyChanged: heroTp()
+    onReadyChanged: { ready ? [lootSpawn(), heroTp()] : {} }
 
     function heroTp() {
         if (spawnPoints.length > 0) {
@@ -33,6 +33,18 @@ Item {
             entGen.repeater.itemAt(0).x = spawnPoints[index][0] - entGen.repeater.itemAt(0).item.width / 2
             entGen.repeater.itemAt(0).y = spawnPoints[index][1] - entGen.repeater.itemAt(0).item.height / 2
         }
+    }
+    function lootSpawn() {
+        const pool = inRoom ? opSave.level.items.roomsLayout[loader.item.floor][position].slice() : opSave.level.items.corridorsLayout[loader.item.floor][position].slice()
+        itmGen.objects = pool.map((a)=>[
+                                      !!a.x ? a.x : floor.x + floor.width / 2,
+                                      !!a.width ? a.y : floor.y + floor.height / 2,
+                                      !!a.width ? a.width : 10 * scaleCoeff,
+                                      !!a.height ? a.height : 10 * scaleCoeff])
+        itmGen.metadata = pool
+        // itmGen.objects = [[350 * scaleCoeff, 600 * scaleCoeff, 10 * scaleCoeff, 10 * scaleCoeff]]
+        // itmGen.metadata = [
+        //             {name: "Mask", additionalInfo: "Maska tupa", buffName: "HealthUp", points: 10, type: "Head", isEquipment: true}
     }
 
     Image {

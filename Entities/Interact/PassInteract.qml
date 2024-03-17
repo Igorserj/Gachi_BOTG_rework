@@ -8,12 +8,14 @@ InteractPattern {
         if (interact.name === "leftpass") {
             heroDataSaving()
             hostileDataSaving()
+            itemsSaving()
             opSave.level.hero.x += loader.width
             loader.item.position--
         }
         else if (interact.name === "rightpass") {
             heroDataSaving()
             hostileDataSaving()
+            itemsSaving()
             opSave.level.hero.x -= loader.width
             loader.item.position++
         }

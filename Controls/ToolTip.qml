@@ -5,14 +5,14 @@ Rectangle {
     property string mainText: ""
     property string addText: ""
     color: style.blackGlass
-    width: 0.15 * loader.width
-    height: childrenRect.height + width * 0.05
     opacity: 0
     radius: width / 8
-    onHeightChanged: borderVDetect()
-    onWidthChanged: borderHDetect()
+    width: 0.15 * loader.width
+    height: childrenRect.height + width * 0.05
     onYChanged: borderVDetect()
     onXChanged: borderHDetect()
+    onHeightChanged: borderVDetect()
+
     Rectangle {
         id: mainTextRect
         clip: true
@@ -31,6 +31,7 @@ Rectangle {
             color: "white"
             font.bold: true
             horizontalAlignment: contentWidth > mainTextRect.width ? Text.AlignLeft : Text.AlignHCenter
+
             SequentialAnimation {
                 id: mainTextTextAnimation
                 running: mainTextText.contentWidth > mainTextRect.width
@@ -70,15 +71,17 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: mainTextRect.bottom
-        height: addTextText.contentHeight
+        height: addTextText.height
         anchors.margins: parent.width * 0.05
         color: style.blackGlass
         radius: parent.width / 16
+
         Text {
             id: addTextText
             text: addText
             x: (parent.width - contentWidth) / 2
             width: parent.width
+            height: text === "" ? 0 : contentHeight
             font.pixelSize: mainTextText.contentHeight * 0.5
             font.family: comfortaaName
             color: "white"
@@ -122,8 +125,8 @@ Rectangle {
     }
 
     function show(x1 = 0, y1 = 0) {
-        toolTip.x = x1
-        toolTip.y = y1
+        x = x1
+        y = y1
         opacity = 1
         if (mainTextTextAnimation.running) mainTextTextAnimation.complete()
         mainTextTextAnimation.running = mainTextText.contentWidth > mainTextRect.width

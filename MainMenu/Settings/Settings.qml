@@ -19,14 +19,7 @@ Item {
                 Button1 {
                     text: modelData[0] + "x" + modelData[1]
                     enabled: resRep.state === "active" && (screen.width >= modelData[0] && screen.height >= modelData[1])
-                    function clickFunction() {
-                        const w = modelData[0]
-                        const h = modelData[1]
-                        window.width = w
-                        window.height = h
-                        opSave.settings.screenProps.width = w
-                        opSave.settings.screenProps.height = h
-                    }
+                    function clickFunction() {heading.resolutionChange(modelData[0], modelData[1])}
                 }
                 Component.onCompleted: visibilittyCheck()
             }
@@ -34,7 +27,7 @@ Item {
         Button1 {
             text: resRep.state === "active" ? locale.settingsFullScreenTrue : locale.settingsFullScreenFalse
             anchors.horizontalCenter: parent.horizontalCenter
-            function clickFunction() { heading.changeVisibility(); visibilittyCheck() }
+            function clickFunction() { heading.changeVisibility(); heading.resolutionChange(screen.width, screen.height); visibilittyCheck() }
         }
 
         Button1 {

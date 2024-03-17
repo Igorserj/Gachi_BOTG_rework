@@ -5,7 +5,7 @@ Item {
     id: cell
     property string type: ""
     readonly property int currentIndex: parent.colIndex * 5 + index
-    property bool isEquipment: itemList.equipmnets.includes(type)
+    property bool isEquipment: itemList.equipments.includes(type)
     property alias cl: cl
     height: invInterface.height / 7
     width: height

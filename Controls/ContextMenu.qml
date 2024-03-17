@@ -6,20 +6,16 @@ Rectangle {
     property var obj
     property int set: -1
     property var activeCells: []
-    height: childrenRect.height + childrenRect.width * 0.05
-    width: childrenRect.width * 1.05
     color: style.blackGlass
+    height: 0
+    width: 0
     radius: width / 8
     opacity: 0
-    onHeightChanged: borderVDetect()
-    onWidthChanged: borderHDetect()
-    onYChanged: borderVDetect()
-    onXChanged: borderHDetect()
     Column {
         x: (childrenRect.width * 0.05) / 2
         y: x
         Repeater {
-            model: contextMenu.objects
+            id: rep
             Column {
                 Rectangle {
                     id: option
@@ -29,6 +25,12 @@ Rectangle {
                     enabled: typeof(activeCells[index]) !== "undefined" ? activeCells[index] : true
                     radius: width / 10
                     clip: true
+                    Component.onCompleted: {
+                        contextMenu.height += height
+                        contextMenu.width = width
+                        if (index === rep.model.length - 1) show2()
+                    }
+
                     Text {
                         id: optionText
                         height: parent.height
@@ -107,18 +109,28 @@ Rectangle {
 
     function actionSet(index) {}
     function show(x1 = 0, y1 = 0) {
-        contextMenu.x = x1
-        contextMenu.y = y1
-        contextMenu.opacity = 1
+        x = x1
+        y = y1
+        rep.model = objects
+    }
+    function show2() {
+        height += width * 0.05
+        width *= 1.05
+        borderHDetect()
+        borderVDetect()
+        opacity = 1
         toolTip.hide()
     }
 
     function hide() {
-        contextMenu.x = 0
-        contextMenu.y = 0
-        contextMenu.opacity = 0
-        contextMenu.activeCells = []
-        contextMenu.set = -1
+        opacity = 0
+        x = 0
+        y = 0
+        height = 0
+        width = 0
+        rep.model = []
+        activeCells = []
+        set = -1
     }
 
 }

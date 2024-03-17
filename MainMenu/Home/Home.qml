@@ -59,7 +59,6 @@ Item {
 
     function newGame() {
         vignetteLoader.sourceComponent = undefined
-        //        loader.state = "level"
         loadLevel("new")
     }
 

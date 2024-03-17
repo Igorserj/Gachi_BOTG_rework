@@ -5,12 +5,13 @@ Item {
     property alias head: head
     height: head.height
     width: head.width
+    clip: true
     y: window.visibility === 2 ? 0 : -height
     Rectangle {
         id: head
-        width: window.width
-        height: 0.05 * window.height
         color: style.grayGlass
+        width: 1280
+        height: width / 32
 
         MouseArea {
             id: headArea
@@ -61,6 +62,7 @@ Item {
                         }
                         else if (index === 1) {
                             changeVisibility()
+                            resolutionChange(screen.width, screen.height)
                         }
                         else if (index === 2) {
                             window.close()
@@ -69,6 +71,11 @@ Item {
                 }
             }
         }
+    }
+    function resolutionChange(w, h) {
+        opSave.settings.screenProps.width = w
+        opSave.settings.screenProps.height = h
+        updateSizes()
     }
 
     function changeVisibility() {
@@ -79,9 +86,6 @@ Item {
         else if (opSave.settings.screenProps.visibility !== 2) {
             opSave.settings.screenProps.visibility = 2
             window.showNormal()
-        }
-        if (loader.item.state === "settings") {
-            loader.item.composeLoader.item.visibilittyCheck()
         }
     }
 

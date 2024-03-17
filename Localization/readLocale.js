@@ -27,7 +27,6 @@ WorkerScript.onMessage = function(message) {
                                      'settingsFPSoff': localeFile.settingsFPSoff,
                                      'menuButtonNames': localeFile.menuButtonNames,
                                      'inventoryCellOptions': localeFile.inventoryCellOptions,
-                                     'itemNames': localeFile.itemNames,
                                      'itemAddInfo': localeFile.itemAddInfo
                                  })
     }
